@@ -13,9 +13,14 @@ class DbHandler {
     /**
      * Fetching single record
      */
-    public function getLogin($query) {
+    public function getResult($query) {
         $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
-        return $r;
+        return $result = $r->fetch_assoc();    
+    }
+
+    public function doRegistration($query) {
+        $r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+        return mysqli_result( $r, 0 );
     }
     /**
      * Creating new record

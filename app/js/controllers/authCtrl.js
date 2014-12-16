@@ -8,4 +8,8 @@ app.controller('authCtrl',['$scope', '$rootScope', 'loginService', function ($sc
     loginService.login(credentials,$scope, $rootScope); //call login service
   };
 
+   $scope.signup=function(credentials){
+    loginService.signup(credentials,$scope, $rootScope); //call login service
+  };
+
 }]);

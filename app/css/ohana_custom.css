@@ -1,10 +1,5 @@
 
-.wrapper {	
-	margin-top: 80px;
-  margin-bottom: 80px;
-}
-
-.form-signin {
+.userForm .form {
   background: #eee !important;	
   max-width: 380px;
   padding: 15px 35px 15px;
@@ -12,16 +7,11 @@
   border: 1px solid rgba(0,0,0,0.1);  
 }
 
-.form-signin-heading,
-.checkbox {
+.userForm .form .form-heading {
 	margin-bottom: 30px;
 }
 
-.checkbox {
-	font-weight: normal;
-}
-
-.form-control {
+.userForm .form .form-control {
 	position: relative;
 	font-size: 16px;
 	height: auto;
@@ -32,20 +22,25 @@
 	}
 }
 
-.form-signin .btn {
+.userForm .form .btn {
 	margin-bottom: 20px;
 }
 
-input[type="text"] {
+.userForm .form input[type="text"] {
   margin-bottom: -1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-input[type="password"] {
+.userForm .form input[type="password"] {
   margin-bottom: 20px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.userForm .alert{
+  margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 

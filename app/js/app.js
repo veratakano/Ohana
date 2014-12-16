@@ -43,12 +43,13 @@ app.run(function($rootScope, $location, sessionService){
     $rootScope.$on('$routeChangeStart', function(){
 
         $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
-
-        if(!sessionService.get('unqid')){
-            $location.path('/login');
-        }else{
-            $location.path('/dashboard');
-        };
+        if($location.path() != '/signup'){
+            if(!sessionService.get('unqid')){
+                $location.path('/login');
+            }else{
+                $location.path('/dashboard');
+            };
+        }
     });
 });
 

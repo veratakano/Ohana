@@ -2,33 +2,50 @@
 
 app.factory('loginService', ['$http','$location', '$rootScope', 'sessionService', function($http, $location, $rootScope, sessionService){
 	return{
+		signup:function(credentials,scope){
+			$http.post(
+	      		$rootScope.apiVersion + 'registration.php', 
+	      		{
+	      			user:credentials
+	     		}
+	    		).success(function(output){
+					var obj = angular.fromJson(output);
+					var uid=obj.uid;
+					if(obj.status == "success"){
+						sessionService.set('unqid',obj.unqid);
+						sessionService.set('uid',obj.uid);
+						sessionService.set('email',obj.email);
+						$location.path('dashboard');
+					}	       
+					else  {
+						scope.message = obj.message;
+					}
+				}).error(function(){
+      		});		   
+		},
 		login:function(credentials,scope){
 			$http.post(
-      		$rootScope.apiVersion + 'authentication.php', 
-      		{
-      			user:credentials,
-      			mode: 'login'
-      		}
-    		).success(function(output){
-				var obj = angular.fromJson(output);
+	      		$rootScope.apiVersion + 'authentication.php', 
+	      		{
+	      			user:credentials
+	      		}
+	    		).success(function(output){
+					var obj = angular.fromJson(output);
 
-				var uid=obj.uid;
-				if(obj.status == "success"){
-
-					//scope.msgtxt='Correct information';
-					sessionService.set('unqid',obj.unqid);
-					sessionService.set('uid',obj.uid);
-					sessionService.set('email',obj.email);
-					$location.path('dashboard');
-				}	       
-				else  {
-					scope.message = obj.message;
-				}
-			}).error(function(){
+					if(obj.status == "success"){
+						sessionService.set('unqid',obj.unqid);
+						sessionService.set('uid',obj.uid);
+						sessionService.set('email',obj.email);
+						$location.path('dashboard');
+					}	       
+					else  {
+						scope.message = obj.message;
+					}
+				}).error(function(){
       		});		   
 		},
 		logout:function(){
-			sessionService.destroy('unqid');
+			sessionService.destroy();
 			$location.path('/login');
 		}
 	}

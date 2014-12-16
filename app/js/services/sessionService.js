@@ -8,9 +8,9 @@ app.factory('sessionService', ['$http','$rootScope', function($http, $rootScope)
 		get:function(key){
 			return sessionStorage.getItem(key);
 		},
-		destroy:function(key){
+		destroy:function(){
 			$http.post($rootScope.apiVersion + 'destroy_session.php');
-			return sessionStorage.removeItem(key);
+			return sessionStorage.clear();
 		}
 	};
 }])

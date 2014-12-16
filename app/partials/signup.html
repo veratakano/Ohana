@@ -1,1 +1,14 @@
-<h1>signup</h1>
+
+<div class="container-fluid userForm">
+		<form name="signupForm" class="form" ng-submit="signupForm.$valid && signup(credentials)" novalidate>       
+			<h2 class="form-heading">Register for free</h2>
+			<input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" required ng-model="credentials.fname" autofocus />
+			<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" required ng-model="credentials.lname" />
+			<input type="email" class="form-control" id="email" name="username" placeholder="Email Address" required ng-model="credentials.email" />
+			<input type="password" class="form-control" id="password" name="password" placeholder="Password" required ng-model="credentials.password"/>      
+			<button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Signup</button> 
+			<div>Registered?<br />
+			<a href="#/login">Sign in now</a></div>
+			<div ng-show="message" class="alert alert-danger">{{message}}</div> 
+		</form>
+</div>
