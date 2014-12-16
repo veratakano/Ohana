@@ -1,0 +1,40 @@
+#root
+{
+text-align:center;
+display:inline-block;
+padding-left:10px;
+padding-right:10px;
+}
+
+.family
+{
+float:left;
+padding-left:10px;
+padding-right:10px;
+padding-bottom:10px;
+}
+
+.fmember{
+display:inline-block;
+padding-left:10px;
+border-right:1px solid #000;
+border-bottom:1px solid #000;
+text-align:center;
+padding-right:10px;
+padding-top:10px;
+margin-right:10px;
+}
+
+.partner{
+border-right:1px solid #000;
+display:inline-block;
+padding-right:10px;
+margin-top:10px;
+text-align:center;
+padding-bottom:10px;
+}
+
+.children
+{
+border-top:1px solid #000;
+}
