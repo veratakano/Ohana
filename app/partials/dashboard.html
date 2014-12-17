@@ -1,14 +1,47 @@
 
 
-      <div class="container-fluid jumbotron text-center">
-        <h1>Full Width Layout</h1>
+      <div class="container-fluid dashboard">
+      	
+      	<div style="position: absolute; left: 50%;">
+        	<div style="position: relative; left: -50%;">
+        		<div class="generation" ng-repeat="generation in flowchart.generations">
+      				<div id="node{{node.id}}" class="circleContainer" ng-repeat="node in generation.nodes" on-last-repeat>
+      					{{node.title}}
+      				</div>
+      			</div>
+        	</div>
+        </div>
+      </div>
+
+
+<!--       <div class="generation">
+		  	<div id="e3" class="circleContainer">
+		  		<p>Div1</p>
+		  	</div>
+		  	<div id="e4" class="circleContainer">
+		  		<p>Div2</p>
+			</div>
+		</div> 
+		<div class="generation">
+			<div id="e1" class="circleContainer">
+		    	<p>Div3</p>
+		  	</div>
+		  	<div id="e2" class="circleContainer">
+		    	<p>Div4</p>
+		  	</div>
+		  	<div id="e5" class="circleContainer">
+		    	<p>Div5</p>
+		  	</div>
+		</div> 
+
+  <!--     <h1>Full Width Layout</h1>
         <p class="lead">The Bootstrap 3 grid is fluid only. This example shows how to use a custom container to create a fixed width layout.</p>
         <p><a class="btn btn-large btn-success" href="http://bootply.com/tagged/bootstrap-3" target="ext">More Examples</a></p>
         <div class="clearfix">
-        	<!--
+        	
 				We will create a family tree using just CSS(3)
 				The markup will be simple nested lists
-			-->
+			
 		<div id="root">
 			<div class="partner">a</div><div class="fmember">b</div>
 			<div class="children">
@@ -36,6 +69,5 @@
 		</div>
 	</div>
 
-		</div>
-      </div>
+		</div> -->
 

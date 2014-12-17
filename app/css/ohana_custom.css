@@ -1,10 +1,16 @@
 
+.views {
+  margin-top: 100px;
+}
+
+/* Registeration and Login Form */
+
 .userForm .form {
   background: #eee !important;	
   max-width: 380px;
   padding: 15px 35px 15px;
   margin: 0 auto;
-  border: 1px solid rgba(0,0,0,0.1);  
+  border: 1px solid rgba(0,0,0,0.1);
 }
 
 .userForm .form .form-heading {
@@ -43,4 +49,5 @@
   margin-bottom: 10px;
 }
 
+/* Dashboard */
 

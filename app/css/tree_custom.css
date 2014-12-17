@@ -1,0 +1,18 @@
+
+.circleContainer { 
+	float: left;
+	height: 100px;
+	width: 100px;
+	margin: 20px; 
+	text-align: center;
+	border:1px solid black;
+}
+.generation{ 
+	margin-top: 50px; 
+	clear:both;}
+
+
+svg._jsPlumb_connector path, ._jsPlumb_endpoint circle { 
+  stroke: gray;
+  fill:gray;
+}
