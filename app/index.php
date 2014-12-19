@@ -11,14 +11,17 @@
     <!-- Bootstrap and CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap_custom.css" rel="stylesheet">
+    <link href="css/ngDialog.min.css" rel="stylesheet">
+    <link href="css/ngDialog.min.css" rel="stylesheet">
+    <link href="css/ngDialog-theme-default.min" rel="stylesheet">
     <link href="css/ohana_custom.css" rel="stylesheet">
     <link href="css/tree_custom.css" rel="stylesheet">
 
   </head>
 
-  <body ng-cloak="">
+  <body>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-include="'partials/navbar.html'" ng-controller="navController"></nav>
-    <div class="views" data-ng-view="" id="ng-view"></div>
+    <div class="views" ng-view></div>
   </body>
   
   <!-- Libs -->
@@ -29,6 +32,8 @@
   <script type="text/javascript" src="scripts/jquery.jsPlumb-1.7.2-min.js"></script>
 
   <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="scripts/ngDialog.min.js"></script>
 
   <script type="text/javascript" src="js/app.js"></script>
 

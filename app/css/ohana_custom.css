@@ -51,3 +51,16 @@
 
 /* Dashboard */
 
+.dashboard{
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    padding-top: 105px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  
+}
+

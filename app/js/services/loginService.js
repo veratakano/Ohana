@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('loginService', ['$http','$location', '$rootScope', 'sessionService', function($http, $location, $rootScope, sessionService){
+app.factory('loginService', ['$http','$location','$window', '$rootScope', 'sessionService', function($http, $location, $window, $rootScope, sessionService){
 	return{
 		signup:function(credentials,scope){
 			$http.post(
