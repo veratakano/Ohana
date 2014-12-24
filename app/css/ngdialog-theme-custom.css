@@ -1,0 +1,17 @@
+
+.ngdialog.ngdialog-theme-custom .ngdialog-content {
+	padding: 1.8em 2em;
+}
+
+.ngdialog.ngdialog-theme-custom .ngdialog-content .node_img {
+	width: 70px;
+	height: 70px;
+	float: left;
+	margin: 0 15px 10px 0;
+}
+
+.ngdialog.ngdialog-theme-custom .ngdialog-content .node_name {
+	margin-top: 20px;
+	float: left;
+
+}

@@ -13,7 +13,8 @@
     <link href="css/bootstrap_custom.css" rel="stylesheet">
     <link href="css/ngDialog.min.css" rel="stylesheet">
     <link href="css/ngDialog.min.css" rel="stylesheet">
-    <link href="css/ngDialog-theme-default.min" rel="stylesheet">
+    <link href="css/ngDialog-theme-default.min.css" rel="stylesheet">
+    <link href="css/ngDialog-theme-custom.css" rel="stylesheet">
     <link href="css/ohana_custom.css" rel="stylesheet">
     <link href="css/tree_custom.css" rel="stylesheet">
 

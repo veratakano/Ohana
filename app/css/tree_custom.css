@@ -1,18 +1,33 @@
 
-.circleContainer { 
+.node { 
 	float: left;
-	height: 100px;
-	width: 100px;
+	width: 85px;
 	margin: 20px; 
 	text-align: center;
-	border:1px solid black;
+	border:1px solid #cccccc;
+	padding-top: 8px;
 }
+
+.node:hover {
+  border:1px solid #3c9bf2;
+  cursor: pointer;
+  -webkit-transition: border .25s ease-in-out;
+  -moz-transition: border .25s ease-in-out;
+  -o-transition: border .25s ease-in-out;
+  transition: border .25s ease-in-out;
+}
+
+.node .node_img{
+	height: 60px;
+	width: 60px;
+}
+
 .generation{ 
 	margin-bottom: 50px; 
 	clear:both;}
 
-
-svg._jsPlumb_connector path, ._jsPlumb_endpoint circle { 
-  stroke: gray;
-  fill:gray;
+.node .node_body{
+	text-align: left;
+	margin: 5px 5px 10px 5px;
 }
+

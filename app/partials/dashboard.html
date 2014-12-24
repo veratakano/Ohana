@@ -5,21 +5,43 @@
       	<div style="position: absolute; left: 50%; top:50px;">
         	<div id="treeView" style="position: relative; left: -50%;">
         		<div class="generation" ng-repeat="generation in flowchart.generations" on-last-repeat>
-      				<div id="node{{node.id}}" ng-click="openDialog(node.id,node.title)" class="circleContainer" ng-repeat="node in generation.nodes">
-      					{{node.title}}
+      				<div id="node{{node.id}}" ng-click="openDialog(node.id,node.title,node.gender)" class="node" ng-repeat="node in generation.nodes">
+      					<img class="node_img" ng-src="images/icons/icon_{{node.gender}}.png" />
+      					<div class="node_body">
+      						{{node.title}}
+      					</div>
       				</div>
       			</div>
         	</div>
         </div>
       </div>
 
-      <script type="text/ng-template" id="firstDialogId">
+      <script type="text/ng-template" id="userDialogId">
 		<div class="ngdialog-message">
-			<h3>ngDialog template</h3>
-			<p ng-show="theme">Test content for <code>{{theme}}</code></p>
+			<div class="node_body clearfix">
+				<img class="node_img" ng-src="images/icons/icon_{{ngDialogData.gender}}.png" />
+				<h4 class="node_name">{{ngDialogData.title}}</h4>
+			</div>
+			<p>Data passed through Title: <code>{{ngDialogData.title}}</code></p>
+			<div class="ngdialog-buttons mt">
+				<button class="ngdialog-button ngdialog-button-primary" ng-click="openEdit()" type="button">Eidt</button>
+			</div>
+		</div>
+	</script>
+
+	 <script type="text/ng-template" id="editDialogId">
+		<div class="ngdialog-message">
+			<div class="node_body clearfix">
+				<img class="node_img" ng-src="images/icons/icon_{{ngDialogData.gender}}.png" />
+				<h4 class="node_name">{{ngDialogData.title}}</h4>
+			</div>
+			<h3>Edit template</h3>
 			<p>Data passed through ID: <code>{{ngDialogData.id}}</code></p>
 			<p>Data passed through Title: <code>{{ngDialogData.title}}</code></p>
-			<p ng-show="dialogModel.message">Scope passed through: <code>{{dialogModel.message}}</code></p>
+			<div>
+				<input type="text" id="fname" name="fname" placeholder="First Name" required/>
+				<input type="text" id="lname" name="lname" placeholder="Last Name" required/>     
+			</div>
 		</div>
 	</script>
 

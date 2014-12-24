@@ -1,5 +1,6 @@
 'use strict';
 
+
 app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','loginService','treeService', function($rootScope,$scope,$route,ngDialog,loginService,treeService){
 
 	$scope.txt='Dashboard';
@@ -8,12 +9,13 @@ app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','logi
 		loginService.logout();
 	};
 
-  $scope.openDialog = function (id,title) {
+  $scope.openDialog = function (id,title,gender) {
 
         ngDialog.open({
-          template: 'firstDialogId',
-          className: 'ngdialog-theme-default',
-          data: {id: id, title: title}
+          template: 'userDialogId',
+          className: 'ngdialog-theme-default ngdialog-theme-custom',
+          data: {id: id, title: title, gender: gender},
+          controller: 'SomeController'
         });
   };
 
@@ -42,11 +44,11 @@ app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','logi
     var connG31 = ({'from': 'node5', 'to': 'node2', 'pos1':'TopCenter', 'pos2':'Bottom'});
     var connG32 = ({'from': 'node6', 'to': 'node2', 'pos1':'TopCenter', 'pos2':'Bottom'});
 
-    $scope.flowchart.generations.push(gen3);
-    $scope.flowchart.connections.push(connG31);
-    $scope.flowchart.connections.push(connG32);
+    //$scope.flowchart.generations.push(gen3);
+    //$scope.flowchart.connections.push(connG31);
+    //$scope.flowchart.connections.push(connG32);
 
-    $route.reload();
+    //$route.reload();
   });
 
   //$scope.flowchart = treeService.getTreeData();
@@ -65,6 +67,16 @@ app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','logi
             });
         });
     });
-
    
 }])
+
+app.controller('SomeController', ['$scope','ngDialog', function($scope,ngDialog){
+            $scope.openEdit = function(){
+               ngDialog.close('ngdialog1');
+               ngDialog.open({
+                template: 'editDialogId',
+                scope: $scope,
+                className: 'ngdialog-theme-default ngdialog-theme-custom',
+               });
+            };
+}]);
