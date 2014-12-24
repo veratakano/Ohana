@@ -42,7 +42,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin@admin.com','827ccb0eea8a706c4c34','','','2014-12-09 16:00:00');
+INSERT INTO `users` VALUES (1,'admin@admin.com','827ccb0eea8a706c4c34a16891f84e7b','','','2014-12-09 16:00:00');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
