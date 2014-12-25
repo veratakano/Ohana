@@ -16,17 +16,22 @@
           <li>
             <a href="http://www.veraaung.wix.com/ohana">Blog</a>
           </li>
+          <li>
+            <a href="#/dashboard">Dashboard</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" ng-if="auth">
           <li class="dropdown" ng-if="auth">
             <a class="dropdown-toggle" aria-expanded="false" role="button" data-toggle="dropdown">
-              Family Trees
+              My Account
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
               <li>
-                <a href="#">Tree 1</a>
+                <a href="#">Profile</a>
               </li>
               <li>
-                <a href="#">Tree 2</a>
+                <a href="#">Personal Details</a>
               </li>
               <li>
                 <a href="#">Something else here</a>
@@ -41,8 +46,6 @@
               </li>
             </ul>
           </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right" ng-if="auth">
           <li>
             <a href="javascript:void(0);" ng-click="logout();">Logout</a>
           </li>

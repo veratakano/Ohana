@@ -25,6 +25,11 @@ app.config(['$routeProvider', 'ngDialogProvider',
              templateUrl: 'partials/dashboard.html',
              controller: 'dashboardCtrl'
         }).
+         when('/profile/:profID', {
+             title: 'Profile',
+             templateUrl: 'partials/profile.html',
+             controller: 'profileCtrl'
+        }).
         when('/', {
              title: 'Login',
              templateUrl: 'partials/login.html',
@@ -62,9 +67,7 @@ app.run(function($rootScope, $location, sessionService, treeService){
         if($location.path() != '/signup'){
             if(!sessionService.get('unqid')){
                 $location.path('/login');
-            }else{
-                $location.path('/dashboard');
-            };
+            }
         }
     });
 });

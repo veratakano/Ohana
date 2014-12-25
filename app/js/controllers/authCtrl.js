@@ -1,3 +1,4 @@
+
 'use strict';
 
 app.controller('authCtrl',['$scope', '$rootScope', 'loginService', function ($scope, $rootScope, loginService) {

@@ -40,7 +40,9 @@
 
   <script type="text/javascript" src="js/controllers/navCtrl.js"></script>
   <script type="text/javascript" src="js/controllers/authCtrl.js"></script>
+  <script type="text/javascript" src="js/controllers/logoutCtrl.js"></script>
   <script type="text/javascript" src="js/controllers/dashboardCtrl.js"></script>
+  <script type="text/javascript" src="js/controllers/profileCtrl.js"></script>
 
   <script type="text/javascript" src="js/directives/nodesRepeatDrc.js"></script>
 

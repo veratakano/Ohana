@@ -1,5 +1,5 @@
-'use strict';
 
+'use strict';
 
 app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','loginService','treeService', function($rootScope,$scope,$route,ngDialog,loginService,treeService){
 
@@ -66,17 +66,44 @@ app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','logi
                 connector:[ "Flowchart" ]
             });
         });
+
+
+       /*jsPlumb.connect({
+                source: idx.from,
+                target: idx.to,
+                detachable: false,
+                paintStyle: {
+                  strokeStyle: '#005b0f',
+                  lineWidth: '1'
+                },
+                hoverPaintStyle: {
+                  strokeStyle: '#ff0000',
+                  lineWidth: '2'
+                },
+                dragOptions: {
+                  cursor: "pointer",
+                  zIndex: 2000
+                },
+                endpoint: "Blank",
+                endpoint:[ "Rectangle", { width:10, height:10 }, "Rectangle", { width:10, height:8 } ],
+                anchors:[idx.pos1, idx.pos2],
+                connector:[ "Flowchart", { alwaysRespectStubs: true, cornerRadius: 0, gap:0,stub:[30, 30]} ]
+            });*/
     });
    
 }])
 
-app.controller('SomeController', ['$scope','ngDialog', function($scope,ngDialog){
+app.controller('SomeController', ['$scope', '$location', 'ngDialog', function($scope,$location,ngDialog){
             $scope.openEdit = function(){
-               ngDialog.close('ngdialog1');
+               ngDialog.close();
                ngDialog.open({
                 template: 'editDialogId',
                 scope: $scope,
                 className: 'ngdialog-theme-default ngdialog-theme-custom',
                });
             };
+            $scope.openProfile = function(){
+               ngDialog.close();
+               $location.path('/profile/' + $scope.ngDialogData.id);
+            }
 }]);

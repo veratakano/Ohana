@@ -1,4 +1,8 @@
 
+.ngdialog.ngdialog-theme-custom{
+	padding-top: 80px;
+}
+
 .ngdialog.ngdialog-theme-custom .ngdialog-content {
 	padding: 1.8em 2em;
 }
