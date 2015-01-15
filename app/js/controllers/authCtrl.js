@@ -13,4 +13,5 @@ app.controller('authCtrl',['$scope', '$rootScope', 'loginService', function ($sc
     loginService.signup(credentials,$scope, $rootScope); //call login service
   };
 
+ 
 }]);

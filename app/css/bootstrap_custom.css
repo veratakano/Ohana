@@ -53,6 +53,17 @@
 	color: #ffffff;
 }
 
+.btn-facebook {
+	background-color: #3b5998;
+	color: #ffffff;
+	padding-bottom: 8px;
+}
+
+.btn-facebook:hover {
+	 background-color: #2d4373;
+	 color: #ffffff;
+}
+
 @media (max-width: 767px) {
 	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
 		color: #fcffff;

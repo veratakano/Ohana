@@ -49,6 +49,30 @@
   margin-bottom: 10px;
 }
 
+.userForm .or {
+  position: relative;
+  margin: 20px 0 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.userForm .or-span {
+    background-color: #eeeeee;
+    color: #ababab;
+    display: inline-block;
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.userForm .or hr {
+    border-color: #ababab;
+    left: 0;
+    position: absolute;
+    top: -8px;
+    width: 100%;
+}
+
 /* Dashboard */
 
 .dashboard{

@@ -10,6 +10,7 @@
     
     <!-- Bootstrap and CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap_custom.css" rel="stylesheet">
     <link href="css/ngDialog.min.css" rel="stylesheet">
     <link href="css/ngDialog.min.css" rel="stylesheet">
@@ -49,4 +50,5 @@
   <script type="text/javascript" src="js/services/loginService.js"></script> 
   <script type="text/javascript" src="js/services/sessionService.js"></script>
   <script type="text/javascript" src="js/services/treeService.js"></script>
+  <script type="text/javascript" src="js/services/fbService.js"></script>
 </html>

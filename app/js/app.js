@@ -49,7 +49,40 @@ app.config(['$routeProvider', 'ngDialogProvider',
  }]);
 
 
-app.run(function($rootScope, $location, sessionService, treeService){
+app.run(function($rootScope, $location, $window, fbService, sessionService, treeService){
+
+    $window.fbAsyncInit = function() {
+        // Executed when the SDK is loaded
+
+        FB.init({ 
+            /* The app id of the web app; */
+            appId: '1437114279844383', 
+            /* Parse XFBML */
+            xfbml: true,
+            /* Parse XFBML */
+            version    : 'v2.2'
+        });
+
+        fbService.watchAuthenticationStatusChange();
+
+        $rootScope.fbLogin = function(){
+            fbService.login();
+        }
+
+        $rootScope.fblogout = function(){
+            fbService.logout();
+        }
+
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
 
     //global variable
     $rootScope.apiVersion = 'api/v1/';
@@ -63,12 +96,12 @@ app.run(function($rootScope, $location, sessionService, treeService){
             jsPlumb.detachEveryConnection();
         });
 
-        $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
-        if($location.path() != '/signup'){
-            if(!sessionService.get('unqid')){
-                $location.path('/login');
-            }
-        }
+        //$rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
+        //if($location.path() != '/signup'){
+        //    if(!sessionService.get('unqid')){
+        //        $location.path('/login');
+        //    }
+        //}
     });
 });
 
