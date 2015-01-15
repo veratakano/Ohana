@@ -46,7 +46,8 @@ app.factory('loginService', ['$http','$location','$window', '$rootScope', 'sessi
 		},
 		logout:function(){
 			sessionService.destroy();
-			$location.path('/login');
+			$window.location.reload();
+			//$location.path('/login');
 		}
 	}
 

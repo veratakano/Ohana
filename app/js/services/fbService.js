@@ -5,7 +5,8 @@ app.factory('fbService', ['$location','$window', '$rootScope', 'sessionService',
 		login:function(){
 			FB.login(function(response) {
    				 if (response.status === 'connected') {
-   				 	$rootScope.$apply(function() { 
+   				 	$rootScope.$apply(function() {
+   				 		sessionService.set('unqid',response.authResponse.userID);
     					$location.path('dashboard');
  					});
    				 }
@@ -32,12 +33,6 @@ app.factory('fbService', ['$location','$window', '$rootScope', 'sessionService',
 					console.log(response);
 				}
     		});
-		},
-		logout:function(){
-				FB.logout(function(response) {
-	        	// Person is now logged out
-	        	});
-        	sessionService.destroy();
 		}
 	}
 }]);

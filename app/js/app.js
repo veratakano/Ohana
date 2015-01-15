@@ -64,15 +64,6 @@ app.run(function($rootScope, $location, $window, fbService, sessionService, tree
         });
 
         fbService.watchAuthenticationStatusChange();
-
-        $rootScope.fbLogin = function(){
-            fbService.login();
-        }
-
-        $rootScope.fblogout = function(){
-            fbService.logout();
-        }
-
     };
 
     (function(d, s, id){
@@ -83,6 +74,12 @@ app.run(function($rootScope, $location, $window, fbService, sessionService, tree
             fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
+$rootScope.fbLogin = function(){
+            fbService.login();
+        }
+        $rootScope.fblogout = function(){
+            fbService.logout();
+        }
 
     //global variable
     $rootScope.apiVersion = 'api/v1/';
@@ -96,12 +93,12 @@ app.run(function($rootScope, $location, $window, fbService, sessionService, tree
             jsPlumb.detachEveryConnection();
         });
 
-        //$rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
-        //if($location.path() != '/signup'){
-        //    if(!sessionService.get('unqid')){
-        //        $location.path('/login');
-        //    }
-        //}
+        $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
+        if($location.path() != '/signup'){
+            if(!sessionService.get('unqid')){
+                $location.path('/login');
+            }
+        }
     });
 });
 
