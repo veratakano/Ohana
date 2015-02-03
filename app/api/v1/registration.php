@@ -11,17 +11,17 @@
     $response = array();
 
     if($resultUser !=  NULL) {
-        switch ($result['status']) {
+        switch ($resultUser['status']) {
             case 0:
-                $resultTree = createTree($resultUser['uid']);
+                $resultTree = createTree($resultUser['uID']);
                 if($resultTree['status'] == 0){
                     $response['status'] = 'success';
-                    $response['uid'] = $resultUser['uid'];
+                    $response['uID'] = $resultUser['uID'];
                     $response['email'] = $resultUser['email'];
                     if (!isset($_SESSION)) {
                         session_start();
                         $_SESSION['unqid']=uniqid('ang_');
-                        $_SESSION['uid'] = $resultUser['uid'];
+                        $_SESSION['uID'] = $resultUser['uID'];
                         $_SESSION['email'] = $resultUser['email'];
                         $response['unqid'] = $_SESSION['unqid'];
                     }
@@ -50,9 +50,17 @@
         $fname = $r->user->fname;
         $lname = $r->user->lname;
         $email = $r->user->email;
-        $pwd = md5($r->user->password);
+        $pwd = $r->user->password;
+        if(!empty($pwd)){
+            $pwd = md5($pwd);
+            $pwd = "'$pwd'";
+        }else{
+            $pwd = "NULL";
+        }
+        $fbid = $r->user->fbID;
+        $fbid = !empty($fbid) ? "'$fbid'" : "NULL";
 
-        $result = $db->getResult("CALL SP_DoRegistration('". $fname . "', '". $lname . "', '". $email . "', '" . $pwd . "')");
+        $result = $db->getResult("CALL SP_DoRegistration('$fname', '$lname', '$email', $pwd, $fbid)");
         return $result;
     };
 
@@ -60,7 +68,7 @@
 
         $db = new DbHandler();
 
-        $result = $db->getResult("CALL SP_DoCreateTree('Testing','". $uid ."')");
+        $result = $db->getResult("CALL SP_DoCreateTree('Testing','$uid')");
         return $result;
     };
 

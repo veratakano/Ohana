@@ -63,7 +63,7 @@ app.run(function($rootScope, $location, $window, fbService, sessionService, tree
             version    : 'v2.2'
         });
 
-        fbService.watchAuthenticationStatusChange();
+        //fbService.watchAuthenticationStatusChange();
     };
 
     (function(d, s, id){
@@ -74,9 +74,7 @@ app.run(function($rootScope, $location, $window, fbService, sessionService, tree
             fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-$rootScope.fbLogin = function(){
-            fbService.login();
-        }
+        
         $rootScope.fblogout = function(){
             fbService.logout();
         }

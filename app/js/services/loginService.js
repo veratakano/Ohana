@@ -10,7 +10,7 @@ app.factory('loginService', ['$http','$location','$window', '$rootScope', 'sessi
 	     		}
 	    		).success(function(output){
 					var obj = angular.fromJson(output);
-					var uid=obj.uid;
+					var uid = obj.uid;
 					if(obj.status == "success"){
 						sessionService.set('unqid',obj.unqid);
 						sessionService.set('uid',obj.uid);
@@ -23,26 +23,18 @@ app.factory('loginService', ['$http','$location','$window', '$rootScope', 'sessi
 				}).error(function(){
       		});		   
 		},
-		login:function(credentials,scope){
-			$http.post(
+		login:function(credentials){
+
+			var promise = $http.post(
 	      		$rootScope.apiVersion + 'authentication.php', 
 	      		{
 	      			user:credentials
 	      		}
-	    		).success(function(output){
-					var obj = angular.fromJson(output);
+	    		).then(function(output){
+	    			return output.data;
+				});
 
-					if(obj.status == "success"){
-						sessionService.set('unqid',obj.unqid);
-						sessionService.set('uid',obj.uid);
-						sessionService.set('email',obj.email);
-						$location.path('dashboard');
-					}	       
-					else  {
-						scope.message = obj.message;
-					}
-				}).error(function(){
-      		});		   
+				return promise;		   
 		},
 		logout:function(){
 			sessionService.destroy();

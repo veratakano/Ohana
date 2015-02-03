@@ -1,8 +1,7 @@
 
-
-      <div class="container-fluid dashboard">
-      	
-      	<div style="position: absolute; left: 50%; top:50px;">
+	<!-- dashboard -->
+	<div class="container-fluid dashboard">
+		<div style="position: absolute; left: 50%; top:50px;">
         	<div id="treeView" style="position: relative; left: -50%;">
         		<div class="generation" ng-repeat="generation in flowchart.generations" on-last-repeat>
       				<div id="node{{node.id}}" ng-click="openDialog(node.id,node.title,node.gender)" class="node" ng-repeat="node in generation.nodes">
@@ -13,10 +12,11 @@
       				</div>
       			</div>
         	</div>
-        </div>
-      </div>
+		</div>
+	</div>
 
-      <script type="text/ng-template" id="userDialogId">
+	<!-- edit forms for profile -->
+	<script type="text/ng-template" id="userDialogId">
 		<div class="ngdialog-message">
 			<div class="node_body clearfix">
 				<img class="node_img" ng-src="images/icons/icon_{{ngDialogData.gender}}.png" />
@@ -48,6 +48,7 @@
 		</div>
 	</script>
 
+	<!-- edit forms for profile -->
 	 <script type="text/ng-template" id="editDialogId">
 		<div class="ngdialog-message">
 			<div class="node_body clearfix">

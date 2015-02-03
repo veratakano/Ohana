@@ -8,20 +8,29 @@
 
 
         $email = $r->user->email;
-        $pwd = md5($r->user->password);
+        $pwd = $r->user->password;
+        if(!empty($pwd)){
+            $pwd = md5($pwd);
+            $pwd = "'$pwd'";
+        }else{
+            $pwd = "NULL";
+        }
+        $fbid = $r->user->fbID;
+        $fbid = !empty($fbid) ? "'$fbid'" : "NULL";
+
         $db = new DbHandler();
-        $result = $db->getResult("CALL SP_GetLogin('". $email . "', '" . $pwd . "')");
+        $result = $db->getResult("CALL SP_GetLogin('$email', $pwd, $fbid)");
         $response = array();
         $user = $result;
         if($user != NULL) {
             $response['status'] = "success";
-            $response['uid'] = $user['uid'];
+            $response['uid'] = $user['uID'];
             $response['email'] = $user['email'];
             if (!isset($_SESSION)) {
                 session_start();
                 $_SESSION['unqid']=uniqid('ang_');
-                $_SESSION['uid'] = $result['uid'];
-                $_SESSION['email'] = $result['email'];
+                $_SESSION['uid'] = $user['uID'];
+                $_SESSION['email'] = $user['email'];
                 $response['unqid'] = $_SESSION['unqid'];
             }
         }else{
