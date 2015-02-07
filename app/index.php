@@ -22,7 +22,11 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-include="'partials/navbar.html'" ng-controller="navController"></nav>
+    
+	
+	
+	<!--Tree, Test_final_3  -->
+    <nav role="navigation" ng-include="'partials/Tree.php'" ng-controller="navController"></nav>
     <div class="views" ng-view></div>
   </body>
   
