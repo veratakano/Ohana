@@ -82,3 +82,10 @@
   
 }
 
+#map_canvas {
+    margin-top: -50px;
+    height: 745px;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+

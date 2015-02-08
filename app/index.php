@@ -39,6 +39,9 @@
 
   <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5AZXdDIGFkixMBrTjQsctwDJ8wHW7Pdo"></script>
+  <script type="text/javascript" src="scripts/markerclusterer_compiled.js"></script>
+
   <script type="text/javascript" src="scripts/ngDialog.min.js"></script>
 
   <script type="text/javascript" src="js/app.js"></script>
@@ -50,6 +53,7 @@
   <script type="text/javascript" src="js/controllers/profileCtrl.js"></script>
 
   <script type="text/javascript" src="js/directives/nodesRepeatDrc.js"></script>
+  <script type="text/javascript" src="js/directives/mapDrc.js"></script>
 
   <script type="text/javascript" src="js/services/loginService.js"></script> 
   <script type="text/javascript" src="js/services/sessionService.js"></script>

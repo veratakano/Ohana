@@ -25,7 +25,11 @@ app.config(['$routeProvider', 'ngDialogProvider',
              templateUrl: 'partials/dashboard.html',
              controller: 'dashboardCtrl'
         }).
-         when('/profile/:profID', {
+        when('/map', {
+             title: 'Map',
+             templateUrl: 'partials/map.html'
+        }).
+        when('/profile/:profID', {
              title: 'Profile',
              templateUrl: 'partials/profile.html',
              controller: 'profileCtrl'
