@@ -57,7 +57,7 @@ CREATE TABLE `Member` (
   `countryOfBirth` varchar(20) DEFAULT NULL,
   `gender` varchar(1) DEFAULT NULL,
   `treeID` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`treeID`,`memberID`),
+  PRIMARY KEY (`memberID`,`treeID`),
   KEY `idx_tree_member_id` (`treeID`,`memberID`),
   KEY `fk_treeID_idx` (`treeID`),
   CONSTRAINT `treeID` FOREIGN KEY (`treeID`) REFERENCES `Tree` (`treeID`) ON DELETE NO ACTION ON UPDATE NO ACTION
