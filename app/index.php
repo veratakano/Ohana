@@ -22,12 +22,14 @@
   </head>
 
   <body>
-    
+    <!--
+	<nav role="navigation"  ng-controller="navController"></nav>
+     <div class="views" ng-view></div>
+	-->
 	
-	
-	<!--Tree, Test_final_3  -->
-    <nav role="navigation" ng-include="'partials/Tree.php'" ng-controller="navController"></nav>
+	 <nav role="navigation" ng-controller="navController"></nav>
     <div class="views" ng-view></div>
+
   </body>
   
   <!-- Libs -->
@@ -36,6 +38,8 @@
 
   <script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
   <script type="text/javascript" src="scripts/jquery.jsPlumb-1.7.2-min.js"></script>
+  <script type="text/javascript" src="scripts/jssor.js"></script>
+  <script type="text/javascript" src="scripts/jssor.slider.js"></script>
 
   <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 
@@ -43,7 +47,6 @@
   <script type="text/javascript" src="scripts/markerclusterer_compiled.js"></script>
 
   <script type="text/javascript" src="scripts/ngDialog.min.js"></script>
-  <script type="text/javascript" src="scripts/angular-file-upload.min.js"></script>  
 
   <script type="text/javascript" src="js/app.js"></script>
 
@@ -60,5 +63,6 @@
   <script type="text/javascript" src="js/services/sessionService.js"></script>
   <script type="text/javascript" src="js/services/treeService.js"></script>
   <script type="text/javascript" src="js/services/fbService.js"></script>
-  <script type="text/javascript" src="js/services/memberService.js"></script>
+  
+  
 </html>

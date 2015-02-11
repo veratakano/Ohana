@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('ohanaApp', ['ngRoute','ngDialog','ngFileUpload']);
+var app = angular.module('ohanaApp', ['ngRoute','ngDialog']);
 
 app.config(['$routeProvider', 'ngDialogProvider', 
   function ($routeProvider, ngDialogProvider) {
@@ -33,6 +33,16 @@ app.config(['$routeProvider', 'ngDialogProvider',
              title: 'Profile',
              templateUrl: 'partials/profile.html',
              controller: 'profileCtrl'
+        }).
+		when('/create_member', {
+             title: 'Create Member',
+             templateUrl: 'partials/create_member.html',
+             //controller: 'profileCtrl'
+        }).
+		when('/tree', {
+             title: 'Create Member',
+             templateUrl: 'partials/Tree.php',
+             //controller: 'profileCtrl'
         }).
         when('/', {
              title: 'Login',
@@ -88,20 +98,20 @@ app.run(function($rootScope, $location, $window, fbService, sessionService, tree
 
     $rootScope.flowchart = treeService.getTreeData();
 
-    $rootScope.$on('$routeChangeStart', function(){
+    // $rootScope.$on('$routeChangeStart', function(){
 
-        jsPlumb.ready(function(){
-            //detah all connectors
-            jsPlumb.detachEveryConnection();
-        });
+        // jsPlumb.ready(function(){
+            // //detah all connectors
+            // jsPlumb.detachEveryConnection();
+        // });
 
-        $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
-        if($location.path() != '/signup'){
-            if(!sessionService.get('unqid')){
-                $location.path('/login');
-            }
-        }
-    });
+        // $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
+        // if($location.path() != '/signup'){
+            // if(!sessionService.get('unqid')){
+                // $location.path('/login');
+            // }
+        // }
+   // });
 });
 
 

@@ -17,11 +17,11 @@
   
             color: black;  
   
-            height: 7em;  
+            height: 4em;  
   
             position: absolute;  
   
-            width: 8em;  
+            width: 4em;  
 			
 			margin: 0 auto;
   
@@ -78,15 +78,15 @@
 					extract($row);
 					
 					
-					$member_values = $member_array[$memberID];
+					//$member_values = $member_array[$memberID];
 					
-					echo "gender: $member_values[2] <br>";
+					//echo "gender: $member_values[2] <br>";
 						
 					echo '<div class="window" style="top: '. $y .'%; left: '. $x .'%" id="container0">  
 				
-							<img src="images/icons/icon_' . $member_values[2] .'.png"/>
 							
-							<div>'. $member_values[0] . '</div>
+							
+							<div>'. $memberID . '</div>
 					</div> ';
 					
 					
