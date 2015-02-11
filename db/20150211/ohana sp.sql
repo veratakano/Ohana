@@ -3,6 +3,15 @@ use ohana;
 select * from relation;
 
 
+CREATE TABLE IF NOT EXISTS `Ohana`.`Coordinates` (
+  
+  `memberID` INT Primary key,
+  `fatherID` INT,
+  `motherID` INT,
+  `spouseID` INT,
+  `x` INT,
+  `y` INT
+);
 
 
 DELIMITER $$
