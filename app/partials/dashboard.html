@@ -2,7 +2,10 @@
 	<!-- dashboard -->
 	<div class="container-fluid dashboard">
 	
-	<div ng-include="'partials/Tree.php'">
+		<!-- <div ng-include="'partials/Tree.php'"> -->
+		<div class="window" id="container0" ng-repeat="node in tree" style="top:{{node.y}}%; left:{{node.x}}%" ng-click="openDialog(node.memberID)">  
+			<div>{{node.memberID}}</div>
+		</div>
 	
 	</div>
 		<!--
@@ -22,7 +25,15 @@
 		-->
 	</div>
 
-	<!-- edit forms for profile -->
+
+
+<script type="text/ng-template" id="userDialogId">
+		<div class="ngdialog-message">
+			<p>ID: <code>{{ngDialogData.id}}</code></p>
+		</div>
+	</script>
+
+	<!-- edit forms for profile 
 	<script type="text/ng-template" id="userDialogId">
 		<div class="ngdialog-message">
 			<div class="node_body clearfix">
@@ -53,9 +64,9 @@
 				<div class="col-md-4" style="border:1px solid black">Delete</div>
 			</div>
 		</div>
-	</script>
+	</script>-->
 
-	<!-- edit forms for profile -->
+	<!-- edit forms for profile 
 	 <script type="text/ng-template" id="editDialogId">
 		<div class="ngdialog-message">
 			<div class="node_body clearfix">
@@ -98,7 +109,7 @@
 				<button type="submit" class="btn btn-default">Submit</button>
 			</form>
 		</div>
-	</script>
+	</script>-->
 
 
 <!--		<div class="ngdialog-buttons">

@@ -27,7 +27,7 @@
      <div class="views" ng-view></div>
 	-->
 	
-	 <nav role="navigation" ng-controller="navController"></nav>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-include="'partials/navbar.html'" ng-controller="navController"></nav>
     <div class="views" ng-view></div>
 
   </body>

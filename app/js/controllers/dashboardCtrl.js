@@ -7,17 +7,23 @@ app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','logi
 		loginService.logout();
 	};
 
-  // Open Popup for members
-  $scope.openDialog = function (id,title,gender) {
-        ngDialog.open({
-          template: 'userDialogId',
-          className: 'ngdialog-theme-default ngdialog-theme-custom',
-          data: {id: id, title: title, gender: gender},
-          controller: 'dialogCtrl'
-        });
-  };
+  treeService.getTreeData().then(function(data) {
+    $scope.tree = data;
+  });
 
-  $scope.$on('onRepeatLast', function(scope, element, attrs){  
+  //var tree = treeService.getTreeData();
+
+   //Open Popup for members
+   $scope.openDialog = function (id) {
+         ngDialog.open({
+           template: 'userDialogId',
+           className: 'ngdialog-theme-default ngdialog-theme-custom',
+           data: {id: id},
+           controller: 'dialogCtrl'
+         });
+   };
+
+  /*$scope.$on('onRepeatLast', function(scope, element, attrs){  
        var connections = $rootScope.flowchart.connections;
        angular.forEach(connections, function(idx, elm) {
             //jsPlumb set container
@@ -31,13 +37,13 @@ app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','logi
                 connector:[ "Flowchart" ]
             });
         });
-    });
+    });*/
    
 }])
 
 // Open Popup Controller
 app.controller('dialogCtrl', ['$scope', '$location', 'ngDialog', function($scope,$location,ngDialog){
-            $scope.openEdit = function(){
+           /* $scope.openEdit = function(){
                ngDialog.close();
                ngDialog.open({
                 template: 'editDialogId',
@@ -48,5 +54,5 @@ app.controller('dialogCtrl', ['$scope', '$location', 'ngDialog', function($scope
             $scope.openProfile = function(){
                ngDialog.close();
                $location.path('/profile/' + $scope.ngDialogData.id);
-            }
+            }*/
 }]);
