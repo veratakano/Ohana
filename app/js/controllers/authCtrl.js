@@ -13,6 +13,7 @@ app.controller('authCtrl',['$location', '$scope', '$rootScope', 'loginService','
         sessionService.set('unqid',obj.unqid);
         sessionService.set('uid',obj.uid);
         sessionService.set('email',obj.email);
+        sessionService.set('treeID',obj.treeID);
         $location.path('dashboard');
       }        
       else  {

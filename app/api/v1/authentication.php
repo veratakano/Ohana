@@ -26,12 +26,14 @@
             $response['status'] = "success";
             $response['uid'] = $user['uID'];
             $response['email'] = $user['email'];
+            $response['treeid'] = $user['treeID'];
             if (!isset($_SESSION)) {
                 session_start();
                 $_SESSION['unqid']=uniqid('ang_');
                 $_SESSION['uid'] = $user['uID'];
                 $_SESSION['email'] = $user['email'];
-                $response['unqid'] = $_SESSION['unqid'];
+                $_SESSION['treeid'] = $user['treeID'];
+                $response['unqid'] = $_SESSION['unqid'];        
             }
         }else{
             $response['status'] = "error";

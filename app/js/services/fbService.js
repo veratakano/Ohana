@@ -20,6 +20,7 @@ app.factory('fbService', ['$location','$window', '$rootScope', 'sessionService',
 							        sessionService.set('unqid',obj.unqid);
 							        sessionService.set('uid',obj.uid);
 							        sessionService.set('email',obj.email);
+							        sessionService.set('treeid',obj.treeid);
 							        $location.path('dashboard');
 							      }        
 							      else  {

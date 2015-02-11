@@ -15,6 +15,7 @@ app.factory('loginService', ['$http','$location','$window', '$rootScope', 'sessi
 						sessionService.set('unqid',obj.unqid);
 						sessionService.set('uid',obj.uid);
 						sessionService.set('email',obj.email);
+						sessionService.set('treeid',obj.treeid);
 						$location.path('dashboard');
 					}	       
 					else  {

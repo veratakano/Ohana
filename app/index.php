@@ -43,6 +43,7 @@
   <script type="text/javascript" src="scripts/markerclusterer_compiled.js"></script>
 
   <script type="text/javascript" src="scripts/ngDialog.min.js"></script>
+  <script type="text/javascript" src="scripts/angular-file-upload.min.js"></script>  
 
   <script type="text/javascript" src="js/app.js"></script>
 
@@ -59,4 +60,5 @@
   <script type="text/javascript" src="js/services/sessionService.js"></script>
   <script type="text/javascript" src="js/services/treeService.js"></script>
   <script type="text/javascript" src="js/services/fbService.js"></script>
+  <script type="text/javascript" src="js/services/memberService.js"></script>
 </html>

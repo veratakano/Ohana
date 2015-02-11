@@ -19,3 +19,12 @@
 	float: left;
 
 }
+
+
+/*! Profile */
+
+.ngdialog.ngdialog-theme-custom-profile .ngdialog-content{
+	padding: 0;
+	width:700px;
+}
+

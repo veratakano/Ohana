@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('ohanaApp', ['ngRoute','ngDialog']);
+var app = angular.module('ohanaApp', ['ngRoute','ngDialog','ngFileUpload']);
 
 app.config(['$routeProvider', 'ngDialogProvider', 
   function ($routeProvider, ngDialogProvider) {

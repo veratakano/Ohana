@@ -18,11 +18,13 @@
                     $response['status'] = 'success';
                     $response['uID'] = $resultUser['uID'];
                     $response['email'] = $resultUser['email'];
+                    $response['treeid'] = $resultTree['treeID'];
                     if (!isset($_SESSION)) {
                         session_start();
                         $_SESSION['unqid']=uniqid('ang_');
                         $_SESSION['uID'] = $resultUser['uID'];
                         $_SESSION['email'] = $resultUser['email'];
+                        $_SESSION['treeid'] = $resultTree['treeID'];
                         $response['unqid'] = $_SESSION['unqid'];
                     }
                 } else{

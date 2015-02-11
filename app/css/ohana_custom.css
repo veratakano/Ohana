@@ -89,3 +89,26 @@
     border: 1px solid #ccc;
 }
 
+/* Profile */
+
+.profile-img {
+  width: 140px;
+  height:140px;
+  cursor: pointer;
+  opacity: 1;
+   transition: opacity .25s ease-in;
+   -moz-transition: opacity .25s ease-in;
+   -webkit-transition: opacity .25s ease-in;
+}
+
+.profile-img:hover {
+    opacity: 0.8;
+}
+
+.prof_upload_left
+{
+    border-right: 1px solid #dddddd;
+    height:250px;
+}
+
+
