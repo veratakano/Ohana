@@ -39,6 +39,31 @@ app.config(['$routeProvider', 'ngDialogProvider',
              templateUrl: 'partials/create_parent.html',
              controller: 'insertionCtrl'
         }).
+		when('/create_brother', {
+             title: 'Create Member',
+             templateUrl: 'partials/create_brother.html',
+             controller: 'insertionCtrl'
+        }).
+		when('/create_sister', {
+             title: 'Create Member',
+             templateUrl: 'partials/create_sister.html',
+             controller: 'insertionCtrl'
+        }).
+		when('/create_daughter', {
+             title: 'Create Member',
+             templateUrl: 'partials/create_daughter.html',
+             controller: 'insertionCtrl'
+        }).
+		when('/create_son', {
+             title: 'Create Member',
+             templateUrl: 'partials/create_son.html',
+             controller: 'insertionCtrl'
+        }).
+		when('/create_spouse', {
+             title: 'Create Member',
+             templateUrl: 'partials/create_spouse.html',
+             controller: 'insertionCtrl'
+        }).
 		when('/tree', {
              title: 'Create Member',
              templateUrl: 'partials/Tree.php',

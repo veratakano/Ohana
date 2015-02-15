@@ -1,0 +1,19 @@
+
+<div class="container">
+    <h2>Create ...'s Family Member: {{params.profID}}</h2>
+	  <h3>Details of Brother: <h3>
+	<form name="frmAddBrother" class="form-group" ng-submit="addBrother(credentials)">
+		<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="credentials.fName" autofocus/>
+		<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="credentials.lName"/>
+		<input type="text" class="form-control" name="txtCountryOfBirth" placeholder="Country of Birth"  required ng-model="credentials.COB"/>
+		<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth"  required ng-model="credentials.DOB"/>
+		
+		<div class="checkbox">
+		<label>
+			  <input type="checkbox"> Alive
+		</label>
+		</div>
+
+		<button id="btnAdd" class="btn btn-lg btn-primary btn-block" type="submit">Add Brother</button> 
+	</form>
+</div>
