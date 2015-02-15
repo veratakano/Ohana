@@ -1,0 +1,31 @@
+
+<div class="container">
+    <h2>Create ...'s Family Member: {{params.profID}}</h2>
+	  <h3>Details of Father: <h3>
+	<form name="frmAddParent" class="form-group" ng-submit="addParent(credentials)">
+		<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="credentials.fFirstName" autofocus/>
+		<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="credentials.fLastName"/>
+		<input type="text" class="form-control" name="txtCountryOfBirth" placeholder="Country of Birth"  required ng-model="credentials.fCOB"/>
+		<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth"  required ng-model="credentials.fDOB"/>
+		
+		<div class="checkbox">
+		<label>
+			  <input type="checkbox"> Alive
+		</label>
+		</div>
+		
+		<h3>Details of Mother: <h3>
+		<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="credentials.mFirstName"/>
+		<input type="text" class="form-control" name="txtLastName" placeholder="Last Name" required ng-model="credentials.mLastName"/>
+		
+		<input type="text" class="form-control" name="txtCountryOfBirth" placeholder="Country of Birth" required ng-model="credentials.mCOB"/>
+		<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" required ng-model="credentials.mDOB"/>
+		<div class="checkbox">
+		<label>
+			  <input type="checkbox"> Alive
+		</label>
+		</div>
+		
+		<button id="btnAddParent" class="btn btn-lg btn-primary btn-block" type="submit">Add Parent</button> 
+	</form>
+</div>

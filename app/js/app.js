@@ -34,10 +34,10 @@ app.config(['$routeProvider', 'ngDialogProvider',
              templateUrl: 'partials/profile.html',
              controller: 'profileCtrl'
         }).
-		when('/create_member', {
+		when('/create_parent', {
              title: 'Create Member',
-             templateUrl: 'partials/create_member.html',
-             //controller: 'profileCtrl'
+             templateUrl: 'partials/create_parent.html',
+             controller: 'insertionCtrl'
         }).
 		when('/tree', {
              title: 'Create Member',
@@ -93,23 +93,23 @@ app.run(function($rootScope, $location, $window, fbService, sessionService, tree
             fbService.logout();
         }
 
-    //global variable
-    $rootScope.apiVersion = 'api/v1/';
+   //global variable
+   $rootScope.apiVersion = 'api/v1/';
 
-     $rootScope.$on('$routeChangeStart', function(){
+     // $rootScope.$on('$routeChangeStart', function(){
 
-        // jsPlumb.ready(function(){
-            // //detah all connectors
-            // jsPlumb.detachEveryConnection();
-        // });
+        // // jsPlumb.ready(function(){
+            // // //detah all connectors
+            // // jsPlumb.detachEveryConnection();
+        // // });
 
-         $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
-         if($location.path() != '/signup'){
-             if(!sessionService.get('unqid')){
-                 $location.path('/login');
-             }
-         }
-    });
+         // $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
+         // if($location.path() != '/signup'){
+             // if(!sessionService.get('unqid')){
+                 // $location.path('/login');
+             // }
+         // }
+    // });
 });
 
 

@@ -55,7 +55,8 @@
   <script type="text/javascript" src="js/controllers/logoutCtrl.js"></script>
   <script type="text/javascript" src="js/controllers/dashboardCtrl.js"></script>
   <script type="text/javascript" src="js/controllers/profileCtrl.js"></script>
-
+  <script type="text/javascript" src="js/controllers/insertionCtrl.js"></script>
+  
   <script type="text/javascript" src="js/directives/nodesRepeatDrc.js"></script>
   <script type="text/javascript" src="js/directives/mapDrc.js"></script>
 
@@ -63,6 +64,6 @@
   <script type="text/javascript" src="js/services/sessionService.js"></script>
   <script type="text/javascript" src="js/services/treeService.js"></script>
   <script type="text/javascript" src="js/services/fbService.js"></script>
-  
-  
+  <script type="text/javascript" src="js/services/memberService.js"></script>
+ 
 </html>

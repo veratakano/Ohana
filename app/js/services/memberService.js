@@ -12,6 +12,20 @@ app.factory('memberService', ['$http','$rootScope', function($http,$rootScope){
 	    			return output.data;
 				});
 				return promise;		   
+		},
+		addParent:function(credentials){
+
+			var promise = $http.post(
+	      		$rootScope.apiVersion + 'addFamily.php', 
+	      		{
+	      			user:credentials,
+					type:'1'
+	      		}
+	    		).then(function(output){
+	    			return output.data;
+				});
+
+				return promise;		   
 		}
 	}
 
