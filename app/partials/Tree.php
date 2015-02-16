@@ -78,16 +78,29 @@
 					extract($row);
 					
 					
-					//$member_values = $member_array[$memberID];
+					$member_values = $member_array[$memberID];
 					
 					//echo "gender: $member_values[2] <br>";
 						
 					echo '<div class="window" style="top: '. $y .'%; left: '. $x .'%" id="container0">  
-				
-							
-							
-							<div>'. $memberID . '</div>
+							<div>'. $member_values[0] . '</div>
 					</div> ';
+					
+					// <hr noshade size=3 width=300>
+					if ($fatherID <> 0 or $motherID <> 0) {
+						// echo '<div style="top:'. $y+2 .'%; left:'.$x+3 .'%; position: absolute;" >
+							
+							// <hr noshade width=1 size=500/>
+						// </div>';
+						
+						
+						// vertical line
+						
+						echo '<div style="top:'. ($y+2) .'%; left:'. ($x+6) .'%; position: absolute;">  
+							<hr noshade width=1 size=50 />
+						</div> ';
+
+					}
 					
 					
 				}
