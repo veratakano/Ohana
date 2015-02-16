@@ -95,9 +95,10 @@
 						
 						
 						// vertical line
+						//<hr noshade width=1 size=50 />
 						
 						echo '<div style="top:'. ($y+2) .'%; left:'. ($x+6) .'%; position: absolute;">  
-							<hr noshade width=1 size=50 />
+							<div style="width: 1px; height: 50px; background-color: grey;"></div>
 						</div> ';
 
 					}
