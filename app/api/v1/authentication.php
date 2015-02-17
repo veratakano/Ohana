@@ -5,8 +5,9 @@
     //get posted json object
     $post = file_get_contents('php://input');
     $r = json_decode($post);
+    $response = array();
 
-
+    try {
         $email = $r->user->email;
         $pwd = $r->user->password;
         if(!empty($pwd)){
@@ -17,10 +18,8 @@
         }
         $fbid = $r->user->fbID;
         $fbid = !empty($fbid) ? "'$fbid'" : "NULL";
-
         $db = new DbHandler();
         $result = $db->getResult("CALL SP_GetLogin('$email', $pwd, $fbid)");
-        $response = array();
         $user = $result;
         if($user != NULL) {
             $response['status'] = "success";
@@ -39,9 +38,11 @@
             $response['status'] = "error";
             $response['message'] = "Email or Password was not entered correctly.";      
         }
-
+    } catch (Exception $e) {
+        $response['status'] = "error";
+        $response['message'] = $e->getMessage();
+    }
         echo json_encode($response);        
-    
 
 ?>
 

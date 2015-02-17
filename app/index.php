@@ -10,7 +10,7 @@
     
     <!-- Bootstrap and CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap_custom.css" rel="stylesheet">
     <link href="css/ngDialog.min.css" rel="stylesheet">
     <link href="css/ngDialog.min.css" rel="stylesheet">
@@ -36,6 +36,8 @@
   <script type="text/javascript" src="scripts/angular.min.js"></script>
   <script type="text/javascript" src="scripts/angular-route.min.js"></script>
 
+   <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+
   <script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
   <script type="text/javascript" src="scripts/jquery.jsPlumb-1.7.2-min.js"></script>
   <script type="text/javascript" src="scripts/jssor.js"></script>
@@ -47,6 +49,7 @@
   <script type="text/javascript" src="scripts/markerclusterer_compiled.js"></script>
 
   <script type="text/javascript" src="scripts/ngDialog.min.js"></script>
+  <script type="text/javascript" src="scripts/angular-file-upload.min.js"></script>
 
   <script type="text/javascript" src="js/app.js"></script>
 

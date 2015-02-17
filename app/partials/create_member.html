@@ -1,0 +1,100 @@
+	<!-- Create Member -->
+	<div class="container create-member" ng-init="tab=1">
+		<h2>Create Memeber</h2>
+		<br>
+		<div class="row">
+			<div class="col-md-3" style="height: 425px; padding-right:0;">
+				<div class="wizard-nav-container" style="height: 360px;">
+					<div class="list-group">
+					  <a class="list-group-item" ng-class="{active:tab == 1}" ng-click="tab = 1" style="line-height: 40px;">
+					  	<i class="fa fa fa-chevron-right" style="float: right; margin-right: -6px; margin-top: 12px;"></i>
+						<i class="fa fa-user-plus"></i>&nbsp;&nbsp;Create Parents
+					  </a>
+					  <a class="list-group-item" ng-class="{active:tab == 2}" ng-click="tab = 2" style="line-height: 40px;">
+					  	<i class="fa fa fa-chevron-right" style="float: right; margin-right: -6px; margin-top: 12px;"></i>
+						<i class="fa fa-user-plus"></i>&nbsp;&nbsp;Create Siblings
+					  </a>
+					  <a class="list-group-item" ng-class="{active:tab == 3}" ng-click="tab = 3" style="line-height: 40px;">
+					  	<i class="fa fa fa-chevron-right" style="float: right; margin-right: -6px; margin-top: 12px;"></i>
+						<i class="fa fa-user-plus"></i>&nbsp;&nbsp;Create Spouse
+					  </a>
+					  <a class="list-group-item" ng-class="{active:tab == 4}" ng-click="tab = 4" style="line-height: 40px;">
+					  	<i class="fa fa fa-chevron-right" style="float: right; margin-right: -6px; margin-top: 12px;"></i>
+						<i class="fa fa-user-plus"></i>&nbsp;&nbsp;Create Spawn
+					  </a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 1">
+				<form name="frmAddParent" class="center-block" ng-submit="addParent(credentials)" style="width:500px;">
+					<div class="form-group">
+						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Father: </h3>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="credentials.fFirstName" autofocus/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="credentials.fLastName"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtCountryOfBirth" placeholder="Country of Birth"  required ng-model="credentials.fCOB"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth"  required ng-model="credentials.fDOB"/>
+					</div>
+					<div class="checkbox">
+						<label>
+						  <input type="checkbox"> Alive
+						</label>
+					</div>
+					<div class="form-group">
+						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Mother: </h3>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="credentials.mFirstName"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name" required ng-model="credentials.mLastName"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtCountryOfBirth" placeholder="Country of Birth" required ng-model="credentials.mCOB"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" required ng-model="credentials.mDOB"/>
+					</div>
+					<div class="checkbox">
+					<label>
+						  <input type="checkbox"> Alive
+					</label>
+					</div>
+					<button type="button" class="btn btn-primary pull-right" type="submit">Add Parent</button>
+				</form>
+			</div>
+			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 2">
+				<form name="frmAddSpouse" class="center-block" ng-submit="addSpouse(credentials)" style="width:500px;">
+					<div class="form-group">
+						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Spouse: </h3>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="credentials.fName" autofocus/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="credentials.lName"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtCountryOfBirth" placeholder="Country of Birth"  required ng-model="credentials.COB"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth"  required ng-model="credentials.DOB"/>
+					</div>
+					<div class="checkbox">
+					<label>
+						  <input type="checkbox"> Alive
+					</label>
+					</div>
+					<button ype="button"  class="btn btn-primary pull-right" type="submit">Add Spouse</button> 
+				</form>
+			</div>
+		</div>
+		<div class="spacer"></div>
+	</div>

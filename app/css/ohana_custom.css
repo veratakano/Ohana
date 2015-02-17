@@ -103,7 +103,12 @@
     border: 1px solid #ccc;
 }
 
+/* Create Member */
+.create-member .spacer {margin-top: 50px;}
+
 /* Profile */
+
+.gal img{margin: 21px;}
 
 .profile-img {
   width: 140px;
@@ -125,4 +130,61 @@
     height:250px;
 }
 
+.upload-gal .drop-box {
+    background: none repeat scroll 0 0 #f8f8f8;
+    border: 5px dashed #ddd;
+    float: left;
+    height: 100px;
+    margin-left: 20px;
+    padding-top: 25px;
+    text-align: center;
+    width: 200px;
+    cursor: pointer;
+}
+
+.response {margin-top: 20px;}
+
+.center-cropped {
+  margin: 5px;
+  width: 100px;
+  height: 100px;
+  overflow:hidden;
+  position: relative;
+}
+
+.center-cropped img {
+  height: 100%;
+  min-width: 100%;
+  left: 50%;
+  position: relative;
+  transform: translateX(-50%);
+}
+
+.center-cropped .tn_overlay{
+  display: none;
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100px;
+  height: 100px;
+  background: #666666;
+  opacity: 0.5;
+}
+
+.center-cropped .ico {
+  display: none;
+  color:#ffffff;
+  position: absolute;
+  top:30%;
+  left:32%;
+  cursor: pointer;
+}
+
+.center-cropped:hover .tn_overlay{
+  display: block;
+}
+
+.center-cropped:hover .ico{
+  display: block;
+}
 

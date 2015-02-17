@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('ohanaApp', ['ngRoute','ngDialog']);
+var app = angular.module('ohanaApp', ['ngRoute','ngDialog','ngFileUpload']);
 
 app.config(['$routeProvider', 'ngDialogProvider', 
   function ($routeProvider, ngDialogProvider) {
@@ -33,6 +33,11 @@ app.config(['$routeProvider', 'ngDialogProvider',
              title: 'Profile',
              templateUrl: 'partials/profile.html',
              controller: 'profileCtrl'
+        }).
+        when('/create_member/:memID', {
+             title: 'Create Member',
+             templateUrl: 'partials/create_member.html',
+             controller: 'insertionCtrl'
         }).
 		when('/create_parent', {
              title: 'Create Member',
@@ -114,9 +119,9 @@ app.run(function($rootScope, $location, $window, fbService, sessionService, tree
     }(document, 'script', 'facebook-jssdk'));
 
         
-        $rootScope.fblogout = function(){
+    $rootScope.fblogout = function(){
             fbService.logout();
-        }
+    }
 
    //global variable
    $rootScope.apiVersion = 'api/v1/';

@@ -1,7 +1,15 @@
 'use strict';
 
 app.controller('insertionCtrl',['$location', '$scope', '$rootScope', 'memberService', function ($location, $scope, $rootScope, memberService) {
-	alert("here");
+	//alert("here");
+
+	$scope.currentForm = 'form.parent';
+
+	$scope.selFrom = function (tab) {
+        $scope.currentTab = tab.id;
+    }
+
+
    $scope.addParent=function(credentials){
 	   //alert(credentials);
 	   memberService.addParent(credentials);

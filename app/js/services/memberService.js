@@ -13,6 +13,18 @@ app.factory('memberService', ['$http','$rootScope', function($http,$rootScope){
 				});
 				return promise;		   
 		},
+		memberGetGal: function(memberID){
+			var promise = $http.post(
+	      		$rootScope.apiVersion + 'getMemberGal.php', 
+	      		{
+	      			member:memberID
+	      		}
+	    		).then(function(output){
+	    			return output.data;
+				});
+
+				return promise;		   
+		},
 		addParent:function(credentials){
 
 			var promise = $http.post(
