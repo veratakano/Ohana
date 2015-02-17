@@ -68,5 +68,6 @@
   <script type="text/javascript" src="js/services/treeService.js"></script>
   <script type="text/javascript" src="js/services/fbService.js"></script>
   <script type="text/javascript" src="js/services/memberService.js"></script>
+  <script type="text/javascript" src="js/services/emailService.js"></script>
  
 </html>

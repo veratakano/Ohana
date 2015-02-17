@@ -42,7 +42,23 @@ app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','logi
 }])
 
 // Open Popup Controller
-app.controller('dialogCtrl', ['$scope', '$location', 'ngDialog', function($scope,$location,ngDialog){
+app.controller('dialogCtrl', ['$scope','memberService','emailService', function($scope,memberService,emailService){
+
+  memberService.memberGet($scope.ngDialogData.id).then(function(data) {
+    $scope.id = data.memberID; 
+    $scope.tree = data.treeID;
+    $scope.fullName = data.firstName + " " + data.lastName;
+    $scope.dob = data.dateOfBirth;
+    $scope.gender = data.gender;
+    $scope.email = data.email;
+    $scope.born = data.countryOfBirth;
+    //$scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.id;
+  });
+
+  $scope.sendInvite = function(){
+    
+  }
+            
            /* $scope.openEdit = function(){
                ngDialog.close();
                ngDialog.open({
