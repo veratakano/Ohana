@@ -79,10 +79,12 @@
 					
 					
 					$member_values = $member_array[$memberID];
+
+					//var_dump($member_values);
 					
 					//echo "gender: $member_values[2] <br>";
 						
-					echo '<div class="window" style="top: '. $y .'%; left: '. $x .'%" id="container0">  
+					echo '<div class="window" style="top: '. $y .'%; left: '. $x .'%" id="container0" ng-click="openDialog('. $memberID . ')">  
 							<div>'. $member_values[0] . '</div>
 					</div> ';
 					
