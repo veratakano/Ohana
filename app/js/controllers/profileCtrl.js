@@ -1,7 +1,8 @@
 
 'use strict';
 
-app.controller('profileCtrl', ['$rootScope','$scope', '$routeParams','ngDialog', 'memberService', function($rootScope, $scope, $routeParams, ngDialog,memberService) {
+app.controller('profileCtrl', ['$rootScope','$scope', '$routeParams','ngDialog', 'memberService', 
+	function($rootScope, $scope, $routeParams, ngDialog,memberService) {
 
 	$scope.params = $routeParams;
 

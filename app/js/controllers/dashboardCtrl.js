@@ -1,7 +1,8 @@
 
 'use strict';
 
-app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','loginService','treeService', function($rootScope,$scope,$route,ngDialog,loginService,treeService){
+app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','loginService','treeService', 
+  function($rootScope,$scope,$route,ngDialog,loginService,treeService){
 	
 	$scope.logout=function(){
 		loginService.logout();
@@ -45,18 +46,19 @@ app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','logi
 app.controller('dialogCtrl', ['$scope','memberService','emailService', function($scope,memberService,emailService){
 
   memberService.memberGet($scope.ngDialogData.id).then(function(data) {
-    $scope.id = data.memberID; 
-    $scope.tree = data.treeID;
-    $scope.fullName = data.firstName + " " + data.lastName;
-    $scope.dob = data.dateOfBirth;
-    $scope.gender = data.gender;
-    $scope.email = data.email;
-    $scope.born = data.countryOfBirth;
-    //$scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.id;
+    $scope.member = data;
   });
 
   $scope.sendInvite = function(){
-    
+    $scope.loading = true;
+    emailService.inviteSend($scope.member).then(function(data) {
+      $scope.message = data.message;
+    }, function ( response ) {
+    // TODO: handle the error somehow
+    }).finally(function() {
+    // called no matter success or failure
+      $scope.loading = false;
+    });
   }
             
            /* $scope.openEdit = function(){

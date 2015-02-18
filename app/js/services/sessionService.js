@@ -1,6 +1,7 @@
 'use strict';
 
-app.factory('sessionService', ['$http','$rootScope', function($http, $rootScope){
+app.factory('sessionService', ['$http','$rootScope', 
+	function($http, $rootScope){
 	return{
 		set:function(key,value){
 			return sessionStorage.setItem(key,value);

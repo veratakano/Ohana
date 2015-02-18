@@ -1,12 +1,13 @@
 'use strict';
 
-app.factory('emailService', ['$http','$rootScope', function($http,$rootScope){
+app.factory('emailService', ['$http','$rootScope', 
+	function($http,$rootScope){
 	return{
-		inviteSend:function(emailadd){
+		inviteSend:function(member){
 			var promise = $http.post(
-	      		$rootScope.apiVersion + 'sendInvite.php', 
+	      		$rootScope.apiVersion + 'gmail_test.php', 
 	      		{
-	      			email:emailadd
+	      			member:member
 	      		}
 	    		).then(function(output){
 	    			return output.data;

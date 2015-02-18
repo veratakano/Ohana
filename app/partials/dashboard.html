@@ -29,9 +29,10 @@
 
 <script type="text/ng-template" id="userDialogId">
 		<div class="ngdialog-message">
-			<p>ID: <code>{{fullName}}</code></p>
+			<p>ID: <code>{{member.firstName}}&nbsp;{{member.lastName}}</code></p>
 		</div>
-		<button class="btn btn-default" ng-click="sendInvite()">Send Invite</button>
+		<button class="btn btn-default" ng-click="sendInvite()">Send Invite&nbsp;&nbsp;<i class="fa fa-circle-o-notch fa-spin" ng-show="loading"></i></button>
+		<div>{{message}}</div>
 	</script>
 
 	<!-- edit forms for profile 

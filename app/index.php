@@ -36,6 +36,8 @@
   <script type="text/javascript" src="scripts/angular.min.js"></script>
   <script type="text/javascript" src="scripts/angular-route.min.js"></script>
 
+  <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+
    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
 
   <script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
@@ -59,6 +61,7 @@
   <script type="text/javascript" src="js/controllers/dashboardCtrl.js"></script>
   <script type="text/javascript" src="js/controllers/profileCtrl.js"></script>
   <script type="text/javascript" src="js/controllers/insertionCtrl.js"></script>
+  <script type="text/javascript" src="js/controllers/inviteCtrl.js"></script>
   
   <script type="text/javascript" src="js/directives/nodesRepeatDrc.js"></script>
   <script type="text/javascript" src="js/directives/mapDrc.js"></script>

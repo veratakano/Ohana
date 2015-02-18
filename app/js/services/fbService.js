@@ -1,6 +1,7 @@
 'use strict';
 
-app.factory('fbService', ['$location','$window', '$rootScope', 'sessionService','loginService', function($location, $window, $rootScope, sessionService,loginService){
+app.factory('fbService', ['$location','$window', '$rootScope', 'sessionService','loginService', 
+	function($location, $window, $rootScope, sessionService,loginService){
 	return{
 		login:function(scope){
 			FB.login(function(response) {

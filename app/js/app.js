@@ -39,6 +39,11 @@ app.config(['$routeProvider', 'ngDialogProvider',
              templateUrl: 'partials/create_member.html',
              controller: 'insertionCtrl'
         }).
+        when('/invite', {
+             title: 'Invite Member',
+             templateUrl: 'partials/invite.html',
+             controller: 'inviteCtrl'
+        }).
 		when('/create_parent', {
              title: 'Create Member',
              templateUrl: 'partials/create_parent.html',

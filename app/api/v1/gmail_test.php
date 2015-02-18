@@ -12,6 +12,15 @@ require '../PHPMailer/PHPMailerAutoload.php';
 //Create a new PHPMailer instance
 $mail = new PHPMailer;
 
+$post = file_get_contents('php://input');
+$r = json_decode($post);
+$rEmail = $r->member->email;
+$rFullName = $r->member->firstName . ' ' . $r->member->lastName;
+$rID = $r->member->memberID;
+$rTreeID = $r->member->treeID;
+
+$response = array();
+
 //Tell PHPMailer to use SMTP
 $mail->isSMTP();
 
@@ -19,7 +28,7 @@ $mail->isSMTP();
 // 0 = off (for production use)
 // 1 = client messages
 // 2 = client and server messages
-$mail->SMTPDebug = 2;
+$mail->SMTPDebug = 0;
 
 //Ask for HTML-friendly debug output
 $mail->Debugoutput = 'html';
@@ -49,14 +58,21 @@ $mail->setFrom('no.reply.ohana@gmail.com', 'Ohana');
 //$mail->addReplyTo('replyto@example.com', 'First Last');
 
 //Set who the message is to be sent to
-$mail->addAddress('vera.aung@gmail.com', 'Vera Aung');
+$mail->addAddress($rEmail, $rFullName);
 
 //Set the subject line
 $mail->Subject = 'PHPMailer GMail SMTP test';
 
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
-$mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
+$url = "http://$_SERVER[HTTP_HOST]/~oushiwei/ohana/app/#/invite?mID=" . $rID . "&tID=" . $rTreeID;
+
+$message = file_get_contents('../mail_templates/contents.html');
+$message = str_replace('%memberfullname%', $rFullName, $message);
+$message = str_replace('%inviteURL%', $url, $message);
+
+
+$mail->msgHTML($message);
 
 //Replace the plain text body with one created manually
 $mail->AltBody = 'This is a plain-text message body';
@@ -66,7 +82,13 @@ $mail->addAttachment('images/phpmailer_mini.png');
 
 //send the message, check for errors
 if (!$mail->send()) {
-    echo "Mailer Error: " . $mail->ErrorInfo;
+	$response['status'] = "error";
+    $response['message'] = "Mailer Error: " . $mail->ErrorInfo;
 } else {
-    echo "Message sent!";
-}
+    $response['status'] = "success";
+    $response['message'] = "Message sent!";
+}	
+
+ echo json_encode($response);
+
+?>

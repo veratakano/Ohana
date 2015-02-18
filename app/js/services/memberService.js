@@ -1,6 +1,7 @@
 'use strict';
 
-app.factory('memberService', ['$http','$rootScope', function($http,$rootScope){
+app.factory('memberService', ['$http','$rootScope', 
+	function($http,$rootScope){
 	return{
 		memberGet:function(memberID){
 			var promise = $http.post(

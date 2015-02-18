@@ -1,6 +1,7 @@
 'use strict';
 
-app.controller('insertionCtrl',['$location', '$scope', '$rootScope', 'memberService', function ($location, $scope, $rootScope, memberService) {
+app.controller('insertionCtrl',['$location', '$scope', '$rootScope', 'memberService', 
+	function ($location, $scope, $rootScope, memberService) {
 	//alert("here");
 
 	$scope.currentForm = 'form.parent';

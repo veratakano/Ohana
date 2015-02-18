@@ -1,10 +1,9 @@
 
 'use strict';
 
-app.controller('authCtrl',['$location', '$scope', '$rootScope', 'loginService','fbService','sessionService', function ($location, $scope, $rootScope, loginService, fbService, sessionService) {
+app.controller('authCtrl',['$location', '$scope', '$rootScope', 'loginService','fbService','sessionService', 
+  function ($location, $scope, $rootScope, loginService, fbService, sessionService) {
 
-  $scope.msgtxt='';
-  
   $scope.login=function(credentials){
 
     loginService.login(credentials).then(function(data) {

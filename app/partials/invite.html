@@ -1,0 +1,13 @@
+
+<div class="container-fluid invite">
+	<div class="jumbotron text-center" ng-hide="member != null">
+  		<h1>Hello, There!</h1>
+  		<p>You've been invited by {{}} to join a family tree. Login to start </p>
+  		<p><a class="btn btn-primary btn-lg" href="#" role="button">Login</a></p>
+	</div>
+	<div class="jumbotron text-center" ng-show="member != null">
+  		<h1>Hello, {{member.firstName}} {{member.lastName}}!</h1>
+  		<p>You've been invited by {{}} to join a family tree. Login to start </p>
+  		<p><a class="btn btn-primary btn-lg" href="#" role="button">Login</a></p>
+	</div>
+</div>
