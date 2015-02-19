@@ -105,14 +105,14 @@
 			$coor_values = array();
 			$member_values = array();
 			
-			
+			// array used for display
 			$display_array = array();
 			
 			$count = 0;
 			$father_id = 0;
 			$mother_id = 0;
-			$father_x = 0;
-		
+			
+			// initial and last x
 			$x0 = 0;
 			$x1 = 0;
 			
@@ -153,17 +153,14 @@
 						
 						$father_id = $fatherID;
 						$mother_id = $motherID;
-						$count = $count + 1;
-						
-					}
-					
+						$count = $count + 1;						
+					}					
 					$x1 = $x;
-					
-					
+										
 					$display_array[$count] = array($x0, $x1, $y);
 				}
 				
-				echo "$count + > $fatherID: (x0,x1) ($x0 , $x1 & $y)<br>";
+				// echo "$count + > $fatherID: (x0,x1) ($x0 , $x1 & $y)<br>";
 				
 				if (array_key_exists($memberID, $relation_array)) {
 					if ($fatherID != 0 and $motherID != 0)
@@ -211,7 +208,7 @@
 				$generation_count = ($display_values[1] - $display_values[0])/20;
 				if ($generation_count > 0) {
 							
-					echo "Display: $display_values[0], $display_values[1], $display_values[2] <br> gc: $generation_count<br>";
+					// echo "Display: $display_values[0], $display_values[1], $display_values[2] <br> gc: $generation_count<br>";
 					// horizontal line for kids
 					echo '<div style="top:'. (($display_values[2]-3)*7) .'px; left:'. (($display_values[0]+2) *7) .'px; position: absolute;">  
 						<div style="width:'. ( ($display_values[1] - $display_values[0])*7) .'px; height: 1.5px; background-color: grey;"></div>
