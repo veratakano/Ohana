@@ -13,7 +13,19 @@ app.factory('treeService', ['$http','$location', '$rootScope', 'sessionService',
 	    			return output.data;
 				});
 
-				return promise;	
+			return promise;	
+		},
+		getTreeOwner:function(treeID){
+			var promise = $http.post(
+	      		$rootScope.apiVersion + 'getTreeOwner.php', 
+	      		{
+	      			treeID:treeID
+	      		}
+	    		).then(function(output){
+	    			return output.data;
+				});
+
+			return promise;	
 		}
 	};
 }])

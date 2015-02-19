@@ -10,14 +10,14 @@
         $memberID = $r->member;
 
         $db = new DbHandler();
-        $result = $db->getResult("CALL SP_GetMember('$memberID')");
+        $result = $db->getResult("CALL SP_GetMemberUser('$memberID')");
         $response = array();
         $member = $result;
         if($user['member'] != 1) {
             $response = $member;
         }else{
             $response['status'] = "error";
-            $response['message'] = "Member does not exsit.";      
+            $response['message'] = "Member is not a user.";      
         }
 
         echo json_encode($response);

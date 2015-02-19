@@ -43,7 +43,7 @@ app.controller('dashboardCtrl', ['$rootScope','$scope','$route','ngDialog','logi
 }])
 
 // Open Popup Controller
-app.controller('dialogCtrl', ['$scope','memberService','emailService', function($scope,memberService,emailService){
+app.controller('dialogCtrl', ['$scope','memberService','inviteService', function($scope,memberService,inviteService){
 
   memberService.memberGet($scope.ngDialogData.id).then(function(data) {
     $scope.member = data;
@@ -51,7 +51,7 @@ app.controller('dialogCtrl', ['$scope','memberService','emailService', function(
 
   $scope.sendInvite = function(){
     $scope.loading = true;
-    emailService.inviteSend($scope.member).then(function(data) {
+    inviteService.inviteSend($scope.member).then(function(data) {
       $scope.message = data.message;
     }, function ( response ) {
     // TODO: handle the error somehow

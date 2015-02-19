@@ -26,6 +26,18 @@ app.factory('memberService', ['$http','$rootScope',
 
 				return promise;		   
 		},
+		memberIsUser: function(memberID){
+			var promise = $http.post(
+	      		$rootScope.apiVersion + 'getMemberUser.php', 
+	      		{
+	      			member:memberID
+	      		}
+	    		).then(function(output){
+	    			return output.data;
+				});
+
+				return promise;		  
+		},
 		addParent:function(credentials){
 
 			var promise = $http.post(

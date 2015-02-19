@@ -3,7 +3,7 @@
 app.factory('fbService', ['$location','$window', '$rootScope', 'sessionService','loginService', 
 	function($location, $window, $rootScope, sessionService,loginService){
 	return{
-		login:function(scope){
+		login:function(scope,inviteparams){
 			FB.login(function(response) {
    				 if (response.status === 'connected') {
    				 	$rootScope.$apply(function() {
@@ -25,7 +25,19 @@ app.factory('fbService', ['$location','$window', '$rootScope', 'sessionService',
 							        $location.path('dashboard');
 							      }        
 							      else  {
-							        loginService.signup(credentials,scope);
+							        loginService.signup(credentials,inviteparams).then(function(data) {
+										var obj = angular.fromJson(data);
+								        if(obj.status == "success"){
+								            sessionService.set('unqid',obj.unqid);
+								            sessionService.set('uid',obj.uid);
+								            sessionService.set('email',obj.email);
+								            sessionService.set('treeid',obj.treeid);
+								            $location.path('dashboard');
+								          }        
+								        else  {
+							            	scope.message = obj.message;
+								        }
+								    });
 							      }
 							    });
 							}

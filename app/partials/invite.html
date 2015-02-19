@@ -1,13 +1,36 @@
 
 <div class="container-fluid invite">
-	<div class="jumbotron text-center" ng-hide="member != null">
-  		<h1>Hello, There!</h1>
-  		<p>You've been invited by {{}} to join a family tree. Login to start </p>
-  		<p><a class="btn btn-primary btn-lg" href="#" role="button">Login</a></p>
-	</div>
-	<div class="jumbotron text-center" ng-show="member != null">
-  		<h1>Hello, {{member.firstName}} {{member.lastName}}!</h1>
-  		<p>You've been invited by {{}} to join a family tree. Login to start </p>
-  		<p><a class="btn btn-primary btn-lg" href="#" role="button">Login</a></p>
+	<div class="jumbotron text-center">
+      <div ng-show="loadingView">
+        <div ng-if="newUser == true">
+          <h1>Hello There!</h1>
+            <p>You've been invited by {{owner.firstName}} {{owner.lastName}} to join a family tree.
+            <br />Signup now to start your contribution to the growing community!</p>
+            <br />
+            <a class="btn btn-primary btn-lg" role="button" ng-click="inviteSignUp()">Signup</a>&nbsp;
+            <a class="btn btn-default btn-lg" href="#/login" role="button">Reject</a>
+        </div>
+        <div ng-if="newUser != true">
+          <h1>Hello, {{member.firstName}} {{member.lastName}}!</h1>
+          <br />
+          <p>You've been invited by {{owner.firstName}} {{owner.lastName}} to join a family tree.
+          <br /><span ng-if="memberisUser !== 'null'" >Accept</span><span ng-if="memberisUser === 'null'">Signup</span> now to start your contribution to the growing community!</p>
+          <br />
+          <p>
+            <a ng-if="memberisUser === 'null'" class="btn btn-primary btn-lg" role="button" ng-click="inviteSignUp()">Signup</a> 
+            <a ng-if="memberisUser !== 'null' && member !== 'null'" class="btn btn-primary btn-lg" role="button" ng-click="inviteAccept()">Accept<span ng-show="aloading">&nbsp;<i class="fa fa-circle-o-notch fa-spin"></i></span></a>
+            &nbsp;
+            <a class="btn btn-default btn-lg" ng-click="inviteReject()" role="button">
+              Reject
+                <span ng-show="rloading">&nbsp;<i class="fa fa-circle-o-notch fa-spin"></i></span>
+            </a>
+          </p>
+          <br />
+            <div style="margin: 0 auto; width:450px;">
+              <div class="alert alert-success" role="alert" ng-show="success">Invitation rejected. Click <a href="#" class="alert-link">here</a> to return to the login page.</div>
+              <div class="alert alert-danger" role="alert" ng-show="error">{{error}}</div>
+            </div>  
+        </div>
+      </div>
 	</div>
 </div>

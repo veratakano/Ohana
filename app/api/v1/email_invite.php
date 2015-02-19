@@ -1,11 +1,10 @@
 <?php
-/**
- * This example shows settings to use when sending via Google's Gmail servers.
- */
 
 //SMTP needs accurate times, and the PHP time zone MUST be set
 //This should be done in your php.ini, but this is how to do it if you don't have access to that
 date_default_timezone_set('Etc/UTC');
+
+require_once 'dbHandler.php';
 
 require '../PHPMailer/PHPMailerAutoload.php';
 
@@ -54,9 +53,6 @@ $mail->Password = "ohanaPw1";
 //Set who the message is to be sent from
 $mail->setFrom('no.reply.ohana@gmail.com', 'Ohana');
 
-//Set an alternative reply-to address
-//$mail->addReplyTo('replyto@example.com', 'First Last');
-
 //Set who the message is to be sent to
 $mail->addAddress($rEmail, $rFullName);
 
@@ -65,12 +61,11 @@ $mail->Subject = 'PHPMailer GMail SMTP test';
 
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
-$url = "http://$_SERVER[HTTP_HOST]/~oushiwei/ohana/app/#/invite?mID=" . $rID . "&tID=" . $rTreeID;
+$url = "http://$_SERVER[HTTP_HOST]/~oushiwei/ohana/app/#/invite?mid=" . $rID . "&tid=" . $rTreeID;
 
 $message = file_get_contents('../mail_templates/contents.html');
 $message = str_replace('%memberfullname%', $rFullName, $message);
 $message = str_replace('%inviteURL%', $url, $message);
-
 
 $mail->msgHTML($message);
 
@@ -85,10 +80,29 @@ if (!$mail->send()) {
 	$response['status'] = "error";
     $response['message'] = "Mailer Error: " . $mail->ErrorInfo;
 } else {
-    $response['status'] = "success";
-    $response['message'] = "Message sent!";
+	if(updateInviteStatus($rID,'pending')){
+		$response['status'] = "success";
+    	$response['message'] = "Message sent!";
+    } else {
+    	$response['status'] = "error";
+    	$response['message'] = "Error updating member's invite status";
+    }
 }	
 
  echo json_encode($response);
+
+ function updateInviteStatus($memberID,$status)
+    {
+        $db = new DbHandler();
+        $result = $db->getResult("CALL SP_UpdateInviteStatus('$memberID','$status')");
+        $response = array();
+        $member = $result;
+        if($result['status'] == 0) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 ?>

@@ -37,7 +37,10 @@
 						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="credentials.fLastName"/>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="txtCountryOfBirth" placeholder="Country of Birth"  required ng-model="credentials.fCOB"/>
+						<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="credentials.fPOB"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="credentials.fEmail"/>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth"  required ng-model="credentials.fDOB"/>
@@ -57,7 +60,10 @@
 						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name" required ng-model="credentials.mLastName"/>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="txtCountryOfBirth" placeholder="Country of Birth" required ng-model="credentials.mCOB"/>
+						<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete required ng-model="credentials.mPOB"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="credentials.mEmail"/>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" required ng-model="credentials.mDOB"/>
@@ -67,7 +73,7 @@
 						  <input type="checkbox"> Deceased
 					</label>
 					</div>
-					<button type="button" class="btn btn-primary pull-right" type="submit">Add Parent</button>
+					<button class="btn btn-primary pull-right" type="submit">Add Parent</button>
 				</form>
 			</div>
 			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 2">
@@ -77,10 +83,10 @@
 					</div>
 					<div class="form-group">
 						<label class="radio-inline">
-						  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Brother"> Brother
+						  <input type="radio" name="inlineRadioOptions" ng-model="credentials.type.brother" value="Brother"> Brother
 						</label>
 						<label class="radio-inline">
-						  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Sister"> Sister
+						  <input type="radio" name="inlineRadioOptions" ng-model="credentials.type.sister" id="inlineRadio2" value="Sister"> Sister
 						</label>
 					</div>
 					<div class="form-group">
@@ -90,7 +96,10 @@
 						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="credentials.lName"/>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="txtCountryOfBirth" placeholder="Country of Birth"  required ng-model="credentials.COB"/>
+						<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="credentials.POB"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="credentials.email"/>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth"  required ng-model="credentials.DOB"/>
@@ -101,7 +110,7 @@
 					</label>
 					</div>
 
-					<button type="button" class="btn btn-primary pull-right" type="submit">Add Sibling</button> 
+					<button class="btn btn-primary pull-right" type="submit">Add Sibling</button> 
 				</form>
 			</div>
 			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 3">
@@ -116,7 +125,10 @@
 						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="credentials.lName"/>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="txtCountryOfBirth" placeholder="Country of Birth"  required ng-model="credentials.COB"/>
+						<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="credentials.POB"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="credentials.email"/>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth"  required ng-model="credentials.DOB"/>
@@ -126,11 +138,45 @@
 						  <input type="checkbox"> Deceased
 					</label>
 					</div>
-					<button type="button" class="btn btn-primary pull-right" type="submit">Add Spouse</button> 
+					<button class="btn btn-primary pull-right" type="submit">Add Spouse</button> 
 				</form>
 			</div>
 			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 4">
+				<form name="frmAddChildren" class="center-block" ng-submit="addChildren(credentials)" style="width:500px;">
+					<div class="form-group">
+						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Children: </h3>
+					</div>
+					<div class="form-group">
+						<label class="radio-inline">
+						  <input type="radio" name="inlineRadioOptions" ng-model="credentials.type.son" id="inlineRadio1" value="Son"> Son
+						</label>
+						<label class="radio-inline">
+						  <input type="radio" name="inlineRadioOptions" ng-model="credentials.type.daughter" id="inlineRadio2" value="Daughter"> Daughter
+						</label>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="credentials.fName" autofocus/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="credentials.lName"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="credentials.POB"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="credentials.email"/>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth"  required ng-model="credentials.DOB"/>
+					</div>
+					<div class="checkbox">
+					<label>
+						  <input type="checkbox"> Deceased
+					</label>
+					</div>
+					<button class="btn btn-primary pull-right" type="submit">Add Son</button> 
+				</form>
 			</div>
 		</div>
 		<div class="spacer"></div>
-	</div>so
+	</div>

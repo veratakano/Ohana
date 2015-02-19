@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('ohanaApp', ['ngRoute','ngDialog','ngFileUpload']);
+var app = angular.module('ohanaApp', ['ngRoute','ngDialog','ngFileUpload','ngAutocomplete']);
 
 app.config(['$routeProvider', 'ngDialogProvider', 
   function ($routeProvider, ngDialogProvider) {
@@ -43,36 +43,6 @@ app.config(['$routeProvider', 'ngDialogProvider',
              title: 'Invite Member',
              templateUrl: 'partials/invite.html',
              controller: 'inviteCtrl'
-        }).
-		when('/create_parent', {
-             title: 'Create Member',
-             templateUrl: 'partials/create_parent.html',
-             controller: 'insertionCtrl'
-        }).
-		when('/create_brother', {
-             title: 'Create Member',
-             templateUrl: 'partials/create_brother.html',
-             controller: 'insertionCtrl'
-        }).
-		when('/create_sister', {
-             title: 'Create Member',
-             templateUrl: 'partials/create_sister.html',
-             controller: 'insertionCtrl'
-        }).
-		when('/create_daughter', {
-             title: 'Create Member',
-             templateUrl: 'partials/create_daughter.html',
-             controller: 'insertionCtrl'
-        }).
-		when('/create_son', {
-             title: 'Create Member',
-             templateUrl: 'partials/create_son.html',
-             controller: 'insertionCtrl'
-        }).
-		when('/create_spouse', {
-             title: 'Create Member',
-             templateUrl: 'partials/create_spouse.html',
-             controller: 'insertionCtrl'
         }).
 		when('/tree', {
              title: 'Create Member',
@@ -131,20 +101,20 @@ app.run(function($rootScope, $location, $window, fbService, sessionService, tree
    //global variable
    $rootScope.apiVersion = 'api/v1/';
 
-     // $rootScope.$on('$routeChangeStart', function(){
+      $rootScope.$on('$routeChangeStart', function(){
 
         // // jsPlumb.ready(function(){
             // // //detah all connectors
             // // jsPlumb.detachEveryConnection();
         // // });
 
-         // $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
-         // if($location.path() != '/signup'){
-             // if(!sessionService.get('unqid')){
-                 // $location.path('/login');
-             // }
-         // }
-    // });
+          $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
+          if(!($location.path()=='/signup' || $location.path()=='/invite')){ 
+              if(!sessionService.get('unqid')){
+                 $location.path('/login');
+              }
+          }
+     });
 });
 
 

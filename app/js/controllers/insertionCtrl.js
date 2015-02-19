@@ -12,7 +12,7 @@ app.controller('insertionCtrl',['$location', '$scope', '$rootScope', 'memberServ
 
 
    $scope.addParent=function(credentials){
-	   //alert(credentials);
+	   alert(credentials);
 	   memberService.addParent(credentials);
   };
   
@@ -31,6 +31,11 @@ app.controller('insertionCtrl',['$location', '$scope', '$rootScope', 'memberServ
 	   memberService.addSon(credentials);
   };
   
+	$scope.addChildren=function(credentials){
+	   console.log(credentials);
+	   //memberService.addDaughter(credentials);
+  };
+
   $scope.addDaughter=function(credentials){
 	   alert(credentials);
 	   memberService.addDaughter(credentials);

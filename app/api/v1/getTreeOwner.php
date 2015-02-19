@@ -7,18 +7,23 @@
     $r = json_decode($post);
 
 
-        $memberID = $r->member;
+    $treeID = $r->treeID;
 
+    try{
         $db = new DbHandler();
-        $result = $db->getResult("CALL SP_GetMember('$memberID')");
+        $result = $db->getResult("CALL SP_GetTreeOwner('$treeID')");
         $response = array();
         $member = $result;
         if($user['member'] != 1) {
             $response = $member;
         }else{
             $response['status'] = "error";
-            $response['message'] = "Member does not exsit.";      
+            $response['message'] = "Email or Password was not entered correctly.";      
         }
+    } catch (Exception $e) {
+        $response['status'] = "error";
+        $response['message'] = 'Caught exception: ' . $e->getMessage();
+    }
 
-        echo json_encode($response);
+    echo json_encode($response);
 ?>

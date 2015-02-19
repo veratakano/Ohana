@@ -5,43 +5,63 @@
     //get posted json object
     $post = file_get_contents('php://input');
     $r = json_decode($post);
-        
-    $resultUser = createUser($r);
-    
     $response = array();
 
-    if($resultUser !=  NULL) {
-        switch ($resultUser['status']) {
-            case 0:
-                $resultTree = createTree($resultUser['uID']);
-                if($resultTree['status'] == 0){
-                    $response['status'] = 'success';
-                    $response['uID'] = $resultUser['uID'];
-                    $response['email'] = $resultUser['email'];
-                    $response['treeid'] = $resultTree['treeID'];
-                    if (!isset($_SESSION)) {
-                        session_start();
-                        $_SESSION['unqid']=uniqid('ang_');
-                        $_SESSION['uID'] = $resultUser['uID'];
-                        $_SESSION['email'] = $resultUser['email'];
-                        $_SESSION['treeid'] = $resultTree['treeID'];
-                        $response['unqid'] = $_SESSION['unqid'];
-                    }
-                } else{
-                    $response['status'] = "error";
-                    $response['message'] = "An error has occur please contact administrator."; 
-                }
-                break;
-            case 1:
-                $response['status'] = "error";
-                $response['message'] = "An error has occur please contact administrator."; 
-                break;
-            case 2:
-                $response['status'] = "error";
-                $response['message'] = "This email address is already registered."; 
-                break;
+    $inviteTreeID = $r->invite->tid;
+
+    try {
+
+        $resultUser = createUser($r);
+
+        if($resultUser !=  NULL) {
+            switch ($resultUser['status']) {
+                case 0:
+                       if(!!$inviteTreeID){
+                           $resultShare = createShareTree($resultUser['uID'],$inviteTreeID);
+                           if($resultShare['status'] == 0){
+                                $response['status'] = 'success';
+                                $response['uID'] = $resultUser['uID'];
+                                $response['email'] = $resultUser['email'];
+                                $response['treeid'] = $resultTree['treeID'];
+                                if (!isset($_SESSION)) {
+                                    session_start();
+                                    $_SESSION['unqid']=uniqid('ang_');
+                                    $_SESSION['uID'] = $resultUser['uID'];
+                                    $_SESSION['email'] = $resultUser['email'];
+                                    $_SESSION['treeid'] = $resultTree['treeID'];
+                                    $response['unqid'] = $_SESSION['unqid'];
+                                }
+                           } else {
+                                throw new RuntimeException("Error creating share tree"); 
+                           }
+                       } else {
+                            $response['status'] = 'success';
+                            $response['uID'] = $resultUser['uID'];
+                            $response['email'] = $resultUser['email'];
+                            $response['treeid'] = $resultTree['treeID'];
+                            if (!isset($_SESSION)) {
+                                session_start();
+                                $_SESSION['unqid']=uniqid('ang_');
+                                $_SESSION['uID'] = $resultUser['uID'];
+                                $_SESSION['email'] = $resultUser['email'];
+                                $_SESSION['treeid'] = $resultTree['treeID'];
+                                $response['unqid'] = $_SESSION['unqid'];
+                            }
+                        }
+                    break;
+                case 1:
+                    throw new RuntimeException("An error has occur please contact administrator."); 
+                    break;
+                case 2:
+                    throw new RuntimeException("This email address is already registered."); 
+                    break;
+            };
         };
-    };
+
+    } catch (RuntimeException $e) {
+        $response['status'] = "error";
+        $response['message'] = $e->getMessage();
+    }
 
     echo json_encode($response);
 
@@ -64,14 +84,15 @@
 
         $result = $db->getResult("CALL SP_DoRegistration('$fname', '$lname', '$email', $pwd, $fbid)");
         return $result;
+
     };
 
-    function createTree($uid){
+    function createShareTree($memberID,$treeID){
 
         $db = new DbHandler();
-
-        $result = $db->getResult("CALL SP_DoCreateTree('Testing','$uid')");
+        $result = $db->getResult("CALL SP_DoCreateTreeShare('$memberID', '$treeID')");
         return $result;
+
     };
 
 ?>
