@@ -14,7 +14,7 @@ app.controller('authCtrl',['$location','$scope','$rootScope','$routeParams','log
           sessionService.set('unqid',obj.unqid);
           sessionService.set('uid',obj.uid);
           sessionService.set('email',obj.email);
-          sessionService.set('treeID',obj.treeID);
+          sessionService.set('treeid',obj.treeid);
           $location.path('dashboard');
         }        
         else  {
@@ -29,6 +29,7 @@ app.controller('authCtrl',['$location','$scope','$rootScope','$routeParams','log
        loginService.signup(credentials,$scope.params).then(function(data) {
           var obj = angular.fromJson(data);
           if(obj.status == "success"){
+            session_unset();
               sessionService.set('unqid',obj.unqid);
               sessionService.set('uid',obj.uid);
               sessionService.set('email',obj.email);

@@ -1,54 +1,9 @@
-	<!-- dashboard -->
-  
-	<head>  
-  
-    <style>  
-  
-        .window {   
-  
-            background-color: #EEEEEF; 
-			border: 1px solid #346789;    
-            border-radius: 0.5em;    
-            box-shadow: 1px 1px 2px #AAAAAA;    
-            color: black;   
-            height: 4em;   
-            position: absolute;    
-            width: 4em;  			
-			margin: 0 auto; 
-        }  
-		
-		.windowMale {   
-  
-            background-color: #38ACEC; 
-			border: 1px solid #346789;    
-            border-radius: 0.5em;    
-            box-shadow: 1px 1px 2px #AAAAAA;    
-            color: black;   
-            height: 4em;   
-            position: absolute;    
-            width: 4em;  			
-			margin: 0 auto; 
-        }  
-		
-		.windowFemale {   
-  
-            background-color: #FAAFBE; 
-			border: 1px solid #346789;    
-            border-radius: 0.5em;    
-            box-shadow: 1px 1px 2px #AAAAAA;    
-            color: black;   
-            height: 4em;   
-            position: absolute;    
-            width: 4em;  			
-			margin: 0 auto; 
-        }  
-    </style>  
-  
-	</head>  	  
-	<body >  
-	 
-		<?php
-		
+<?php
+
+			session_start();
+			$treeID = $_SESSION['treeid'];
+			echo $treeID;
+
 			$servername = "localhost";
 			$username = "root";
 			$password = "password";
@@ -227,7 +182,4 @@
 				}
 			}
 		
-		?>
-
-	</body>  	  
-	</head>  
+?>
