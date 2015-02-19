@@ -1,0 +1,54 @@
+
+				
+				
+				
+				if ($fatherID <> -1 or $motherID <> -1) {
+					if ($fatherID <> 0 or $motherID <> 0) {
+						
+						$count = $count + 1;
+						
+						// kid's vertical line
+						echo '<div style="top:'. ($y-3) .'%; left:'. ($x+2) .'%; position: absolute;">  
+							<div style="width: 1px; height: 20px; background-color: grey;"></div>
+						</div> ';
+						
+						
+						if($father_id != $fatherID or $mother_id != $motherID) {
+							$father_id = $fatherID;
+							$mother_id = $motherID;
+							$coor_values = $coor_array[$father_id];
+							$father_x = $coor_values[3];
+							
+							// echo "$fatherID < $motherID<br>";
+							// $get_result = $conn->query("CALL `SP_Get_Count` ($fatherID, $motherID);");
+							// $get_row = $get_result->fetch_assoc();
+							// $get_result = null;
+							// $get_row = null;
+					
+								
+							$getID = mysqli_fetch_assoc(mysqli_query($conn, "select ((select count(*) from coordinates where fatherID = $fatherID and motherID = $motherID) +
+																			(select count(*) from coordinates where fatherID = $fatherID and motherID = $motherID 
+																			and spouseID <> 0)) as generation_count;"));
+							$generation_count = $getID['generation_count'];
+							
+							echo "father_x $father_x n id $father_id gc: $generation_count<br>";
+							
+							// spouse horizontal line
+							echo '<div style="top:'. ($y-3) .'%; left:'. ($father_x+2) .'%; position: absolute;">  
+								<div style="width:'. (256*($generation_count-1)) .'px; height: 1px; background-color: grey;"></div>
+							</div> ';
+							
+							if ($generation_count == 1)
+								// vertical line between parent and kid
+								echo '<div style="top:'. ($y+12) .'%; left:'. ($father_x+2) .'%; position: absolute;">  
+									<div style="width: 1px; height: 20px; background-color: grey;"></div>
+								</div> ';
+							else	
+								// vertical line between parent and kid
+								echo '<div style="top:'. ($y+12) .'%; left:'. ($father_x+6) .'%; position: absolute;">  
+									<div style="width: 1px; height: 20px; background-color: grey;"></div>
+								</div> ';
+							
+						}
+					}	
+				}
