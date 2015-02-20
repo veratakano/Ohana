@@ -9,8 +9,8 @@
 
     try {
         $email = $r->user->email;
-        if(!empty($r->user->password;)){
-            $pwd = md5($r->user->password;);
+        if(!empty($r->user->password)){
+            $pwd = md5($r->user->password);
             $pwd = "'$pwd'";
         }else{
             $pwd = "NULL";
