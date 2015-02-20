@@ -4,6 +4,11 @@
 			$treeID = $_SESSION['treeid'];
 			echo $treeID;
 
+			//********* edit
+			
+			$treeID = 1;
+			
+			
 			$servername = "localhost";
 			$username = "root";
 			$password = "password";
@@ -17,7 +22,7 @@
 			} 
 			
 			//retrieve coordinates
-			$sql = "select * from coordinates;";
+			$sql = "select * from coordinates where TreeID = $treeID;";
 					
 			$result = $conn->query($sql);
 				
@@ -29,7 +34,7 @@
 			}
 			
 			//retrieve relation
-			$sql = "select * from Relation;";
+			$sql = "select * from Relation where TreeID = $treeID;";
 					
 			$result = $conn->query($sql);
 				
@@ -41,7 +46,7 @@
 			}
 			
 			//retrieve member
-			$sql = "select * from member;";
+			$sql = "select * from member where TreeID = $treeID;";
 					
 			$result = $conn->query($sql);
 				
@@ -54,7 +59,7 @@
 				
 				
 			// display
-			$sql = "select * from coordinates order by fatherID, y, x;";	
+			$sql = "select * from coordinates where TreeID = $treeID order by fatherID, y, x;";	
 			$result = $conn->query($sql);
 			
 			$coor_values = array();
@@ -76,23 +81,28 @@
 					
 				$member_values = $member_array[$memberID];
 				
+				IF (is_null($member_values[0])) 
+					$name = "$memberID Undefined";
+				else
+					$name = "$memberID $member_values[0] $member_values[1]";
+				
 				/** colour **/
 				if($member_values[3] != 0) {
 					if($member_values[2] == 'M') 
 						// change colour of males
 						echo '<div class="windowMale" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
-							<div>'. $memberID . '</div>
+							<div>'. $name . '</div>
 						</div> ';
 					else 
 						// change colours of females
 						echo '<div class="windowFemale" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
-							<div>'. $memberID . '</div>
+							<div>'. $name . '</div>
 						</div> ';					
 				}
 				else {
 					// change colour of passed-away
 					echo '<div class="window" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
-						<div>'. $memberID . '</div>
+						<div>'. $name . '</div>
 					</div> ';
 				}
 					//$member_values[0]

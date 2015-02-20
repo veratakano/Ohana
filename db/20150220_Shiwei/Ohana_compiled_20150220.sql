@@ -31,6 +31,8 @@ CREATE TABLE `Coordinates` (
   `spouseID` int(11) DEFAULT NULL,
   `x` int(11) DEFAULT NULL,
   `y` int(11) DEFAULT NULL,
+  `treeID` int(11) DEFAULT NULL,
+  `spouseTreeID` int(11) DEFAULT NULL,
   PRIMARY KEY (`memberID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -252,7 +254,7 @@ BEGIN
                 END IF;
 			END;		
 		END IF;
-		INSERT INTO coordinates values (offspring_ID, member_id, spouse_ID, NULL, coor_x, coor_y + 20);	
+		INSERT INTO coordinates values (offspring_ID, member_id, spouse_ID, NULL, coor_x, coor_y + 20, offspring_treeID, NULL);	
 	END;
     
 	ELSE
@@ -271,7 +273,7 @@ BEGIN
 					UPDATE coordinates set x = (x + 20) WHERE x >= coor_x_sp and y > coor_y or x > coor_x_sp + 20;
                 END IF;
 			END IF;
-			INSERT INTO coordinates values (offspring_ID, spouse_ID, member_ID, NULL, coor_x_sp, coor_y + 20);	
+			INSERT INTO coordinates values (offspring_ID, spouse_ID, member_ID, NULL, coor_x_sp, coor_y + 20, offspring_treeID, NULL);	
 		END;
     END IF;
    
@@ -353,18 +355,18 @@ BEGIN
 			SET member_sp_y = (select y from coordinates where memberID = mem_sp_id);
 
 			IF (member_x < member_sp_x) THEN
-				INSERT INTO Coordinates VALUES (father_id, 0, 0, mother_id, member_x, member_y);
-				INSERT INTO Coordinates VALUES (mother_id, 0, 0, father_id, (member_x + 20), member_y);
+				INSERT INTO Coordinates VALUES (father_id, 0, 0, mother_id, member_x, member_y, tree_id, null);
+				INSERT INTO Coordinates VALUES (mother_id, 0, 0, father_id, (member_x + 20), member_y, tree_id, null);
 			ELSE
-				INSERT INTO Coordinates VALUES (father_id, 0, 0, mother_id, member_sp_x, member_y);
-				INSERT INTO Coordinates VALUES (mother_id, 0, 0, father_id, (member_sp_x + 20), member_y);
+				INSERT INTO Coordinates VALUES (father_id, 0, 0, mother_id, member_sp_x, member_y, tree_id, null);
+				INSERT INTO Coordinates VALUES (mother_id, 0, 0, father_id, (member_sp_x + 20), member_y, tree_id, null);
 			END IF;
 			
         END;
 	ELSE
 		BEGIN
-			INSERT INTO Coordinates VALUES (father_id, 0, 0, mother_id, member_x, member_y);
-			INSERT INTO Coordinates VALUES (mother_id, 0, 0, father_id, (member_x + 20), member_y);
+			INSERT INTO Coordinates VALUES (father_id, 0, 0, mother_id, member_x, member_y, tree_id, null);
+			INSERT INTO Coordinates VALUES (mother_id, 0, 0, father_id, (member_x + 20), member_y, tree_id, null);
 		END;
 	END IF;
     
@@ -451,7 +453,7 @@ BEGIN
             END IF;
 		END;		
     END IF;
-    INSERT INTO coordinates values (sib_id, father_ID, mother_ID, NULL, father_x, father_y + 20);	
+    INSERT INTO coordinates values (sib_id, father_ID, mother_ID, NULL, father_x, father_y + 20, sib_treeID, NULL);	
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -525,12 +527,12 @@ BEGIN
     SET member_y = (select y from coordinates where memberID = member_id);
     
     IF (spouse_gender = 'F') THEN
-		INSERT INTO Coordinates VALUES (spouse_id, father_id, mother_id, member_id, (member_x + 20), member_y);
+		INSERT INTO Coordinates VALUES (spouse_id, father_id, mother_id, member_id, (member_x + 20), member_y, member_treeID, NULL);
 		
     ELSE
 		SET SQL_SAFE_UPDATES=0;
 		UPDATE Coordinates SET x = (x + 20) WHERE memberID = member_id;
-		INSERT INTO Coordinates VALUES (spouse_id, father_id, mother_id, member_id, member_x, member_y);
+		INSERT INTO Coordinates VALUES (spouse_id, father_id, mother_id, member_id, member_x, member_y, member_treeID, NULL);
     END IF;
     SET SQL_SAFE_UPDATES=0;
     UPDATE Relation SET spouseID = spouse_id where memberID = member_id;
@@ -715,7 +717,7 @@ BEGIN
 
 	-- Create Relation
 	INSERT INTO Coordinates 
-	VALUES (member_id, 0, 0, NULL, 30, 10);
+	VALUES (member_id, 0, 0, NULL, 30, 10, tree_id, NULL);
 
 	COMMIT;
 
@@ -962,11 +964,7 @@ BEGIN
 
 END ;;
 DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `SP_Delete_Member` */;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_Search_Profile_By_Name` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
