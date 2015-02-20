@@ -1,0 +1,14 @@
+	<!-- Search to view profiles -->
+	
+	<div class="container-fluid userForm">
+		<form name="frmSearchProfile" class="center-block" ng-submit="searchProfile(credentials)">     
+			<input type="txtFirstName" class="form-control" id="keyword1" name="firstName" placeholder="First Name" required ng-model="credentials.firstName" autofocus />
+			<input type="txtLastName" class="form-control" id="keyword1" name="lastName" placeholder="Last Name" required ng-model="credentials.lastName" autofocus />
+			<button id="submit" class="btn btn-lg btn-primary btn-block" type="Search">Login</button> 
+		</form>
+	</div>
+	
+
+	
+		<div ng-include="'partials/search.php'"> 
+		
