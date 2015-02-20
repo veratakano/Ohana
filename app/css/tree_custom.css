@@ -1,5 +1,10 @@
 
-.window {   
+.tree {
+	position: relative;
+	margin-top: -40px;
+}
+
+.tree .window {   
 	background-color: #EEEEEF; 
 	border: 1px solid #346789;    
     border-radius: 0.5em;    
@@ -11,7 +16,7 @@
 	margin: 0 auto; 
 }  
 		
-.windowMale {   
+.tree .windowMale {   
 	background-color: #38ACEC; 
 	border: 1px solid #346789;    
 	border-radius: 0.5em;    
@@ -23,7 +28,7 @@
 	margin: 0 auto; 
 }  
 		
-.windowFemale {   
+.tree .windowFemale {   
 	background-color: #FAAFBE; 
 	border: 1px solid #346789;    
 	border-radius: 0.5em;    

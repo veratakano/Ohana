@@ -1,28 +1,23 @@
 
 	<!-- dashboard -->
 	<div class="container-fluid dashboard">
-	
-		<div ng-include="'partials/Tree.php'"> 
-		<!-- <div class="window" id="container0" ng-repeat="node in tree" style="top:{{node.y}}%; left:{{node.x}}%" ng-click="openDialog(node.memberID)">  
-			<div>{{node.memberID}}</div>
-		</div>-->
-	
-	</div>
-		<!--
-		<div style="position: absolute; left: 50%; top:50px;">
-        	<div id="treeView" style="position: relative; left: -50%;">
-        		<div class="generation" ng-repeat="generation in flowchart.generations" on-last-repeat>
-      				<div id="node{{node.id}}" ng-click="openDialog(node.id,node.title,node.gender)" class="node" ng-repeat="node in generation.nodes">
-      					<img class="node_img" ng-src="images/icons/icon_{{node.gender}}.png" />
-      					<div class="node_body">
-      						{{node.title}}
-      					</div>
-      				</div>
-      			</div>
-        	</div>
+		<div class="controls">
+			<!-- Single button -->
+			<div class="btn-group" ng-if="hasShareTree">
+			  <button type="button" class="btn btn-outline-inverse dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			    <i class="fa fa-sitemap"></i>&nbsp;&nbsp;Shared Trees <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu" role="menu">
+			  	<li><a href="javascript:void(0);" ng-click="changeOwnTree(ownTree)">My tree</a></li>
+			  	<li class="divider"></li>
+			  	<li ng-repeat="tree in sharetrees">
+			  		<a href="javascript:void(0);" ng-click="changeTree(tree)">{{tree.firstName}} {{tree.lastName}} tree</a>
+			  	</li>
+			  </ul>
+			</div>
+			<a class="btn btn-outline-inverse" href="#/map"><i class="fa fa-map-marker"></i>&nbsp;&nbsp;View Map</a>
 		</div>
-		
-		-->
+		<div class="tree" ng-include="'partials/Tree.php'"> </div>
 	</div>
 
 
@@ -31,7 +26,7 @@
 		<div class="ngdialog-message">
 			<p>ID: <code>{{member.firstName}}&nbsp;{{member.lastName}}</code></p>
 		</div>
-		<button class="btn btn-default" ng-click="sendInvite()">Send Invite&nbsp;&nbsp;<i class="fa fa-circle-o-notch fa-spin" ng-show="loading"></i></button>
+		<button class="btn btn-default" ng-click="sendInvite()" ng-if="member.email">Send Invite&nbsp;&nbsp;<i class="fa fa-circle-o-notch fa-spin" ng-show="loading"></i></button>
 		<div>{{message}}</div>
 	</script>
 

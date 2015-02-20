@@ -7,7 +7,9 @@
     $r = json_decode($post);
     $response = array();
 
-	$inviteTreeID = !empty($r->invite->tid) ? "$inviteTreeID" : "NULL";
+	if(!empty($r->invite->tid)){
+        $inviteTreeID = $r->invite->tid;
+    }
 
     try {
 
@@ -16,9 +18,9 @@
         if($resultUser !=  NULL) {
             switch ($resultUser['status']) {
                 case 0:
-                       if($inviteTreeID != "NULL"){
+                       if($inviteTreeID != NULL){
                            $resultShare = createShareTree($resultUser['uID'],$inviteTreeID);
-                           if($resultShare['status'] == 0){
+                           if($resultShare !=  NULL){
                                 $response['status'] = 'success';
                                 $response['uID'] = $resultUser['uID'];
                                 $response['email'] = $resultUser['email'];

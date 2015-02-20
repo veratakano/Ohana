@@ -14,16 +14,13 @@
             <a href="../about.html">About</a>
           </li>
           <li>
-            <a href="http://www.veraaung.wix.com/ohana">Blog</a>
-          </li>
-          <li>
-            <a href="#/dashboard" ng-if="auth">Dashboard</a>
+            <a href="#/dashboard" ng-if="auth"><i class="fa fa-tachometer"></i>&nbsp;&nbsp;Dashboard</a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" ng-if="auth">
           <li class="dropdown" ng-if="auth">
             <a class="dropdown-toggle" aria-expanded="false" role="button" data-toggle="dropdown">
-              My Account
+              <i class="fa fa-user"></i>&nbsp;&nbsp;My Account
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
@@ -47,7 +44,7 @@
             </ul>
           </li>
           <li>
-            <a href="javascript:void(0);" ng-click="logout();">Logout</a>
+            <a href="javascript:void(0);" ng-click="logout();"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Logout</a>
           </li>
         </ul>
       </div>

@@ -64,6 +64,18 @@
 	 color: #ffffff;
 }
 
+.btn-outline-inverse {
+    background-color: transparent;
+    border-color: #3c9bf2;
+    color: #3c9bf2;
+}
+.btn-outline-inverse:active, .btn-outline-inverse:focus, .btn-outline-inverse:hover {
+    background-color: #3c9bf2;
+    border-color: #3c9bf2;
+    color: #ffffff;
+    text-shadow: none;
+}
+
 /* 
   Allow angular.js to be loaded in body, hiding cloaked elements until 
   templates compile.  The !important is important given that there may be 

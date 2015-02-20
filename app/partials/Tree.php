@@ -2,11 +2,13 @@
 
 			session_start();
 			$treeID = $_SESSION['treeid'];
+
 			echo $treeID;
+			
 
 			//********* edit
 			
-			$treeID = 1;
+			
 			
 			
 			$servername = "localhost";

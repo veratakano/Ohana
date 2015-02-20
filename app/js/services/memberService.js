@@ -14,6 +14,14 @@ app.factory('memberService', ['$http','$rootScope',
 				});
 				return promise;		   
 		},
+		getMemberSetbyTreeID:function(memberID){
+			var promise = $http.post(
+	      		$rootScope.apiVersion + 'getMemberSet.php'
+	    		).then(function(output){
+	    			return output.data;
+				});
+				return promise;		   
+		},
 		memberGetGal: function(memberID){
 			var promise = $http.post(
 	      		$rootScope.apiVersion + 'getMemberGal.php', 

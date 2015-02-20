@@ -7,13 +7,21 @@ app.controller('profileCtrl', ['$rootScope','$scope', '$routeParams','ngDialog',
 	$scope.params = $routeParams;
 
 	memberService.memberGet($scope.params.profID).then(function(data) {
-		$scope.id = data.memberID; 
-		$scope.tree = data.treeID;
-		$scope.fullName = data.firstName + " " + data.lastName;
-		$scope.dob = data.dateOfBirth;
-		$scope.gender = data.gender;
-		$scope.born = data.countryOfBirth;
-		$scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.id;
+		if(data != 'null'){
+			$scope.id = data.memberID; 
+			$scope.tree = data.treeID;
+			$scope.fullName = data.firstName + " " + data.lastName;
+			$scope.dob = data.dateOfBirth;
+			$scope.gender = data.gender;
+			$scope.born = data.countryOfBirth;
+			$scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.id;		
+			memberService.memberGetGal($scope.params.profID).then(function(data) {
+  				$scope.thumbnails = data;
+			});
+			$scope.profileExist = true;
+		} else{
+			$scope.profileExist = false;
+		}
 	});
 
 	// Open Popup for members
@@ -34,10 +42,6 @@ app.controller('profileCtrl', ['$rootScope','$scope', '$routeParams','ngDialog',
 			controller: 'uploadGalCtrl'
 		});
   	};
-
-  	memberService.memberGetGal($scope.params.profID).then(function(data) {
-  		$scope.thumbnails = data;
-	});
   
 }]);
 

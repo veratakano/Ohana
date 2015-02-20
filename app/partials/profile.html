@@ -1,5 +1,6 @@
-<hr class="">
-<div class="container target">
+
+<div class="container target" ng-if="profileExist">
+  <hr class="">
   <div class="row">
     <div class="col-sm-10">
       <h1 class="">{{fullName}}</h1>
@@ -80,69 +81,17 @@
         </div>
       </div>
   </div>
-
 </div>
 
-<!--  <script type="text/ng-template" id="uploadGal">
-    <div class="ngdialog-message upload-gal">
-      <div class="panel panel-default">
-        <div class="panel-heading ng-binding">Add Photos</div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="">
-                <p>Choose Photos<br />
-                  <small class="text-muted">You can upload a JPEG, GIF, or PNG file (File size limit is 8 MB).</small>
-                </p>
-                <form name="ppForm">
-                  <div class="form-group">
-                    <div ng-file-drop ng-file-select ng-model="files" ng-model-rejected="rejFiles" drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ng-multiple="true" allow-dir="true" ng-accept="'image/*,application/pdf'">Drop Images
-                      <div>or click to select</div>
-                    </div>
-                    <div ng-no-file-drop class="drop-box">File Farg&Drop not supported on your browser</div>
-                    <div class="progress" ng-show="picFile.progress >= 0">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="{{picFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( picFile.progress + '%' ) }">{{picFile.progress}}%</div>
-                    </div> 
-                    <span ng-show="picFile.result">Upload Successful</span>
-                  </div>
-                </form>
-                <br />
-                <div class="err" ng-show="errorMsg != null">{{errorMsg}}</div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 gal-prev">
-              <div class="tn_ctn" ng-repeat="tn in tnImg" >
-                <img ng-src="{{tn}}" class="img-responsive">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <button ng-disabled="!ppForm.$valid" ng-click="uploadPic(picFile)" type="button" class="btn btn-primary">Submit</button>
-              <button ng-click="closeThisDialog()" type="button" class="btn btn-warning">Cancel</button>
-            </div>
-          </div>
-        </div>
-      </div>
+<div class="container" ng-if="!profileExist">
+  <div class="jumbotron text-center" style="background-color: transparent;">
+    <h1 style="color:#3c9bf2"><span class="fa-stack fa-lg"><i class="fa fa-user fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x"></i></span></h1>
+    <br />
+    <p>User not found</p>
     </div>
+</div>
 
-
-    <div class="sel-file clearfix" ng-repeat="f in files">
-                    <div class="center-cropped">
-                      <img ng-show="f.dataUrl" ng-src="{{f.dataUrl}}">
-                      <div class="tn_overlay"></div>  
-                      <div class="ico">
-                          <i ng-click="remove(f)" class="fa fa-minus-circle fa-3x ico"></i>
-                      </div>
-                    </div>
-                    
-                  </div>
-
-
-  </script>
-
+<!--
  <div class="col-md-4">
               <div class="thumbnail">
                 <img alt="300x200" src="http://lorempixel.com/600/200/people">
@@ -178,7 +127,7 @@
 
 
 <!-- upload Profile Pic -->
-  <script type="text/ng-template" id="uploadProfPic">
+  <script type="text/ng-template" id="uploadProfPic" ng-if="profileExist">
     <div class="ngdialog-message">
       <div class="panel panel-default">
         <div class="panel-heading ng-binding">Edit Photo</div>
@@ -220,7 +169,7 @@
   </script>
 
   <!-- Upload Gallery -->
-  <script type="text/ng-template" id="uploadGal">
+  <script type="text/ng-template" id="uploadGal" ng-if="profileExist">
     <div class="ngdialog-message upload-gal">
       <div class="panel panel-default">
         <div class="panel-heading ng-binding">Add Photos</div>
