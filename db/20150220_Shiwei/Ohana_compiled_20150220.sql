@@ -966,6 +966,52 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_Delete_Member` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;        
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_Search_Profile_By_Name` 
+(
+	keyword_firstName VARCHAR(35), 
+    keyword_lastName VARCHAR(50)
+)
+BEGIN
+
+	SELECT memberID, firstName, lastName
+	FROM Member 
+	WHERE firstName LIKE CONCAT('%', keyword_firstName, '%')  and lastName LIKE CONCAT('%', keyword_lastName, '%') 
+	ORDER BY CASE 
+				WHEN firstName = keyword_firstName and lastName = keyword_lastName THEN 0
+                WHEN firstName = keyword_firstName and lastName LIKE CONCAT(keyword_lastName , '%') THEN 1
+                WHEN firstName LIKE CONCAT(keyword_firstName , '%') and lastName = keyword_lastName THEN 2
+                WHEN firstName = keyword_firstName and lastName LIKE CONCAT('%', keyword_lastName, '%') THEN 3
+                WHEN firstName = keyword_firstName and lastName LIKE CONCAT('%', keyword_lastName) THEN 4
+                WHEN firstName LIKE CONCAT('%', keyword_firstName, '%') and lastName = keyword_lastName THEN 5
+                WHEN firstName LIKE CONCAT('%', keyword_firstName) and lastName = keyword_lastName THEN 6
+                WHEN firstName LIKE CONCAT(keyword_firstName , '%') and lastName LIKE CONCAT(keyword_lastName , '%') THEN 7
+                WHEN firstName LIKE CONCAT(keyword_firstName , '%') and lastName LIKE CONCAT('%', keyword_lastName, '%') THEN 8
+                WHEN firstName LIKE CONCAT(keyword_firstName , '%') and lastName LIKE CONCAT('%', keyword_lastName) THEN 9
+                WHEN firstName LIKE CONCAT('%', keyword_firstName, '%') and lastName LIKE CONCAT(keyword_lastName , '%') THEN 10
+                WHEN firstName LIKE CONCAT('%', keyword_firstName, '%') and lastName LIKE CONCAT('%', keyword_lastName, '%') THEN 11
+				WHEN firstName LIKE CONCAT('%', keyword_firstName) and lastName LIKE CONCAT(keyword_lastName , '%') THEN 12
+                WHEN firstName LIKE CONCAT('%', keyword_firstName) and lastName LIKE CONCAT('%', keyword_lastName) THEN 13
+                WHEN firstName LIKE CONCAT('%', keyword_firstName, '%') and lastName LIKE CONCAT('%', keyword_lastName) THEN 14
+                WHEN firstName LIKE CONCAT('%', keyword_firstName) and lastName LIKE CONCAT('%', keyword_lastName, '%') THEN 15
+				ELSE 16
+				END, firstName, lastName ASC;
+END ;;
+DELIMITER ;
+
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
