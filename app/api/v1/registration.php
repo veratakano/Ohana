@@ -7,7 +7,7 @@
     $r = json_decode($post);
     $response = array();
 
-    $inviteTreeID = $r->invite->tid;
+	$inviteTreeID = !empty($r->invite->tid) ? "$inviteTreeID" : "NULL";
 
     try {
 
@@ -16,19 +16,19 @@
         if($resultUser !=  NULL) {
             switch ($resultUser['status']) {
                 case 0:
-                       if(!!$inviteTreeID){
+                       if($inviteTreeID != "NULL"){
                            $resultShare = createShareTree($resultUser['uID'],$inviteTreeID);
                            if($resultShare['status'] == 0){
                                 $response['status'] = 'success';
                                 $response['uID'] = $resultUser['uID'];
                                 $response['email'] = $resultUser['email'];
-                                $response['treeid'] = $resultTree['treeID'];
+                                $response['treeid'] = $resultUser['treeID'];
                                 if (!isset($_SESSION)) {
                                     session_start();
                                     $_SESSION['unqid']=uniqid('ang_');
                                     $_SESSION['uID'] = $resultUser['uID'];
                                     $_SESSION['email'] = $resultUser['email'];
-                                    $_SESSION['treeid'] = $resultTree['treeID'];
+                                    $_SESSION['treeid'] = $resultUser['treeID'];
                                     $response['unqid'] = $_SESSION['unqid'];
                                 }
                            } else {
@@ -38,13 +38,13 @@
                             $response['status'] = 'success';
                             $response['uID'] = $resultUser['uID'];
                             $response['email'] = $resultUser['email'];
-                            $response['treeid'] = $resultTree['treeID'];
+                            $response['treeid'] = $resultUser['treeID'];
                             if (!isset($_SESSION)) {
                                 session_start();
                                 $_SESSION['unqid']=uniqid('ang_');
                                 $_SESSION['uID'] = $resultUser['uID'];
                                 $_SESSION['email'] = $resultUser['email'];
-                                $_SESSION['treeid'] = $resultTree['treeID'];
+                                $_SESSION['treeid'] = $resultUser['treeID'];
                                 $response['unqid'] = $_SESSION['unqid'];
                             }
                         }
@@ -72,15 +72,13 @@
         $fname = $r->user->fname;
         $lname = $r->user->lname;
         $email = $r->user->email;
-        $pwd = $r->user->password;
-        if(!empty($pwd)){
-            $pwd = md5($pwd);
+        if(!empty($r->user->password)){
+            $pwd = md5($r->user->password);
             $pwd = "'$pwd'";
         }else{
             $pwd = "NULL";
         }
-        $fbid = $r->user->fbID;
-        $fbid = !empty($fbid) ? "'$fbid'" : "NULL";
+        $fbid = !empty($r->user->fbID) ? "'$fbid'" : "NULL";
 
         $result = $db->getResult("CALL SP_DoRegistration('$fname', '$lname', '$email', $pwd, $fbid)");
         return $result;

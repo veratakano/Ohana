@@ -9,15 +9,14 @@
 
     try {
         $email = $r->user->email;
-        $pwd = $r->user->password;
-        if(!empty($pwd)){
-            $pwd = md5($pwd);
+        if(!empty($r->user->password;)){
+            $pwd = md5($r->user->password;);
             $pwd = "'$pwd'";
         }else{
             $pwd = "NULL";
         }
-        $fbid = $r->user->fbID;
-        $fbid = !empty($fbid) ? "'$fbid'" : "NULL";
+
+        $fbid = !empty($r->user->fbID) ? "'$fbid'" : "NULL";
         $db = new DbHandler();
         $result = $db->getResult("CALL SP_GetLogin('$email', $pwd, $fbid)");
         $user = $result;

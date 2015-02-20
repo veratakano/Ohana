@@ -24,12 +24,10 @@ app.controller('authCtrl',['$location','$scope','$rootScope','$routeParams','log
     };
 
     $scope.signup=function(credentials){
-
       //call Signup service
        loginService.signup(credentials,$scope.params).then(function(data) {
           var obj = angular.fromJson(data);
           if(obj.status == "success"){
-            session_unset();
               sessionService.set('unqid',obj.unqid);
               sessionService.set('uid',obj.uid);
               sessionService.set('email',obj.email);
