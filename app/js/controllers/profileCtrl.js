@@ -1,29 +1,25 @@
 
 'use strict';
 
-app.controller('profileCtrl', ['$rootScope','$scope', '$routeParams','ngDialog', 'memberService', 
-	function($rootScope, $scope, $routeParams, ngDialog,memberService) {
+app.controller('profileCtrl', ['memberDetails','$location','$rootScope','$scope','ngDialog','memberService',
+	function(memberDetails,$location,$rootScope,$scope,ngDialog,memberService) {
 
-	$scope.params = $routeParams;
+	if(memberDetails == 'null'){
+		$location.path('/profile_not_found')
+	} else{
+		$scope.profileExist = true;
+	}
 
-	memberService.memberGet($scope.params.profID).then(function(data) {
-		if(data != 'null'){
-			$scope.id = data.memberID; 
-			$scope.tree = data.treeID;
-			$scope.fullName = data.firstName + " " + data.lastName;
-			$scope.dob = data.dateOfBirth;
-			$scope.gender = data.gender;
-			$scope.born = data.countryOfBirth;
-			$scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.id;		
-			memberService.memberGetGal($scope.params.profID).then(function(data) {
-  				$scope.thumbnails = data;
-			});
-			$scope.profileExist = true;
-		} else{
-			$scope.profileExist = false;
-		}
+	$scope.id = memberDetails.memberID; 
+	$scope.tree = memberDetails.treeID;
+	$scope.fullName = memberDetails.firstName + " " + memberDetails.lastName;
+	$scope.dob = memberDetails.dateOfBirth;
+	$scope.gender = memberDetails.gender;
+	$scope.born = memberDetails.countryOfBirth;
+	$scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.id;		
+	memberService.memberGetGal($scope.id).then(function(data) {
+		$scope.thumbnails = data;
 	});
-
 	// Open Popup for members
   	$scope.uploadProfPic = function () {
 		ngDialog.open({

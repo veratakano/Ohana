@@ -32,7 +32,14 @@ app.config(['$routeProvider', 'ngDialogProvider',
         when('/profile/:profID', {
              title: 'Profile',
              templateUrl: 'partials/profile.html',
-             controller: 'profileCtrl'
+             controller: 'profileCtrl',
+             resolve : {
+                memberDetails : function(memberService,$route,$location) {
+                    return memberService.memberGet($route.current.params.profID).then(function(data) {
+                            return data; 
+                    });
+                }
+             }
         }).
         when('/create_member/:memID', {
              title: 'Create Member',
@@ -44,15 +51,14 @@ app.config(['$routeProvider', 'ngDialogProvider',
              templateUrl: 'partials/invite.html',
              controller: 'inviteCtrl'
         }).
-		when('/tree', {
-             title: 'Create Member',
-             templateUrl: 'partials/Tree.php',
-             //controller: 'profileCtrl'
-        }).
 		when('/search_profile', {
              title: 'Search Profile',
              templateUrl: 'partials/search_profile.html',
              controller: 'searchCtrl'
+        }).
+        when('/profile_not_found', {
+             title: 'Profile Not Found',
+             templateUrl: 'partials/profile_not_found.html'
         }).
         when('/', {
              title: 'Login',
@@ -114,7 +120,7 @@ app.run(function($rootScope, $location, $window, fbService, sessionService, tree
         // // });
 
           $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
-          if(!($location.path()=='/signup' || $location.path()=='/invite')){ 
+          if(!($location.path()=='/signup' || $location.path()=='/invite' || $location.path()=='/profile_not_found')){ 
               if(!sessionService.get('unqid')){
                  $location.path('/login');
               }
