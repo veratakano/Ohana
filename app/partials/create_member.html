@@ -47,7 +47,7 @@
 					</div>
 					<div class="checkbox">
 						<label>
-						  <input type="checkbox"> Deceased
+						  <input type="checkbox" name ="chkFather"> Deceased
 						</label>
 					</div>
 					<div class="form-group">
@@ -70,23 +70,23 @@
 					</div>
 					<div class="checkbox">
 					<label>
-						  <input type="checkbox"> Deceased
+						  <input type="checkbox" name ="chkMother"> Deceased
 					</label>
 					</div>
 					<button class="btn btn-primary pull-right" type="submit">Add Parent</button>
 				</form>
 			</div>
 			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 2">
-				<form name="frmAddSibling" class="center-block" ng-submit="addSibing(credentials)" style="width:500px;">
+				<form name="frmAddSibling" class="center-block" ng-submit="addSibling(credentials)" style="width:500px;">
 					<div class="form-group">
 						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Sibling: </h3>
 					</div>
 					<div class="form-group">
 						<label class="radio-inline">
-						  <input type="radio" name="inlineRadioOptions" ng-model="credentials.type.brother" value="Brother"> Brother
+						  <input type="radio" name="inlineRadioOptions" ng-model="credentials.sibling.bro" value="Brother"> Brother
 						</label>
 						<label class="radio-inline">
-						  <input type="radio" name="inlineRadioOptions" ng-model="credentials.type.sister" id="inlineRadio2" value="Sister"> Sister
+						  <input type="radio" name="inlineRadioOptions" ng-model="credentials.sibling.sis" id="inlineRadio2" value="Sister"> Sister
 						</label>
 					</div>
 					<div class="form-group">
@@ -123,6 +123,14 @@
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="credentials.lName"/>
+					</div>
+					<div class="form-group">
+						<label class="radio-inline">
+						  <input type="radio" name="inlineRadioOptions" ng-model="credentials.gender.male" value="M"> Male
+						</label>
+						<label class="radio-inline">
+						  <input type="radio" name="inlineRadioOptions" ng-model="credentials.gender.female" id="inlineRadio2" value="F"> Female
+						</label>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="credentials.POB"/>

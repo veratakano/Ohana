@@ -2,7 +2,7 @@
 
 app.controller('insertionCtrl',['$location', '$scope', '$rootScope', 'memberService', 
 	function ($location, $scope, $rootScope, memberService) {
-	//alert("here");
+	alert(document.URL);
 
 	$scope.currentForm = 'form.parent';
 
@@ -10,39 +10,33 @@ app.controller('insertionCtrl',['$location', '$scope', '$rootScope', 'memberServ
         $scope.currentTab = tab.id;
     }
 
-
    $scope.addParent=function(credentials){
 	   alert(credentials);
 	   memberService.addParent(credentials);
-  };
+	};
   
-   $scope.addBrother=function(credentials){
+   $scope.addSibling=function(credentials){
 	   // alert(credentials);
-	   memberService.addBrother(credentials);
-  };
-  
-  $scope.addSister=function(credentials){
-	   alert(credentials);
-	   memberService.addSister(credentials);
-  };
+	   memberService.addSibing(credentials);
+	};
   
    $scope.addSon=function(credentials){
 	   // alert(credentials);
 	   memberService.addSon(credentials);
-  };
+	};
   
 	$scope.addChildren=function(credentials){
 	   console.log(credentials);
 	   //memberService.addDaughter(credentials);
-  };
+	};
 
-  $scope.addDaughter=function(credentials){
+	$scope.addDaughter=function(credentials){
 	   alert(credentials);
 	   memberService.addDaughter(credentials);
-  };
+	};
   
-  $scope.addSpouse=function(credentials){
+	$scope.addSpouse=function(credentials){
 	   alert(credentials);
 	   memberService.addSpouse(credentials);
-  };
+	};
 }]);
