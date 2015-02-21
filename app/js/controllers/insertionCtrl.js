@@ -10,33 +10,33 @@ app.controller('insertionCtrl',['$location', '$scope', '$rootScope', 'memberServ
         $scope.currentTab = tab.id;
     }
 
-   $scope.addParent=function(credentials){
-	   alert(credentials);
-	   memberService.addParent(credentials);
+   $scope.addParent=function(parents){
+	   console.log(parents);
+	   //memberService.addParent(parents);
 	};
   
-   $scope.addSibling=function(credentials){
+   $scope.addSibling=function(sibling){
+	   console.log(sibling);
+	  // memberService.addSibing(sibling);
+	};
+  
+   //$scope.addSon=function(credentials){
 	   // alert(credentials);
-	   memberService.addSibing(credentials);
-	};
+	  // memberService.addSon(credentials);
+	//};
   
-   $scope.addSon=function(credentials){
-	   // alert(credentials);
-	   memberService.addSon(credentials);
-	};
-  
-	$scope.addChildren=function(credentials){
-	   console.log(credentials);
-	   //memberService.addDaughter(credentials);
+	$scope.addChildren=function(children){
+	   console.log(children);
+	   //memberService.addDaughter(children);
 	};
 
-	$scope.addDaughter=function(credentials){
-	   alert(credentials);
-	   memberService.addDaughter(credentials);
-	};
+	//$scope.addDaughter=function(credentials){
+	   //alert(credentials);
+	   //memberService.addDaughter(credentials);
+	//};
   
-	$scope.addSpouse=function(credentials){
-	   alert(credentials);
-	   memberService.addSpouse(credentials);
+	$scope.addSpouse=function(spouse){
+	   console.log(spouse);
+	  //memberService.addSpouse(spouse);
 	};
 }]);
