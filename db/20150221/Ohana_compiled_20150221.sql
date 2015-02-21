@@ -94,6 +94,7 @@ CREATE TABLE `Relation` (
   `motherID` int(11) NOT NULL,
   `spouseID` int(11) DEFAULT NULL,
   `spouseTreeID` int(11) DEFAULT NULL,
+  `spouseAliasID` int(11) DEFAULT NULL,
   PRIMARY KEY (`treeID`,`memberID`,`fatherID`,`motherID`),
   KEY `idx_tree_member_ID` (`treeID`,`memberID`),
   CONSTRAINT `fk_tree_member` FOREIGN KEY (`treeID`, `memberID`) REFERENCES `Member` (`treeID`, `memberID`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -239,7 +240,7 @@ BEGIN
     IF (coor_x < coor_x_sp) THEN
     BEGIN	
         
-        INSERT INTO Relation values (offspring_treeID, offspring_id, member_id, spouse_id, NULL, NULL);
+        INSERT INTO Relation values (offspring_treeID, offspring_id, member_id, spouse_id, NULL, NULL, NULL);
         
         IF (exists (select * from coordinates where fatherID = member_id)) THEN
 			BEGIN
@@ -260,7 +261,7 @@ BEGIN
 	ELSE
 		BEGIN 						
 						
-			INSERT INTO Relation values (offspring_treeID, offspring_id, spouse_id, member_id, NULL, NULL);
+			INSERT INTO Relation values (offspring_treeID, offspring_id, spouse_id, member_id, NULL, NULL, NULL);
             SET record_count = (SELECT count(*) from coordinates where fatherID = spouse_id);
             
 			IF (exists (select * from coordinates where fatherID = spouse_ID)) THEN
@@ -324,60 +325,72 @@ BEGIN
 	-- DECLARE EXIT HANDLER FOR SQLEXCEPTION 
 	-- SELECT 1 AS status;
     
-    SET father_id = (SELECT (memberID + 1) FROM Member ORDER BY memberID DESC LIMIT 1);
+    SET father_id = (SELECT fatherID FROM Relation WHERE memberID = member_ID);
+    SET mother_id = (SELECT motherID FROM Relation WHERE memberID = member_ID);
+    
+    IF (father_id = 0 and mother_id = 0) THEN
+    
+		SET father_id = (SELECT (memberID + 1) FROM Member ORDER BY memberID DESC LIMIT 1);
 
-    INSERT INTO Member 
-    Values (father_id, father_fname, father_lname, father_dob, father_cob, 'M', father_email, null, father_vs, tree_id);
-    
-    SET mother_id = (SELECT (memberID + 1) FROM Member ORDER BY memberID DESC LIMIT 1);
-    
-    INSERT INTO Member 
-    Values (mother_id, mother_fname, mother_lname, mother_dob, mother_cob, 'F', mother_email, null, mother_vs, tree_id);
-    
-    SET SQL_SAFE_UPDATES=0;
-	UPDATE Relation SET fatherID = father_id, motherID = mother_id
-    WHERE memberID = member_id;
-    
-    INSERT INTO Relation values (tree_id, father_id, 0, 0, mother_id, NULL);
-    INSERT INTO Relation values (tree_id, mother_id, 0, 0, father_id, NULL);
-    
-    SET member_x = (select x from coordinates where memberID = member_ID);
-    SET member_y = (select y from coordinates where memberID = member_ID);
-    
-    SET SQL_SAFE_UPDATES=0;
-    update coordinates set y = (y + 20) where y >= member_y and treeID = tree_id;
-    
-    SET mem_sp_id = (SELECT spouseID FROM coordinates WHERE memberID = member_ID);
-    
-    IF (mem_sp_id is not null) THEN
-		BEGIN
-        
-			SET member_sp_x = (select x from coordinates where memberID = mem_sp_id);
-			SET member_sp_y = (select y from coordinates where memberID = mem_sp_id);
+		INSERT INTO Member 
+		Values (father_id, father_fname, father_lname, father_dob, father_cob, 'M', father_email, null, father_vs, tree_id);
+		
+		SET mother_id = (SELECT (memberID + 1) FROM Member ORDER BY memberID DESC LIMIT 1);
+		
+		INSERT INTO Member 
+		Values (mother_id, mother_fname, mother_lname, mother_dob, mother_cob, 'F', mother_email, null, mother_vs, tree_id);
+		
+		SET SQL_SAFE_UPDATES=0;
+		UPDATE Relation SET fatherID = father_id, motherID = mother_id
+		WHERE memberID = member_id;
+		
+		INSERT INTO Relation values (tree_id, father_id, 0, 0, mother_id, NULL, NULL);
+		INSERT INTO Relation values (tree_id, mother_id, 0, 0, father_id, NULL, NULL);
+		
+		SET member_x = (select x from coordinates where memberID = member_ID);
+		SET member_y = (select y from coordinates where memberID = member_ID);
+		
+		SET SQL_SAFE_UPDATES=0;
+		update coordinates set y = (y + 20) where y >= member_y and treeID = tree_id;
+		
+		SET mem_sp_id = (SELECT spouseID FROM coordinates WHERE memberID = member_ID);
+		
+		IF (mem_sp_id is not null) THEN
+			BEGIN
+			
+				SET member_sp_x = (select x from coordinates where memberID = mem_sp_id);
+				SET member_sp_y = (select y from coordinates where memberID = mem_sp_id);
 
-			IF (member_x < member_sp_x) THEN
+				IF (member_x < member_sp_x) THEN
+					INSERT INTO Coordinates VALUES (father_id, 0, 0, mother_id, member_x, member_y, tree_id, null);
+					INSERT INTO Coordinates VALUES (mother_id, 0, 0, father_id, (member_x + 20), member_y, tree_id, null);
+				ELSE
+					INSERT INTO Coordinates VALUES (father_id, 0, 0, mother_id, member_sp_x, member_y, tree_id, null);
+					INSERT INTO Coordinates VALUES (mother_id, 0, 0, father_id, (member_sp_x + 20), member_y, tree_id, null);
+				END IF;
+				
+			END;
+		ELSE
+			BEGIN
 				INSERT INTO Coordinates VALUES (father_id, 0, 0, mother_id, member_x, member_y, tree_id, null);
 				INSERT INTO Coordinates VALUES (mother_id, 0, 0, father_id, (member_x + 20), member_y, tree_id, null);
-			ELSE
-				INSERT INTO Coordinates VALUES (father_id, 0, 0, mother_id, member_sp_x, member_y, tree_id, null);
-				INSERT INTO Coordinates VALUES (mother_id, 0, 0, father_id, (member_sp_x + 20), member_y, tree_id, null);
-			END IF;
-			
-        END;
-	ELSE
-		BEGIN
-			INSERT INTO Coordinates VALUES (father_id, 0, 0, mother_id, member_x, member_y, tree_id, null);
-			INSERT INTO Coordinates VALUES (mother_id, 0, 0, father_id, (member_x + 20), member_y, tree_id, null);
-		END;
-	END IF;
+			END;
+		END IF;
+		
+		SET SQL_SAFE_UPDATES=0;
+		UPDATE coordinates SET fatherID = father_id, motherID = mother_id WHERE memberID = member_ID;
+		UPDATE coordinates SET fatherID = father_id, motherID = mother_id WHERE memberID = mem_sp_id;
+		
+		SET SQL_SAFE_UPDATES=0;
+		DELETE FROM Relation WHERE memberID = mem_sp_id;
+		
+        -- successful compilation
+		SELECT 0 AS status;
     
-    SET SQL_SAFE_UPDATES=0;
-    UPDATE coordinates SET fatherID = father_id, motherID = mother_id WHERE memberID = member_ID;
-    UPDATE coordinates SET fatherID = father_id, motherID = mother_id WHERE memberID = mem_sp_id;
-    
-    SET SQL_SAFE_UPDATES=0;
-    DELETE FROM Relation WHERE memberID = mem_sp_id;
-    SELECT 0 AS status;
+    ELSE
+		-- parent already exists
+		SELECT 1 AS status;
+    END IF;
     
 END ;;
 DELIMITER ;
@@ -435,7 +448,7 @@ BEGIN
 	INSERT INTO Member 
     Values (sib_id, sib_fname, sib_lname, sib_dob, sib_cob, sib_gender, sib_email, null, sib_vs, sib_treeID);
     
-	INSERT INTO Relation values (1, sib_id, father_id, mother_id, NULL, NULL);
+	INSERT INTO Relation values (sib_treeID, sib_id, father_id, mother_id, NULL, NULL, NULL);
     
     SET father_x = (select x from coordinates where memberID = father_ID);
     SET father_y = (select y from coordinates where memberID = father_ID);
@@ -448,10 +461,10 @@ BEGIN
 				
                 IF record_count = 1 THEN
 					SET SQL_SAFE_UPDATES=0;
-					UPDATE coordinates set x = (x + 20) WHERE x = father_x and y = (father_y + 20) and treeID = sib_tree_id;
+					UPDATE coordinates set x = (x + 20) WHERE x = father_x and y = (father_y + 20) and treeID = sib_treeID;
                 ELSE
 					SET SQL_SAFE_UPDATES=0;
-					UPDATE coordinates set x = (x + 20) WHERE x >= father_x and y > father_y and treeID = sib_tree_id or x > father_x + 20 and treeID = sib_tree_id;
+					UPDATE coordinates set x = (x + 20) WHERE x >= father_x and y > father_y and treeID = sib_treeID or x > father_x + 20 and treeID = sib_treeID;
                 END IF;
 				
             
@@ -724,7 +737,7 @@ BEGIN
 
 	-- Create Coord
 	INSERT INTO Relation 
-	VALUES (tree_id, member_id, 0, 0, NULL, NULL);
+	VALUES (tree_id, member_id, 0, 0, NULL, NULL, NULL);
 
 	-- Create Relation
 	INSERT INTO Coordinates 
@@ -975,6 +988,7 @@ BEGIN
 
 END ;;
 DELIMITER ;
+
 /*!50003 DROP PROCEDURE IF EXISTS `SP_Search_Profile_By_Name` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;

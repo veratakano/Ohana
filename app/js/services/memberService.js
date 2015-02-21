@@ -47,24 +47,14 @@ app.factory('memberService', ['$http','$rootScope',
 				return promise;		  
 		},
 		addParent:function(credentials){
-
+			
 			var promise = $http.post(
 			
-				// $('#chkFather').click(function () {
-					// fvs: 0
-				// });
-				
-				// $('#chkMother').click(function () {
-					// mvs: 0
-				// });
-
 	      		$rootScope.apiVersion + 'addFamily.php', 
 	      		{
 	      			user:credentials,
 					type:'1',
 					link: document.URL
-					// fatherVS: fvs,
-					// motherVS: mvs
 					
 	      		}
 	    		).then(function(output){
@@ -78,8 +68,7 @@ app.factory('memberService', ['$http','$rootScope',
 		// if offsprings, get the memberID and spouseID of selected parent
 		addSibing:function(credentials){
 
-			alert(credentials.sibling.brother);
-			alert(credentials.sibling.sister);
+		
 			var promise = $http.post(
 	      		$rootScope.apiVersion + 'addFamily.php', 
 	      		{
@@ -94,21 +83,6 @@ app.factory('memberService', ['$http','$rootScope',
 				return promise;		   
 		},
 		
-		addSon:function(credentials){
-
-			var promise = $http.post(
-	      		$rootScope.apiVersion + 'addFamily.php', 
-	      		{
-	      			user:credentials,
-					type:'3',
-					link: document.URL
-	      		}
-	    		).then(function(output){
-	    			return output.data;
-				});
-
-				return promise;		   
-		},
 		
 		addSpouse:function(credentials){
 
@@ -124,8 +98,24 @@ app.factory('memberService', ['$http','$rootScope',
 				});
 
 				return promise;		   
-		}
+		},
 		
+		addChildren:function(credentials){
+
+			
+			var promise = $http.post(
+	      		$rootScope.apiVersion + 'addFamily.php', 
+	      		{
+	      			user:credentials,
+					type:'3',
+					link: document.URL
+	      		}
+	    		).then(function(output){
+	    			return output.data;
+				});
+
+				return promise;		   
+		}
 	}
 
 }]);

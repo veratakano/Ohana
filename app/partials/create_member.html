@@ -20,7 +20,7 @@
 					  </a>
 					  <a class="list-group-item" ng-class="{active:tab == 4}" ng-click="tab = 4" style="line-height: 40px;">
 					  	<i class="fa fa fa-chevron-right" style="float: right; margin-right: -6px; margin-top: 12px;"></i>
-						<i class="fa fa-user-plus"></i>&nbsp;&nbsp;Create Spawn
+						<i class="fa fa-user-plus"></i>&nbsp;&nbsp;Create Offspring
 					  </a>
 					</div>
 				</div>
@@ -47,7 +47,7 @@
 					</div>
 					<div class="checkbox">
 						<label>
-						  <input type="checkbox" ng-model="parents.fvStatus"> Deceased
+						  <input type="checkbox" ng-model="parents.fvStatus" ng-init="parents.fvStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
 						</label>
 					</div>
 					<div class="form-group">
@@ -70,7 +70,7 @@
 					</div>
 					<div class="checkbox">
 					<label>
-						  <input type="checkbox" ng-model="parents.mvStatus"> Deceased
+						  <input type="checkbox" ng-model="parents.mvStatus" ng-init="parents.mvStatus=1" ng-true-value="0" ng-false-value="1" > Deceased
 					</label>
 					</div>
 					<button class="btn btn-primary pull-right"  name="inlineRadioOptions" type="submit">Add Parent</button>
@@ -106,7 +106,7 @@
 					</div>
 					<div class="checkbox">
 					<label>
-						  <input type="checkbox" ng-model="sibling.vStatus"> Deceased
+						  <input type="checkbox" ng-model="sibling.vStatus" ng-init="sibling.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
 					</label>
 					</div>
 
@@ -143,7 +143,7 @@
 					</div>
 					<div class="checkbox">
 					<label>
-						  <input type="checkbox" ng-model="spouse.vStatus"> Deceased
+						  <input type="checkbox" ng-model="spouse.vStatus" ng-init="spouse.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
 					</label>
 					</div>
 					<button class="btn btn-primary pull-right" type="submit">Add Spouse</button> 
@@ -179,10 +179,10 @@
 					</div>
 					<div class="checkbox">
 					<label>
-						  <input type="checkbox" ng-model="children.vStatus"> Deceased
+						  <input type="checkbox" ng-model="children.vStatus" ng-init="children.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
 					</label>
 					</div>
-					<button class="btn btn-primary pull-right" type="submit">Add Son</button> 
+					<button class="btn btn-primary pull-right" type="submit">Add Offspring</button> 
 				</form>
 			</div>
 		</div>
