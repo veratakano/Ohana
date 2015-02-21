@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('ohanaApp', ['ngRoute','ngDialog','ngFileUpload','ngAutocomplete']);
+var app = angular.module('ohanaApp', ['ngRoute','ngDialog','ngFileUpload','ngAutocomplete','mgcrea.ngStrap']);
 
 app.config(['$routeProvider', 'ngDialogProvider', 
   function ($routeProvider, ngDialogProvider) {
@@ -36,7 +36,7 @@ app.config(['$routeProvider', 'ngDialogProvider',
              resolve : {
                 memberDetails : function(memberService,$route,$location) {
                     return memberService.memberGet($route.current.params.profID).then(function(data) {
-                            return data; 
+                            return data;
                     });
                 }
              }
@@ -79,7 +79,14 @@ app.config(['$routeProvider', 'ngDialogProvider',
  }]);
 
 
-app.run(function($rootScope, $location, $window, fbService, sessionService, treeService){
+app.config(function($datepickerProvider) {
+  angular.extend($datepickerProvider.defaults, {
+    dateFormat: 'dd/MM/yyyy'
+  });
+})
+
+
+app.run(function($rootScope, $location, $window, fbService, sessionService){
 
     $window.fbAsyncInit = function() {
         // Executed when the SDK is loaded

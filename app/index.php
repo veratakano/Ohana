@@ -9,15 +9,15 @@
     <title>Ohana</title>
     
     <!-- Bootstrap and CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap_custom.css" rel="stylesheet">
-    <link href="css/ngDialog.min.css" rel="stylesheet">
-    <link href="css/ngDialog.min.css" rel="stylesheet">
-    <link href="css/ngDialog-theme-default.min.css" rel="stylesheet">
-    <link href="css/ngDialog-theme-custom.css" rel="stylesheet">
-    <link href="css/ohana_custom.css" rel="stylesheet">
-    <link href="css/tree_custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap_custom.css">
+    <link rel="stylesheet" href="css/ngDialog.min.css">
+    <link rel="stylesheet" href="css/ngDialog-theme-default.min.css">
+    <link rel="stylesheet" href="css/ngDialog-theme-custom.css" >
+    <link rel="stylesheet" href="css/bootstrap-additions.min.css">
+    <link rel="stylesheet" href="css/ohana_custom.css">
+    <link rel="stylesheet" href="css/tree_custom.css">
 
   </head>
 
@@ -53,6 +53,9 @@
   <script type="text/javascript" src="scripts/ngDialog.min.js"></script>
   <script type="text/javascript" src="scripts/angular-file-upload.min.js"></script>
   <script type="text/javascript" src="scripts/ngAutoComplete.js"></script>
+  <script type="text/javascript" src="scripts/angular-strap.min.js"></script>
+  <script type="text/javascript" src="scripts/angular-strap.tpl.min.js"></script>
+
 
   <script type="text/javascript" src="js/app.js"></script>
 

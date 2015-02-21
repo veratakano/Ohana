@@ -3,8 +3,7 @@
 		<h2>Create Memeber</h2>
 		<br>
 		<div class="row">
-			<div class="col-md-3" style="height: 425px; padding-right:0;">
-				<div class="wizard-nav-container" style="height: 360px;">
+			<div class="col-md-3" style="padding-right:0;">
 					<div class="list-group">
 					  <a class="list-group-item" ng-class="{active:tab == 1}" ng-click="tab = 1" style="line-height: 40px;">
 					  	<i class="fa fa fa-chevron-right" style="float: right; margin-right: -6px; margin-top: 12px;"></i>
@@ -23,10 +22,9 @@
 						<i class="fa fa-user-plus"></i>&nbsp;&nbsp;Create Offspring
 					  </a>
 					</div>
-				</div>
 			</div>
 			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 1">
-				<form name="frmAddParent" class="center-block" ng-submit="addParent(parents)" style="width:500px;">
+				<form name="frmAddParent" class="center-block" ng-submit="addParent(parents)" style="width:75%;">
 					<div class="form-group">
 						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Father: </h3>
 					</div>
@@ -43,7 +41,7 @@
 						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="parents.fEmail"/>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth"  required ng-model="parents.fDOB"/>
+						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="parents.fDOB"/>
 					</div>
 					<div class="checkbox">
 						<label>
@@ -66,7 +64,7 @@
 						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="parents.mEmail"/>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" required ng-model="parents.mDOB"/>
+						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="parents.mDOB"/>
 					</div>
 					<div class="checkbox">
 					<label>
@@ -77,7 +75,7 @@
 				</form>
 			</div>
 			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 2">
-				<form name="frmAddSibling" class="center-block" ng-submit="addSibling(sibling)" style="width:500px;">
+				<form name="frmAddSibling" class="center-block" ng-submit="addSibling(sibling)" style="width:75%;">
 					<div class="form-group">
 						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Sibling: </h3>
 					</div>
@@ -102,7 +100,7 @@
 						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="sibling.email"/>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth"  required ng-model="sibling.DOB"/>
+						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="sibling.DOB"/>
 					</div>
 					<div class="checkbox">
 					<label>
@@ -114,7 +112,7 @@
 				</form>
 			</div>
 			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 3">
-				<form name="frmAddSpouse" class="center-block" ng-submit="addSpouse(spouse)" style="width:500px;">
+				<form name="frmAddSpouse" class="center-block" ng-submit="addSpouse(spouse)" style="width:75%;">
 					<div class="form-group">
 						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Spouse: </h3>
 					</div>
@@ -122,7 +120,7 @@
 						<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="spouse.fName" autofocus/>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="spouse.lName"/>
+						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name" required ng-model="spouse.lName"/>
 					</div>
 					<div class="form-group">
 						<label class="radio-inline">
@@ -139,7 +137,7 @@
 						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="spouse.email"/>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth"  required ng-model="spouse.DOB"/>
+						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="spouse.DOB"/>
 					</div>
 					<div class="checkbox">
 					<label>
@@ -150,7 +148,7 @@
 				</form>
 			</div>
 			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 4">
-				<form name="frmAddChildren" class="center-block" ng-submit="addChildren(children)" style="width:500px;">
+				<form name="frmAddChildren" class="center-block" ng-submit="addChildren(children)" style="width:75%;">
 					<div class="form-group">
 						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Children: </h3>
 					</div>
@@ -175,7 +173,7 @@
 						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="children.email"/>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth"  required ng-model="children.DOB"/>
+						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="children.DOB"/>
 					</div>
 					<div class="checkbox">
 					<label>
@@ -184,6 +182,8 @@
 					</div>
 					<button class="btn btn-primary pull-right" type="submit">Add Offspring</button> 
 				</form>
+			</div>
+			<div class="col-md-2">
 			</div>
 		</div>
 		<div class="spacer"></div>

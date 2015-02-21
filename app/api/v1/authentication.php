@@ -14,12 +14,19 @@
             $pwd = "'$pwd'";
         }else{
             $pwd = "NULL";
-        }
+        };
 
-        $fbid = !empty($r->user->fbID) ? "'$fbid'" : "NULL";
+        if(!empty($r->user->fbID)){
+            $fbid = $r->user->fbID;
+            $fbid = "'$fbid'";
+        }else{
+            $fbid = "NULL";
+        };
+
         $db = new DbHandler();
         $result = $db->getResult("CALL SP_GetLogin('$email', $pwd, $fbid)");
         $user = $result;
+
         if($user != NULL) {
             $response['status'] = "success";
             $response['uid'] = $user['uID'];
@@ -35,9 +42,9 @@
             }
         }else{
             $response['status'] = "error";
-            $response['message'] = "Email or Password was not entered correctly.";      
+            throw new RuntimeException("Email or Password was not entered correctly.");      
         }
-    } catch (Exception $e) {
+    } catch (RuntimeException $e) {
         $response['status'] = "error";
         $response['message'] = $e->getMessage();
     }

@@ -10,14 +10,18 @@ app.controller('profileCtrl', ['memberDetails','$location','$rootScope','$scope'
 		$scope.profileExist = true;
 	}
 
-	$scope.id = memberDetails.memberID; 
+	$scope.member = memberDetails;
+	$scope.fullName = $scope.member.firstName + " " + $scope.member.lastName;
+
+	/*$scope.id = memberDetails.memberID; 
 	$scope.tree = memberDetails.treeID;
 	$scope.fullName = memberDetails.firstName + " " + memberDetails.lastName;
 	$scope.dob = memberDetails.dateOfBirth;
 	$scope.gender = memberDetails.gender;
-	$scope.born = memberDetails.countryOfBirth;
-	$scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.id;		
-	memberService.memberGetGal($scope.id).then(function(data) {
+	$scope.born = memberDetails.placeOfBirth;
+	$scope.vitalStatus = memberDetails.vitalStatus;*/
+	$scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.member.memberID;		
+	memberService.memberGetGal($scope.member.memberID).then(function(data) {
 		$scope.thumbnails = data;
 	});
 	// Open Popup for members
@@ -25,7 +29,7 @@ app.controller('profileCtrl', ['memberDetails','$location','$rootScope','$scope'
 		ngDialog.open({
         	template: 'uploadProfPic',
 			className: 'ngdialog-theme-default ngdialog-theme-custom-profile',
-			data: {id: $scope.id, tree: $scope.tree},
+			data: {id: $scope.member.memberID, tree: $scope.member.treeID},
 			controller: 'uploadProfCtrl'
 		});
   	};
@@ -34,7 +38,7 @@ app.controller('profileCtrl', ['memberDetails','$location','$rootScope','$scope'
 		ngDialog.open({
         	template: 'uploadGal',
 			className: 'ngdialog-theme-default ngdialog-theme-custom-profile',
-			data: {id: $scope.id, tree: $scope.tree},
+			data: {id: $scope.member.memberID, tree: $$scope.member.treeID},
 			controller: 'uploadGalCtrl'
 		});
   	};

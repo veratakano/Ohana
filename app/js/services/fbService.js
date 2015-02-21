@@ -73,3 +73,41 @@ app.factory('fbService', ['$location','$window', '$rootScope', 'sessionService',
 		}
 	}
 }]);
+
+/*
+app.factory('fbService', function($rootScope, $q) {
+
+    return {
+      login: function() {
+
+        var resp = $q.defer();
+
+        FB.login(function(response) {
+          setTimeout(function() {
+            $rootScope.$apply(function() {
+              resp.resolve(response.authResponse);
+            });
+          },1);
+        });
+
+        return resp.promise;
+
+
+      },
+      logout: function() {
+
+        var resp = $q.defer();
+
+        FB.logout(function(response) {
+          setTimeout(function() {
+            $rootScope.$apply(function() {
+              resp.resolve(response.authResponse);
+            });
+          },1);
+        });
+
+        $rootScope.Facebook.token = null;   
+
+      }
+    }
+  })*/

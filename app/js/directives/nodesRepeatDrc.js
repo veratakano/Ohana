@@ -1,16 +1,6 @@
 
 'use strict';
 
-app.directive('onLastRepeat',function(){
-	return function(scope, element, attrs) {
-        if (scope.$last) setTimeout(function(){
-            scope.$emit('onRepeatLast', element, attrs);
-        }, 1);
-    };
-});
-
-
-
 app.filter('bytes', function() {
 	return function(bytes, precision) {
 		if (isNaN(parseFloat(bytes)) || !isFinite(bytes)) return '-';
@@ -18,5 +8,27 @@ app.filter('bytes', function() {
 			var units = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB'],
 			number = Math.floor(Math.log(bytes) / Math.log(1024));
 			return (bytes / Math.pow(1024, Math.floor(number))).toFixed(precision) + ' ' + units[number];
+	}
+}); 
+
+
+app.filter('checkUnknown', function() {
+	return function(input) {
+		return input ? input : 'Unknown';
+	}
+}); 
+
+app.filter('gender', function() {
+	return function(input) {
+		if(!input){
+			return 'Unknown';
+		}
+		else {
+			if(input == 'M'){
+				return 'Male';
+			} else {
+				return 'Female';
+			}
+		}
 	}
 }); 

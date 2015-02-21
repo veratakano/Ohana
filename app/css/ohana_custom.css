@@ -106,6 +106,21 @@
 
 /* Profile */
 
+
+.profile .prof_content{
+  margin: 20px auto;
+  width: 95%;
+}
+
+.profile .prof_content .control-label{
+  font-size: 17.5px;
+  font-weight: bold;
+}
+
+.profile .prof_content .control{
+  font-size: 18px;
+}
+
 .gal img{margin: 5px;}
 
 .profile-img {

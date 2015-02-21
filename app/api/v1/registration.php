@@ -80,7 +80,12 @@
         }else{
             $pwd = "NULL";
         }
-        $fbid = !empty($r->user->fbID) ? "'$fbid'" : "NULL";
+       if(!empty($r->user->fbID)){
+            $fbid = $r->user->fbID;
+            $fbid = "'$fbid'";
+        }else{
+            $fbid = "NULL";
+        };
 
         $result = $db->getResult("CALL SP_DoRegistration('$fname', '$lname', '$email', $pwd, $fbid)");
         return $result;

@@ -43,7 +43,14 @@ app.controller('authCtrl',['$location','$scope','$rootScope','$routeParams','log
     }
 
     $scope.fbLogin = function(){
-      fbService.login($scope,$scope.params);
+      fbService.login().then(function(data){
+        console.log(data);
+      })
+      //console.log($rootScope.Facebook.token);
+      //fbService.getUserInfo(function(d){
+      //  console.log(d.error.message);
+      //})
+      //fbService.login($scope,$scope.params);
     };
 
  

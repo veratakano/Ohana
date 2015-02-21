@@ -1,87 +1,125 @@
 
-<div class="container target" ng-if="profileExist">
-  <hr class="">
-  <div class="row">
+<div class="container profile" ng-if="profileExist">
+    <div class="col-sm-1"></div>
     <div class="col-sm-10">
-      <h1 class="">{{fullName}}</h1>
+      <hr class="">
+      <div class="row">
+        <div class="col-sm-10">
+          <h1 class="">{{fullName}}</h1>
+          <br>
+        </div>
+        <div class="col-sm-2">
+          <a ng-click="uploadProfPic()" class="pull-right">
+            <img title="profile image" class="img-circle img-responsive profile-img" ng-src="{{profilePic}}">
+          </a>
+        </div>
+      </div>
       <br>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">Profile&nbsp;&nbsp;<i class="fa fa-user"></i></div>
+            <div class="panel-body prof_content">
+              <div class="row">
+                <div class="col-sm-3 text-right control-label">
+                  Full Name
+                </div>
+                <div class="col-sm-9 control" ng-bind="(fullName | checkUnknown)"></div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3 text-right control-label">
+                 Born On
+                </div>
+                <div class="col-sm-9 control" ng-bind="(member.dateOfBirth | checkUnknown)"></div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3 text-right control-label">
+                 Born In
+                </div>
+                <div class="col-sm-9 control" ng-bind="(member.placeOfBirth | checkUnknown)"></div>
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-3 text-right control-label">
+                  Gender
+                </div>
+                <div class="col-sm-9 control" ng-bind="(member.gender | gender)"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <!--left col
+          <ul class="list-group">
+            <li class="list-group-item text-muted" >Profile&nbsp;&nbsp;<i class="fa fa-user"></i></li>
+            <li class="list-group-item">
+              <div><strong class="">Date of Birth</strong></div>
+              <div contentEditable="true">{{dob}}</div></li>
+            <li class="list-group-item"><div><strong class="">Gender</strong></div>{{gender}}</li>
+            <li class="list-group-item"><div><strong class="">Born in</strong></span>{{born}}</li>
+          </ul>-->
+           <!--<div class="panel panel-default">
+            l<div class="panel-heading text-muted">Profile&nbsp;&nbsp;<i class="fa fa-user"></i></li></div>
+            <div class="panel-body">  
+              <div>
+                <span><strong class="">Date of Birth</strong></span><spancontentEditable="true">{{dob}}</span>
+              </div>
+              <div>
+                <span><strong class="">Gender</strong></span><span contentEditable="true">{{gender}}</span>
+              </div>
+              <div>
+                <span><strong class="">Born in</strong></span><span contentEditable="true">{{born}}</span>
+              </div>
+            </div>
+          </div>-->
+          <div class="panel panel-default">
+            <div class="panel-heading">Website&nbsp;&nbsp;<i class="fa fa-link"></i></div>
+            <div class="panel-body"><a href="http://bootply.com" class="">bootply.com</a></div>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item text-muted">Activity&nbsp;&nbsp;<i class="fa fa-dashboard"></i></li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Shares</strong></span> 125</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Likes</strong></span> 13</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Posts</strong></span> 37</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Followers</strong></span> 78</li>
+          </ul>
+          <div class="panel panel-default">
+            <div class="panel-heading">Social Media</div>
+            <div class="panel-body">  <i class="fa fa-facebook fa-2x"></i>  <i class="fa fa-github fa-2x"></i> 
+              <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i>  <i class="fa fa-google-plus fa-2x"></i>
+            </div>
+          </div>
+        </div>
+        <!--/col-3-->
+        <div class="col-sm-9" style="" contenteditable="false">
+          
+          <div class="panel panel-default target">
+            <div class="panel-heading clearfix">
+              Gallery&nbsp;&nbsp;<i class="fa fa-camera-retro"></i>
+              <span class="pull-right">
+                <button ng-click="uploadGal()" type="button" class="btn btn-default btn-sm"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Photos</button>
+              </span>
+            </div>
+            <div class="panel-body">
+              <div class="text-center" ng-show="thumbnails.length == 0">
+                <p>There are current no files uploaded for this member!</p>
+                <p><i class="fa fa-picture-o" style="font-size: 12em;"></i></p>
+              </div>
+              <div id="fixed" class="gal" when-scrolled="loadMore()">
+                   <img class="img-thumbnail img-responsive" ng-src="{{tn.file_tn_dir}}{{tn.rName}}" ng-repeat="tn in thumbnails">
+              </div>
+            </div>
+            </div>
+          </div>
+      </div>
     </div>
-    <div class="col-sm-2">
-      <a ng-click="uploadProfPic()" class="pull-right">
-        <img title="profile image" class="img-circle img-responsive profile-img" ng-src="{{profilePic}}">
-      </a>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-sm-3">
-      <!--left col
-      <ul class="list-group">
-        <li class="list-group-item text-muted" >Profile&nbsp;&nbsp;<i class="fa fa-user"></i></li>
-        <li class="list-group-item">
-          <div><strong class="">Date of Birth</strong></div>
-          <div contentEditable="true">{{dob}}</div></li>
-        <li class="list-group-item"><div><strong class="">Gender</strong></div>{{gender}}</li>
-        <li class="list-group-item"><div><strong class="">Born in</strong></span>{{born}}</li>
-      </ul>-->
-      <div class="panel panel-default">
-        <div class="panel-heading text-muted">Profile&nbsp;&nbsp;<i class="fa fa-user"></i></li></div>
-        <div class="panel-body">  
-          <div>
-            <span><strong class="">Date of Birth</strong></span><spancontentEditable="true">{{dob}}</span>
-          </div>
-          <div>
-            <span><strong class="">Gender</strong></span><span contentEditable="true">{{gender}}</span>
-          </div>
-          <div>
-            <span><strong class="">Born in</strong></span><span contentEditable="true">{{born}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">Website&nbsp;&nbsp;<i class="fa fa-link"></i></div>
-        <div class="panel-body"><a href="http://bootply.com" class="">bootply.com</a></div>
-      </div>
-      <ul class="list-group">
-        <li class="list-group-item text-muted">Activity&nbsp;&nbsp;<i class="fa fa-dashboard"></i></li>
-        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Shares</strong></span> 125</li>
-        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Likes</strong></span> 13</li>
-        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Posts</strong></span> 37</li>
-        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Followers</strong></span> 78</li>
-      </ul>
-      <div class="panel panel-default">
-        <div class="panel-heading">Social Media</div>
-        <div class="panel-body">  <i class="fa fa-facebook fa-2x"></i>  <i class="fa fa-github fa-2x"></i> 
-          <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i>  <i class="fa fa-google-plus fa-2x"></i>
-        </div>
-      </div>
-    </div>
-    <!--/col-3-->
-    <div class="col-sm-9" style="" contenteditable="false">
-      <div class="panel panel-default">
-        <div class="panel-heading">{{fullName}} Bio</div>
-        <div class="panel-body"> A long description about me.</div>
-      </div>
-      <div class="panel panel-default target">
-        <div class="panel-heading clearfix">
-          Gallery&nbsp;&nbsp;<i class="fa fa-camera-retro"></i>
-          <span class="pull-right">
-            <button ng-click="uploadGal()" type="button" class="btn btn-default btn-sm"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Photos</button>
-          </span>
-        </div>
-        <div class="panel-body">
-          <div class="text-center" ng-show="thumbnails.length == 0">
-            <p>There are current no files uploaded for this member!</p>
-            <p><i class="fa fa-picture-o" style="font-size: 12em;"></i></p>
-          </div>
-          <div id="fixed" class="gal" when-scrolled="loadMore()">
-               <img class="img-thumbnail img-responsive" ng-src="{{tn.file_tn_dir}}{{tn.rName}}" ng-repeat="tn in thumbnails">
-          </div>
-        </div>
-        </div>
-      </div>
-  </div>
+    <div class="col-sm-1"></div>
 </div>
+
 
 <!-- upload Profile Pic -->
   <script type="text/ng-template" id="uploadProfPic" ng-if="profileExist">
