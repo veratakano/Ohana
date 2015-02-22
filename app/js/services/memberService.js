@@ -115,7 +115,20 @@ app.factory('memberService', ['$http','$rootScope',
 				});
 
 				return promise;		   
-		}
+		},
+
+		updateMember: function(member){
+			var promise = $http.post(
+	      		$rootScope.apiVersion + 'updateMember.php', 
+	      		{
+	      			member:member
+	      		}
+	    		).then(function(output){
+	    			return output.data;
+				});
+
+				return promise;		   
+		},
 	}
 
 }]);

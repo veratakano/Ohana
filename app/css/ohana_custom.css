@@ -106,6 +106,10 @@
 
 /* Profile */
 
+.pac-container{
+  z-index: 10000;
+}
+
 
 .profile .prof_content{
   margin: 20px auto;

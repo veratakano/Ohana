@@ -12,19 +12,23 @@ app.controller('profileCtrl', ['memberDetails','$location','$rootScope','$scope'
 
 	$scope.member = memberDetails;
 	$scope.fullName = $scope.member.firstName + " " + $scope.member.lastName;
+	$scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.member.memberID;
 
-	/*$scope.id = memberDetails.memberID; 
-	$scope.tree = memberDetails.treeID;
-	$scope.fullName = memberDetails.firstName + " " + memberDetails.lastName;
-	$scope.dob = memberDetails.dateOfBirth;
-	$scope.gender = memberDetails.gender;
-	$scope.born = memberDetails.placeOfBirth;
-	$scope.vitalStatus = memberDetails.vitalStatus;*/
-	$scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.member.memberID;		
 	memberService.memberGetGal($scope.member.memberID).then(function(data) {
 		$scope.thumbnails = data;
 	});
-	// Open Popup for members
+
+	// Open Popup for editing of profile
+	$scope.editProf = function () {
+		ngDialog.open({
+        	template: 'editProf',
+			className: 'ngdialog-theme-default ngdialog-theme-custom-profile',
+			scope: $scope,
+			controller: 'editCtrl'
+		});
+  	};
+
+	// Open Popup for uploading of Profile Pic
   	$scope.uploadProfPic = function () {
 		ngDialog.open({
         	template: 'uploadProfPic',
@@ -34,15 +38,35 @@ app.controller('profileCtrl', ['memberDetails','$location','$rootScope','$scope'
 		});
   	};
 
+  	// Open Popup for uploading of Galllery Pictures
   	$scope.uploadGal = function () {
 		ngDialog.open({
         	template: 'uploadGal',
 			className: 'ngdialog-theme-default ngdialog-theme-custom-profile',
-			data: {id: $scope.member.memberID, tree: $$scope.member.treeID},
+			data: {id: $scope.member.memberID, tree: $scope.member.treeID},
 			controller: 'uploadGalCtrl'
 		});
   	};
   
+}]);
+
+// Open Popup Controller
+app.controller('editCtrl', ['$scope','memberService', function($scope,memberService){
+	
+	$scope.updateMember = function(member){
+		console.log(member);
+		$scope.loading = true;
+		memberService.updateMember(member).then(function(data) {
+			$scope.thumbnails = data;
+			if(data.status = "successful"){
+				$scope.success = data.message;
+			} else {
+				$scope.error = data.message;
+			}
+			$scope.loading = false;
+		});
+	}
+ 
 }]);
 
 // Open Popup Controller

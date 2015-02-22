@@ -18,7 +18,11 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="panel panel-default">
-            <div class="panel-heading">Profile&nbsp;&nbsp;<i class="fa fa-user"></i></div>
+            <div class="panel-heading clearfix">Profile&nbsp;&nbsp;<i class="fa fa-user"></i>
+              <span class="pull-right">
+                <button ng-click="editProf()" type="button" class="btn btn-default btn-sm"><i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Edit</button>
+              </span>
+            </div>
             <div class="panel-body prof_content">
               <div class="row">
                 <div class="col-sm-3 text-right control-label">
@@ -120,9 +124,73 @@
     <div class="col-sm-1"></div>
 </div>
 
+  <!-- upload Profile Pic -->
+  <script type="text/ng-template" id="editProf">
+    <div class="ngdialog-message">
+      <div class="panel panel-default">
+        <div class="panel-heading ng-binding">Edit Profile</div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <h4>Basic Info</h4>
+              <hr />
+              <form name="frmAddSpouse" class="center-block form-horizontal"  ng-submit="updateMember(member)" style="width:95%;">
+                <div class="form-group">
+                  <label class="control-label col-sm-3" for="txtFirstName">First Name:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" name="txtFirstName" placeholder="Enter First Name" required ng-model="member.firstName" autofocus/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3" for="txtLastName">Last Name:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" name="txtLastName" placeholder="Enter Last Name" required ng-model="member.lastName"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3" for="txtFirstName">Date of Birth:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" name="calDOB" placeholder="Select Date of Birth" bs-datepicker required ng-model="member.dateOfBirth"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3" for="txtFirstName">Place of Birth:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Enter Place of Birth" ng-autocomplete  required ng-model="member.placeOfBirth"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3" for="txtFirstName">Email Address:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" name="txtEmail" placeholder="Enter Email Address" ng-model="member.email"/>
+                  </div>
+                </div>
+                <label class="col-sm-3"></label>
+                  <div class="col-sm-9">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="member.vitalStatus" ng-true-value="0" ng-false-value="1"> Deceased
+                      </label>
+                    </div>
+                  </div>
+                <br /><br />
+                <div class="col-sm-10">
+                  <div class="alert alert-success" role="alert" ng-if="success" ng-bind="success"></div>
+                  <div class="alert alert-danger" role="alert" ng-if="error" ng-bind="error"></div>
+                </div>
+                <div class="col-sm-2">
+                  <button class="btn btn-outline-inverse pull-right" type="submit">Update<span ng-show="loading">&nbsp;&nbsp;</span><i class="fa fa-circle-o-notch fa-spin" ng-show="loading"></i></button> 
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
 
-<!-- upload Profile Pic -->
-  <script type="text/ng-template" id="uploadProfPic" ng-if="profileExist">
+  <!-- upload Profile Pic -->
+  <script type="text/ng-template" id="uploadProfPic">
     <div class="ngdialog-message">
       <div class="panel panel-default">
         <div class="panel-heading ng-binding">Edit Photo</div>
@@ -164,7 +232,7 @@
   </script>
 
   <!-- Upload Gallery -->
-  <script type="text/ng-template" id="uploadGal" ng-if="profileExist">
+  <script type="text/ng-template" id="uploadGal">
     <div class="ngdialog-message upload-gal">
       <div class="panel panel-default">
         <div class="panel-heading ng-binding">Add Photos</div>

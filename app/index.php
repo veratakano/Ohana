@@ -22,10 +22,6 @@
   </head>
 
   <body>
-    <!--
-	<nav role="navigation"  ng-controller="navController"></nav>
-     <div class="views" ng-view></div>
-	-->
 	
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-include="'partials/navbar.html'" ng-controller="navController"></nav>
     <div class="views" ng-view></div>
@@ -55,7 +51,6 @@
   <script type="text/javascript" src="scripts/ngAutoComplete.js"></script>
   <script type="text/javascript" src="scripts/angular-strap.min.js"></script>
   <script type="text/javascript" src="scripts/angular-strap.tpl.min.js"></script>
-
 
   <script type="text/javascript" src="js/app.js"></script>
 

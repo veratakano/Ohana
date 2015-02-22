@@ -16,7 +16,7 @@ app.factory('inviteService', ['$http','$rootScope',
 		},
 		inviteStatusUpdate:function(member,status){
 			var promise = $http.post(
-	      		$rootScope.apiVersion + 'updateMember.php', 
+	      		$rootScope.apiVersion + 'updateInviteStatus.php', 
 	      		{
 	      			type: 'invite',
 	      			status: status,
