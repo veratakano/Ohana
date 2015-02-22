@@ -81,7 +81,8 @@ app.config(['$routeProvider', 'ngDialogProvider',
 
 app.config(function($datepickerProvider) {
   angular.extend($datepickerProvider.defaults, {
-    dateFormat: 'dd/MM/yyyy'
+    dateFormat: 'dd/MM/yyyy',
+    startView: 2
   });
 })
 
