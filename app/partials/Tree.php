@@ -61,7 +61,7 @@
 				
 				
 			// display
-			$sql = "select * from coordinates where TreeID = $treeID order by fatherID, y, x;";	
+			$sql = "select * from coordinates where TreeID = $treeID order by fatherID, y, x";	
 			$result = $conn->query($sql);
 			
 			$coor_values = array();
@@ -106,6 +106,7 @@
 					echo '<div class="window" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
 						<div>'. $name . '</div>
 					</div> ';
+
 				}
 					//$member_values[0]
 				/** colour **/
@@ -147,11 +148,15 @@
 					if(array_key_exists($memberID, $relation_array)) {
 						$coor_values = $coor_array[$spouseID];
 						$spouse_x = $coor_values[3];
-							
+						
+						// plus "+" sign
+						echo '<div style="top: '. (($y+20)*7) .'px; left: '. ($x*7) .'px"><i class="fa fa-plus"> </div>';
+						
 						if($x < $spouse_x) {
+							
 							// spouse horizontal line
 							echo '<div style="top:'. ( ($y+12)*7) .'px; left:'. (($x+2) *7) .'px; position: absolute;">  
-								<div style="width: 143px; height: 2px; background-color: grey;"></div>
+								<div style="width: 143px; height: 2px; background-color: grey;"></i></div>
 							</div> ';	
 						}
 						else {

@@ -13,7 +13,7 @@
         $result = $db->getResult("CALL SP_GetMember('$memberID')");
         $response = array();
         $member = $result;
-        if($user['member'] != 1) {
+        if($member != null) {
             $response = $member;
         }else{
             $response['status'] = "error";
