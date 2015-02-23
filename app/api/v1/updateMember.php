@@ -10,7 +10,7 @@
         $member_id = $r->member->memberID;
         $member_fname = $r->member->firstName;
         $member_lname = $r->member->lastName;
-        //$member_dob = date($r->member->dateOfBirth);
+        $member_dob = $r->member->dateOfBirth;
         $member_gender = $r->member->gender;
         $member_email = $r->member->email;
         $member_pob = $r->member->placeOfBirth;
@@ -18,8 +18,10 @@
         
         $db = new DbHandler();
 //        $result = $db->getResult("CALL SP_DoUpdateMember('$member_id','$member_fname','$member_lname','$member_dob','$member_gender','$member_email','$member_pob','$member_vs')");
-        $result = $db->getResult("CALL SP_DoUpdateMember('$member_id','$member_fname','$member_lname','$member_gender','$member_email','$member_pob','$member_vs')");
-
+ //       $result = $db->getResult("CALL SP_DoUpdateMember('$member_id','$member_fname','$member_lname', '$member_dob', '$member_gender','$member_email','$member_pob',$member_vs)");
+					
+					
+		$result = $db->getResult("CALL `SP_DoUpdateMember` ($member_id, '$member_fname', '$member_lname', '$member_dob', '$member_gender', '$member_email', '$member_pob', $member_vs);");
         if($result !=  NULL) {
             $response['status'] = "sucess";
             $response['message'] = "Member Updated";       

@@ -2,14 +2,6 @@
 
 			session_start();
 			$treeID = $_SESSION['treeid'];
-
-			echo $treeID;
-			
-
-			//********* edit
-			
-			
-			
 			
 			$servername = "localhost";
 			$username = "root";
@@ -84,7 +76,7 @@
 				$member_values = $member_array[$memberID];
 				
 				IF (is_null($member_values[0])) 
-					$name = "$memberID Undefined";
+					$name = "Unknown";
 				else
 					$name = "$member_values[0] $member_values[1]";
 				
@@ -142,16 +134,16 @@
 				if (array_key_exists($memberID, $relation_array)) {
 					if ($fatherID != 0 and $motherID != 0)
 						// kid's vertical line
-						echo '<div style="top:'. (($y-3) *7) .'px; left:'. (($x+2) *7) .'px; position: absolute;">  
-							<div style="width: 2px; height: 20px; background-color: grey;"></div>
+						echo '<div style="top:'. (($y-3) *7) .'px; left:'. (($x+7) *7) .'px; position: absolute;">  
+							<div style="width: 3px; height: 20px; background-color: grey;"></div>
 						</div> ';
 				}
 				
 				if ($spouseID <> 0) {
 					
 					// spouse downword vertical line
-					echo '<div style="top:'. (($y+9) *7) .'px; left:'. (($x+2) *7) .'px; position: absolute;">  
-						<div style="width: 2px; height: 20px; background-color: grey;"></div>
+					echo '<div style="top:'. (($y+18) *7) .'px; left:'. (($x+7) *7) .'px; position: absolute;">  
+						<div style="width: 3px; height: 23px; background-color: grey;"></div>
 					</div> ';
 						
 					if(array_key_exists($memberID, $relation_array)) {
@@ -159,19 +151,19 @@
 						$spouse_x = $coor_values[3];
 						
 						// plus "+" sign
-						echo '<div style="top: '. (($y+20)*7) .'px; left: '. ($x*7) .'px"><i class="fa fa-plus"> </div>';
+						// echo '<div style="top: '. (($y+20)*7) .'px; left: '. ($x*7) .'px"><i class="fa fa-plus"> </div>';
 						
 						if($x < $spouse_x) {
 							
 							// spouse horizontal line
-							echo '<div style="top:'. ( ($y+12)*7) .'px; left:'. (($x+2) *7) .'px; position: absolute;">  
-								<div style="width: 143px; height: 2px; background-color: grey;"></i></div>
+							echo '<div style="top:'. ( ($y+21)*7) .'px; left:'. (($x+7) *7) .'px; position: absolute;">  
+								<div style="width: 210px; height: 3px; background-color: grey;"></i></div>
 							</div> ';	
 						}
 						else {
 							// spouse horizontal line
-							echo '<div style="top:'. ( ($y+12)*7) .'px; left:'. (($spouse_x+2) *7) .'px; position: absolute;">  
-								<div style="width: 143px; height: 2px; background-color: grey;"></div>
+							echo '<div style="top:'. ( ($y+21)*7) .'px; left:'. (($spouse_x+7) *7) .'px; position: absolute;">  
+								<div style="width: 210px; height: 3px; background-color: grey;"></div>
 							</div> ';
 						}
 					}
@@ -191,19 +183,19 @@
 							
 					// echo "Display: $display_values[0], $display_values[1], $display_values[2] <br> gc: $generation_count<br>";
 					// horizontal line for kids
-					echo '<div style="top:'. (($display_values[2]-3)*7) .'px; left:'. (($display_values[0]+2) *7) .'px; position: absolute;">  
+					echo '<div style="top:'. (($display_values[2]-3)*7) .'px; left:'. (($display_values[0]+7) *7) .'px; position: absolute;">  
 						<div style="width:'. ( ($display_values[1] - $display_values[0])*7) .'px; height: 1.5px; background-color: grey;"></div>
 					</div> ';
 				
 					// vertical connection between kids and parents
-					echo '<div style="top:'. (($display_values[2]-8) *7) .'px; left:'. (($display_values[0]+9) *7) .'px; position: absolute;">  
-						<div style="width: 2px; height: 30px; background-color: grey;"></div>
+					echo '<div style="top:'. (($display_values[2]-8) *7) .'px; left:'. (($display_values[0]+22) *7) .'px; position: absolute;">  
+						<div style="width: 3px; height: 30px; background-color: grey;"></div>
 					</div> ';					
 				}
 				else {
 					// vertical connection between kids and parents
-					echo '<div style="top:'. (($display_values[2]-8) *7) .'px; left:'. (($display_values[0]+2) *7) .'px; position: absolute;">  
-						<div style="width: 2px; height: 30px; background-color: grey;"></div>
+					echo '<div style="top:'. (($display_values[2]-9) *7) .'px; left:'. (($display_values[0]+7) *7) .'px; position: absolute;">  
+						<div style="width: 3px; height: 45px; background-color: grey;"></div>
 					</div> ';	
 				}
 			}
