@@ -205,3 +205,23 @@
   display: block;
 }
 
+.infowindow img{
+  width:100px;
+  margin:20px 0;
+}
+
+.infowindow .misc{
+  padding: 10px;
+  border-right: 1px solid #dddddd;
+}
+
+.infowindow .content{
+  margin: 10px;
+}
+
+.infowindow .gap{
+  margin: 4px 0;
+}
+
+
+

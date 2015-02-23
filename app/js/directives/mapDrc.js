@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('map', ['$compile','memberService', function($compile,memberService) {
+app.directive('map', ['$compile','memberService','$filter', function($compile,memberService,$filter) {
     return {
         restrict: 'E',
         replace: true,
@@ -21,6 +21,14 @@ app.directive('map', ['$compile','memberService', function($compile,memberServic
 				//shopmap
 				var initPlaceOfBirth;
 				var mapShow = false;
+
+				var map_options = {
+					 zoom: 4
+					                
+				};
+				// create map
+				map = new google.maps.Map(document.getElementById(attrs.id), map_options);
+				mc = new MarkerClusterer(map, [], mcOptions);
 				
 				for (var i = 0; i < node.length; ++i) {
 					var initPlaceOfBirth = node[i].placeOfBirth;
@@ -31,14 +39,31 @@ app.directive('map', ['$compile','memberService', function($compile,memberServic
 				}
 
 				if(mapShow){
-					initMap(initPlaceOfBirth,function(){
-					    // loop marker
-			    		for (var i = 0; i < node.length; i++){
-			    			if(node[i].placeOfBirth != null){
-			    				geocodeAddress(node[i]);
+
+					// Try HTML5 geolocation
+  					if(navigator.geolocation) {
+    					navigator.geolocation.getCurrentPosition(function(position) {
+      						var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+							var infowindow = new google.maps.InfoWindow({
+        						map: map,
+        						position: pos,
+        						content: 'Location found using HTML5.'
+      						});
+      						map.setCenter(pos);
+      						for (var i = 0; i < node.length; i++){
+			    				if(node[i].placeOfBirth != null){
+			    					geocodeAddress(node[i]);
+			    				}
 			    			}
-			    		}
-					});
+    					}, function() {
+      						setMapCenter(initPlaceOfBirth);
+    					});
+  					} else {
+  						// Browser doesn't support Geolocation
+    					setMapCenter(initPlaceOfBirth);
+ 					 }
+
+					
 				} else {
 					var el = angular.element('<div/>');
 					 el.append('<div class="container" style="margin-top: 70px;">' +
@@ -52,20 +77,18 @@ app.directive('map', ['$compile','memberService', function($compile,memberServic
         			element.append(el);
 				}
 
-				function initMap(address,callback) {
+				function setMapCenter(address,callback) {
 				    geocoder = new google.maps.Geocoder();
 				    geocoder.geocode({
 				        'address': address
 				    }, function(results, status) {
 				        if (status == google.maps.GeocoderStatus.OK) {
-				        	var map_options = {
-					                zoom: 4,
-					                center: results[0].geometry.location
-					        };
-				            // create map
-					        map = new google.maps.Map(document.getElementById(attrs.id), map_options);
-					        mc = new MarkerClusterer(map, [], mcOptions);
-					        callback();
+				        	map.setCenter(results[0].geometry.location);
+					        for (var i = 0; i < node.length; i++){
+			    				if(node[i].placeOfBirth != null){
+			    					geocodeAddress(node[i]);
+			    				}
+			    			}
 					     }
 				    });
 				};
@@ -102,9 +125,6 @@ app.directive('map', ['$compile','memberService', function($compile,memberServic
 			                //if a marker already exists in the same position as this marker
 			                if (latlng.equals(pos)) {
 
-			                    //update the position of the coincident marker by applying a small multipler to its coordinates
-			                    //var newLat = latlng.lat() * (Math.random() * (max - min) + min);
-			                    //var newLng = latlng.lng() * (Math.random() * (max - min) + min);
 			                    var newLat = latlng.lat() + (Math.random() -.10) / 1500;// * (Math.random() * (max - min) + min);
 	            				var newLng = latlng.lng() + (Math.random() -.10) / 1500;// * (Math.random() * (max - min) + min);
 
@@ -115,14 +135,41 @@ app.directive('map', ['$compile','memberService', function($compile,memberServic
 			        }
 
 			        var marker = new google.maps.Marker({
-			            position: finalLatLng,
-			            title: node.city
+			            position: finalLatLng
 			        });
 
-			        marker.content = '<div class="infoWindowContent">' + node.desc + '</div>';     
+			        /*marker.content = '<div class="content">' +
+			        					'<div class="row">' +
+			        						'<div class="col-md-4">' +
+			        							'<img class="img-thumbnail" src="http://localhost/~oushiwei/ohana/app/api/v1/getProfImg.php?id=' + node.memberID +'"/>' +
+			        				 		'</div>' +
+			        				 		'<div class="col-md-8">' +
+			        				 			'<h3>' +  node.firstName + ' ' + node.lastName + '</h3>' +
+			        				 		'</div>' +
+			        				 	'</div>' +
+			        				 '</div>';  */
+
+			         marker.content = '<div class="infowindow">'+
+									      '<div class="misc pull-left">'+
+									      	'<img class="img-thumbnail" src="http://localhost/~oushiwei/ohana/app/api/v1/getProfImg.php?id=' + node.memberID +'"/>' +
+									      	'<div>' +
+									      		'<a class="btn btn-outline-inverse" href="#/profile/' + node.memberID + '" type="button"><i class="fa fa-user"></i>&nbsp;&nbsp;View Profile</a>' +
+									      	'</div>' +
+									      	'<div class="gap"></div>' +
+									      '</div>'+
+									      '<div class="content pull-right">' +
+									      	'<h3 id="firstHeading" class="firstHeading">' + node.firstName +' ' + node.lastName + '</h3>'+
+									      	'<div class="bodyContent">'+
+												'<p><strong>Born On</strong>: ' + $filter('checkUnknown')(node.dateOfBirth) + '</p>' +
+										  		'<p><strong>Born In</strong>: ' + $filter('checkUnknown')(node.placeOfBirth) + '</p>' +
+										  		'<p><strong>Gender</strong>: ' + $filter('gender')(node.gender) + '</p>' +
+									      	'</div>'+
+									      '</div>'+
+								      '</div>';
+   
 
 			        google.maps.event.addListener(marker, 'click', function(){
-	            		infoWindow.setContent('<h2>' +  node.firstName + ' ' + node.lastName + '</h2>' + marker.content);
+	            		infoWindow.setContent(marker.content);
 	            		infoWindow.open(map, marker);
 	        		});
 
