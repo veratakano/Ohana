@@ -37,9 +37,6 @@
    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
 
   <script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
-  <script type="text/javascript" src="scripts/jquery.jsPlumb-1.7.2-min.js"></script>
-  <script type="text/javascript" src="scripts/jssor.js"></script>
-  <script type="text/javascript" src="scripts/jssor.slider.js"></script>
 
   <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 

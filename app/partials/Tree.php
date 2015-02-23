@@ -86,25 +86,34 @@
 				IF (is_null($member_values[0])) 
 					$name = "$memberID Undefined";
 				else
-					$name = "$memberID $member_values[0] $member_values[1]";
+					$name = "$member_values[0] $member_values[1]";
 				
 				/** colour **/
 				if($member_values[3] != 0) {
 					if($member_values[2] == 'M') 
 						// change colour of males
-						echo '<div class="windowMale" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
-							<div>'. $name . '</div>
+						echo '<div class="node male" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
+							<div class="text-center">
+								<img class="img-thumbnail" src="api/v1/getProfImg.php?id='. $memberID .'" />
+								<div>'. $name . '</div>
+							</div>
 						</div> ';
 					else 
 						// change colours of females
-						echo '<div class="windowFemale" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
-							<div>'. $name . '</div>
+						echo '<div class="node female" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
+							<div class="text-center">
+								<img class="img-thumbnail" src="api/v1/getProfImg.php?id='. $memberID .'" />
+								<div>'. $name . '</div>
+							</div>
 						</div> ';					
 				}
 				else {
 					// change colour of passed-away
-					echo '<div class="window" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
-						<div>'. $name . '</div>
+					echo '<div class="node" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
+						<div class="text-center">
+							<img class="img-thumbnail" src="api/v1/getProfImg.php?id='. $memberID .'" />
+							<div>'. $name . '</div>
+						</div>
 					</div> ';
 
 				}

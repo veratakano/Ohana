@@ -138,16 +138,6 @@ app.directive('map', ['$compile','memberService','$filter', function($compile,me
 			            position: finalLatLng
 			        });
 
-			        /*marker.content = '<div class="content">' +
-			        					'<div class="row">' +
-			        						'<div class="col-md-4">' +
-			        							'<img class="img-thumbnail" src="http://localhost/~oushiwei/ohana/app/api/v1/getProfImg.php?id=' + node.memberID +'"/>' +
-			        				 		'</div>' +
-			        				 		'<div class="col-md-8">' +
-			        				 			'<h3>' +  node.firstName + ' ' + node.lastName + '</h3>' +
-			        				 		'</div>' +
-			        				 	'</div>' +
-			        				 '</div>';  */
 
 			         marker.content = '<div class="infowindow">'+
 									      '<div class="misc pull-left">'+

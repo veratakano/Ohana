@@ -4,38 +4,28 @@
 	margin-top: -40px;
 }
 
-.tree .window {   
+.tree .node {   
 	background-color: #EEEEEF; 
 	border: 1px solid #346789;    
     border-radius: 0.5em;    
     box-shadow: 1px 1px 2px #AAAAAA;    
     color: black;   
-    height: 4em;   
+    min-height: 125px;   
     position: absolute;    
-    width: 4em;  			
+    width: 95px;  			
 	margin: 0 auto; 
+}  
+
+.tree .node.male {   
+	background-color: #38ACEC;
 }  
 		
-.tree .windowMale {   
-	background-color: #38ACEC; 
-	border: 1px solid #346789;    
-	border-radius: 0.5em;    
-	box-shadow: 1px 1px 2px #AAAAAA;    
-	color: black;   
-	height: 4em;   
-	position: absolute;    
-	width: 4em;  			
-	margin: 0 auto; 
+.tree .node.female {   
+	background-color: #FAAFBE;
 }  
-		
-.tree .windowFemale {   
-	background-color: #FAAFBE; 
-	border: 1px solid #346789;    
-	border-radius: 0.5em;    
-	box-shadow: 1px 1px 2px #AAAAAA;    
-	color: black;   
-	height: 4em;   
-	position: absolute;    
-	width: 4em;  			
-	margin: 0 auto; 
-}  
+
+.tree .node img {
+	width:80px;
+	margin:5px;
+}	
+
