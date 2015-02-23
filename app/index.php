@@ -45,7 +45,7 @@
 
   <script type="text/javascript" src="scripts/ngDialog.min.js"></script>
   <script type="text/javascript" src="scripts/angular-file-upload.min.js"></script>
-  <script type="text/javascript" src="scripts/ngAutoComplete.js"></script>
+  <script type="text/javascript" src="scripts/ngAutocomplete.js"></script>
   <script type="text/javascript" src="scripts/angular-strap.min.js"></script>
   <script type="text/javascript" src="scripts/angular-strap.tpl.min.js"></script>
 

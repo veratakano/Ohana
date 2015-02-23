@@ -74,6 +74,8 @@
         $fname = $r->user->fname;
         $lname = $r->user->lname;
         $email = $r->user->email;
+        $gender = $r->user->gender;
+        $privacy = $r->user->privacy;
         if(!empty($r->user->password)){
             $pwd = md5($r->user->password);
             $pwd = "'$pwd'";
@@ -87,7 +89,7 @@
             $fbid = "NULL";
         };
 
-        $result = $db->getResult("CALL SP_DoRegistration('$fname', '$lname', '$email', $pwd, $fbid)");
+        $result = $db->getResult("CALL SP_DoRegistration('$fname','$lname','$email','$gender','$privacy',$pwd,$fbid)");
         return $result;
 
     };

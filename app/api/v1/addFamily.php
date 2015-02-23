@@ -1,4 +1,6 @@
 <?php
+
+	session_start();
      
     require_once 'dbHandler.php';
 
@@ -10,7 +12,7 @@
     addFamily($r);
     
     function addFamily($r){
-		session_start();
+		
 		// get tree ID from session 
 		$tree_id = $_SESSION['treeid'];
 		
