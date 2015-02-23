@@ -32,3 +32,18 @@ app.filter('gender', function() {
 		}
 	}
 }); 
+
+app.filter('vitalStatus', function() {
+	return function(input) {
+		if(!input){
+			return 'Unknown';
+		}
+		else {
+			if(input == '1'){
+				return 'Living';
+			} else {
+				return 'Deceased';
+			}
+		}
+	}
+}); 

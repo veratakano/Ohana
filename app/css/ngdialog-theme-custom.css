@@ -28,3 +28,35 @@
 	width:700px;
 }
 
+/*! Tree Profile */
+
+.ngdialog.ngdialog-theme-custom-profile-tree .ngdialog-content{
+	padding: 0;
+	width:500px;
+}
+
+.ngdialog.ngdialog-theme-custom-profile-tree .ngdialog-content .prof_pic{
+	width:100px;
+	height:100px;
+}
+
+.ngdialog.ngdialog-theme-custom-profile-tree .ngdialog-content .options{
+	width: 100%;
+	border-top: 1px solid #dddddd;
+	cursor: pointer;
+}
+
+.ngdialog.ngdialog-theme-custom-profile-tree .ngdialog-content .option{
+	border-right: 1px solid #dddddd;
+	background-color: #f5f5f5;
+	padding:20px 0;
+}
+
+.ngdialog.ngdialog-theme-custom-profile-tree .ngdialog-content .option:hover{
+	background-color: #dddddd;
+}
+
+.ngdialog.ngdialog-theme-custom-profile-tree .ngdialog-content .option:last-child {
+    border-right: 0;
+} 
+

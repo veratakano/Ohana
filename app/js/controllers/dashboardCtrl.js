@@ -32,10 +32,10 @@ app.controller('dashboardCtrl', ['$window','$rootScope','$scope','$route','ngDia
    //Open Popup for members
    $scope.openDialog = function (id) {
          ngDialog.open({
-           template: 'userDialogId',
-           className: 'ngdialog-theme-default ngdialog-theme-custom',
+           template: 'memberAction',
+           className: 'ngdialog-theme-default ngdialog-theme-custom-profile-tree',
            data: {id: id},
-           controller: 'dialogCtrl'
+           controller: 'memberActions'
          });
    };
 
@@ -43,11 +43,24 @@ app.controller('dashboardCtrl', ['$window','$rootScope','$scope','$route','ngDia
 }])
 
 // Open Popup Controller
-app.controller('dialogCtrl', ['$scope','memberService','inviteService', function($scope,memberService,inviteService){
+app.controller('memberActions', ['$scope','$rootScope','$location','memberService','inviteService','ngDialog',
+  function($scope,$rootScope,$location,memberService,inviteService,ngDialog){
 
   memberService.memberGet($scope.ngDialogData.id).then(function(data) {
     $scope.member = data;
+    $scope.fullName = $scope.member.firstName + " " + $scope.member.lastName;
+    $scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.member.memberID;
   });
+
+  $scope.addMemeber = function(){
+    $location.path('/create_member/' + $scope.member.memberID);
+    ngDialog.close();
+  }
+
+  $scope.viewProfile = function(){
+    $location.path('/profile/' + $scope.member.memberID);
+    ngDialog.close();
+  }
 
   $scope.sendInvite = function(){
     $scope.loading = true;
