@@ -5,7 +5,7 @@
       <hr class="">
       <div class="row">
         <div class="col-sm-10">
-          <h1 class="">{{fullName}}</h1>
+          <h1 ng-bind="(fullName | checkFullNameUnknown)"></h1>
           <br>
         </div>
         <div class="col-sm-2">
@@ -28,14 +28,14 @@
                 <div class="col-sm-3 text-right control-label">
                   Full Name
                 </div>
-                <div class="col-sm-9 control" ng-bind="(fullName | checkUnknown)"></div>
+                <div class="col-sm-9 control" ng-bind="(fullName | checkFullNameUnknown)"></div>
               </div>
               <hr />
               <div class="row">
                 <div class="col-sm-3 text-right control-label">
                  Born On
                 </div>
-                <div class="col-sm-9 control" ng-bind="(member.dateOfBirth | checkUnknown)"></div>
+                <div class="col-sm-9 control" ng-bind="(member.dateOfBirth | checkUnknown | date:'dd/MM/yyyy' )"></div>
               </div>
               <hr />
               <div class="row">
@@ -124,7 +124,7 @@
     <div class="col-sm-1"></div>
 </div>
 
-  <!-- upload Profile Pic -->
+  <!--Edit Member -->
   <script type="text/ng-template" id="editProf">
     <div class="ngdialog-message">
       <div class="panel panel-default">
@@ -150,7 +150,7 @@
                 <div class="form-group">
                   <label class="control-label col-sm-3" for="txtFirstName">Date of Birth:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" name="calDOB" placeholder="Select Date of Birth" bs-datepicker required ng-model="member.dateOfBirth"/>
+                    <input type="text" class="form-control" placeholder="Select Date of Birth" bs-datepicker date-type="string" required ng-model="member.dateOfBirth"/>
                   </div>
                 </div>
                 <div class="form-group">

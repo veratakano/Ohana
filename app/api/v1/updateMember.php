@@ -2,6 +2,8 @@
      
     require_once 'dbHandler.php';
 
+    date_default_timezone_set('Asia/Singapore');
+
     $post = file_get_contents('php://input');
     $r = json_decode($post);
     $response = array();
@@ -10,11 +12,15 @@
         $member_id = $r->member->memberID;
         $member_fname = $r->member->firstName;
         $member_lname = $r->member->lastName;
-        $member_dob = $r->member->dateOfBirth;
+        $date = str_replace('/', '-', $r->member->dateOfBirth);
+        $member_dob = date('Y-m-d', strtotime($date));
         $member_gender = $r->member->gender;
         $member_email = $r->member->email;
         $member_pob = $r->member->placeOfBirth;
         $member_vs = $r->member->vitalStatus;
+
+        var_dump($r->member->dateOfBirth);
+        var_dump($member_dob);
         
         $db = new DbHandler();
 //        $result = $db->getResult("CALL SP_DoUpdateMember('$member_id','$member_fname','$member_lname','$member_dob','$member_gender','$member_email','$member_pob','$member_vs')");

@@ -3,6 +3,7 @@
 	session_start();
      
     require_once 'dbHandler.php';
+    date_default_timezone_set('Asia/Singapore');
 
     //get posted json object
     $post = file_get_contents('php://input');
@@ -31,7 +32,8 @@
 		
 			$father_fname = $r->user->fFirstName;
 			$father_lname = $r->user->fLastName;
-			$father_dob = $r->user->fDOB;
+			$date = str_replace('/', '-', $r->user->fDOB);
+        	$father_dob = date('Y-m-d', strtotime($date));
 			$father_email = $r->user->fEmail;
 			$father_email = !empty($father_email) ? "'$father_email'" : "NULL";
 			$father_pob = $r->user->fPOB;
@@ -39,7 +41,8 @@
 			
 			$mother_fname = $r->user->mFirstName;
 			$mother_lname = $r->user->mLastName;
-			$mother_dob = $r->user->mDOB;
+			$date = str_replace('/', '-', $r->user->mDOB);
+        	$mother_dob = date('Y-m-d', strtotime($date));
 			$mother_email = $r->user->mEmail;
 			$mother_email = !empty($mother_email) ? "'$mother_email'" : "NULL";
 			$mother_pob = $r->user->mPOB;
@@ -55,7 +58,8 @@
 			
 			$member_fname = $r->user->fName;
 			$member_lname = $r->user->lName;
-			$member_dob = $r->user->DOB;
+			$date = str_replace('/', '-', $r->user->DOB);
+        	$member_dob = date('Y-m-d', strtotime($date));
 			$member_email = $r->user->email;
 			$member_email = !empty($member_email) ? "'$member_email'" : "NULL";
 			$member_pob = $r->user->POB;
@@ -75,7 +79,8 @@
 			
 			$offspring_fname = $r->user->fName;
 			$offspring_lname = $r->user->lName;
-			$offspring_dob = $r->user->DOB;
+			$date = str_replace('/', '-', $r->user->DOB);
+        	$offspring_dob = date('Y-m-d', strtotime($date));
 			$offspring_email = $r->user->email;
 			$offspring_email = !empty($offspring_email) ? "'$offspring_email'" : "NULL";
 			$offspring_pob = $r->user->POB;
@@ -95,7 +100,8 @@
 			
 			$spouse_fname = $r->user->fName;
 			$spouse_lname = $r->user->lName;
-			$spouse_dob = $r->user->DOB;
+			$date = str_replace('/', '-', $r->user->DOB);
+        	$spouse_dob = date('Y-m-d', strtotime($date));
 			$spouse_email = $r->user->email;
 			$spouse_email = !empty($spouse_email) ? "'$spouse_email'" : "NULL";
 			$spouse_pob = $r->user->POB;

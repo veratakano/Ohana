@@ -43,13 +43,27 @@ app.controller('dashboardCtrl', ['$window','$rootScope','$scope','$route','ngDia
 }])
 
 // Open Popup Controller
-app.controller('memberActions', ['$scope','$rootScope','$location','memberService','inviteService','ngDialog',
-  function($scope,$rootScope,$location,memberService,inviteService,ngDialog){
+app.controller('memberActions', ['$scope','$rootScope','$location','memberService','inviteService','ngDialog','sessionService',
+  function($scope,$rootScope,$location,memberService,inviteService,ngDialog,sessionService){
 
   memberService.memberGet($scope.ngDialogData.id).then(function(data) {
     $scope.member = data;
     $scope.fullName = $scope.member.firstName + " " + $scope.member.lastName;
     $scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.member.memberID;
+
+    $scope.iStatus = $scope.member.inviteStatus;
+
+    $scope.showEmail = function() {
+      if (!$scope.member.email){
+        return false;
+      }else{
+        if ($scope.member.memberID == sessionService.get('uid')) {
+          return false;
+        }else{
+          return true;
+        }
+      }
+    };
   });
 
   $scope.addMemeber = function(){
@@ -65,12 +79,18 @@ app.controller('memberActions', ['$scope','$rootScope','$location','memberServic
   $scope.sendInvite = function(){
     $scope.loading = true;
     inviteService.inviteSend($scope.member).then(function(data) {
-      $scope.message = data.message;
+      $scope.status = true;
+      if(data.status == 'success'){
+        $scope.success = true;
+      }else{
+        $scope.error = true;
+      }
     }, function ( response ) {
-    // TODO: handle the error somehow
+     //handle the error
+     $scope.error = true;
     }).finally(function() {
     // called no matter success or failure
-      $scope.loading = false;
+      
     });
   }
             

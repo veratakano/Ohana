@@ -16,7 +16,17 @@ app.filter('checkUnknown', function() {
 	return function(input) {
 		return input ? input : 'Unknown';
 	}
-}); 
+});
+
+app.filter('checkFullNameUnknown', function() {
+	return function(input) {
+		if(input == 'null null'){
+			return 'Unknown';
+		} else {
+			return input;
+		}
+	}
+});  
 
 app.filter('gender', function() {
 	return function(input) {

@@ -51,13 +51,16 @@ app.controller('profileCtrl', ['memberDetails','$location','$rootScope','$scope'
 }]);
 
 // Open Popup Controller
-app.controller('editCtrl', ['$scope','memberService', function($scope,memberService){
-	
+app.controller('editCtrl', ['$scope','$filter','memberService', function($scope,$filter,memberService){
+
+	$scope.member.dateOfBirth = $filter('date')($scope.member.dateOfBirth, "dd/MM/yyyy");
+
 	$scope.updateMember = function(member){
 		console.log(member);
 		$scope.loading = true;
 		memberService.updateMember(member).then(function(data) {
-			$scope.thumbnails = data;
+			//$scope.thumbnails = data;
+
 			if(data.status = "successful"){
 				$scope.success = data.message;
 			} else {
