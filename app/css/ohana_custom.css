@@ -97,7 +97,22 @@
 }
 
 /* Create Member */
+.create-member {margin-bottom: 30px;}
+
 .create-member .spacer {margin-top: 50px;}
+
+.create-member .btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.create-member .btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+
 
 /* Invite */
 .invite .jumbotron{

@@ -22,6 +22,17 @@ app.factory('memberService', ['$http','$rootScope',
 				});
 				return promise;		   
 		},
+		getMemberRelation:function(memberID){
+			var promise = $http.post(
+	      		$rootScope.apiVersion + 'getMemberRelation.php',
+	      		{
+	      			member:memberID
+	      		}
+	    		).then(function(output){
+	    			return output.data;
+				});
+				return promise;		   
+		},
 		memberGetGal: function(memberID){
 			var promise = $http.post(
 	      		$rootScope.apiVersion + 'getMemberGal.php', 
@@ -82,8 +93,6 @@ app.factory('memberService', ['$http','$rootScope',
 
 				return promise;		   
 		},
-		
-		
 		addSpouse:function(credentials){
 
 			var promise = $http.post(
@@ -99,7 +108,6 @@ app.factory('memberService', ['$http','$rootScope',
 
 				return promise;		   
 		},
-		
 		addChildren:function(credentials){
 
 			
@@ -116,7 +124,6 @@ app.factory('memberService', ['$http','$rootScope',
 
 				return promise;		   
 		},
-
 		updateMember: function(member){
 			var promise = $http.post(
 	      		$rootScope.apiVersion + 'updateMember.php', 

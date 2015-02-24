@@ -18,9 +18,6 @@
         $member_email = $r->member->email;
         $member_pob = $r->member->placeOfBirth;
         $member_vs = $r->member->vitalStatus;
-
-        var_dump($r->member->dateOfBirth);
-        var_dump($member_dob);
         
         $db = new DbHandler();
 //        $result = $db->getResult("CALL SP_DoUpdateMember('$member_id','$member_fname','$member_lname','$member_dob','$member_gender','$member_email','$member_pob','$member_vs')");

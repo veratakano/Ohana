@@ -57,7 +57,7 @@ app.controller('memberActions', ['$scope','$rootScope','$location','memberServic
       if (!$scope.member.email){
         return false;
       }else{
-        if ($scope.member.memberID == sessionService.get('uid')) {
+        if ($scope.member.email == sessionService.get('email')) {
           return false;
         }else{
           return true;

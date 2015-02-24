@@ -75,7 +75,11 @@
         $lname = $r->user->lname;
         $email = $r->user->email;
         $gender = $r->user->gender;
-        $privacy = $r->user->privacy;
+        if(!empty($r->user->privacy)){
+            $privacy = $r->user->privacy;
+        }else{
+             $privacy = 1;
+        }
         if(!empty($r->user->password)){
             $pwd = md5($r->user->password);
             $pwd = "'$pwd'";

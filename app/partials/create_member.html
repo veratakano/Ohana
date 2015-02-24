@@ -1,11 +1,11 @@
 	<!-- Create Member -->
-	<div class="container create-member" ng-init="tab=1">
+	<div class="container create-member" ng-init="tab=selTab()">
 		<h2>Create Memeber</h2>
 		<br>
 		<div class="row">
 			<div class="col-md-3" style="padding-right:0;">
 					<div class="list-group">
-					  <a class="list-group-item" ng-class="{active:tab == 1}" ng-click="tab = 1" style="line-height: 40px;">
+					  <a class="list-group-item" ng-class="{active:tab == 1}" ng-click="tab = 1" style="line-height: 40px;" ng-show="relation.fatherID == 0">
 					  	<i class="fa fa fa-chevron-right" style="float: right; margin-right: -6px; margin-top: 12px;"></i>
 						<i class="fa fa-user-plus"></i>&nbsp;&nbsp;Create Parents
 					  </a>
@@ -13,7 +13,7 @@
 					  	<i class="fa fa fa-chevron-right" style="float: right; margin-right: -6px; margin-top: 12px;"></i>
 						<i class="fa fa-user-plus"></i>&nbsp;&nbsp;Create Siblings
 					  </a>
-					  <a class="list-group-item" ng-class="{active:tab == 3}" ng-click="tab = 3" style="line-height: 40px;">
+					  <a class="list-group-item" ng-class="{active:tab == 3}" ng-click="tab = 3" style="line-height: 40px;" ng-show="!relation.spouseID">
 					  	<i class="fa fa fa-chevron-right" style="float: right; margin-right: -6px; margin-top: 12px;"></i>
 						<i class="fa fa-user-plus"></i>&nbsp;&nbsp;Create Spouse
 					  </a>
@@ -23,168 +23,291 @@
 					  </a>
 					</div>
 			</div>
-			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 1">
-				<form name="frmAddParent" class="center-block" ng-submit="addParent(parents)" style="width:75%;">
-					<div class="form-group">
-						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Father: </h3>
+			<div class="col-md-8" style="border-top: 1px solid #dddddd;" ng-show="tab == 1" ng-if="relation.fatherID == 0">
+				<form name="frmAddParent" class="center-block" ng-submit="addParent(parents)">
+					<div class="clearfix">
+						<div class="form-group">
+							<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Father: </h3>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="parents.fFirstName" autofocus/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="parents.fLastName"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="parents.fPOB"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="parents.fEmail"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="parents.fDOB"/>
+						</div>
+						<div class="form-group pull-left">
+							<div class="checkbox pull-left">
+								<label>
+								  <input type="checkbox" ng-model="parents.fvStatus" ng-init="parents.fvStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
+								</label>
+							</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="parents.fFirstName" autofocus/>
+					<div class="profPicUpload">
+						<h5>Upload Profile Picture</h5>
+						<div class="row">
+							<div class="col-md-2">
+								<img ng-src="{{fimgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+							</div>
+							<div class="col-md-10">
+								<div class="input-group">
+			                		<span class="input-group-btn">
+			                    		<span class="btn btn-primary btn-file">
+			                        		Browse&hellip;<input type="file" ng-file-select ng-model="parents.fpicFile" name="file" accept="image/*" ng-file-change="generateThumb(parents.fpicFile[0],'father')">
+			                    		</span>
+			                		</span>
+			                		<input type="text" class="form-control" ng-model="flblpicFile" readonly>
+			            		</div>
+			                	<div class="progress" ng-show="parents.fpicFile.progress >= 0" style="margin-top: 10px;" >
+					            	<div class="progress-bar" role="progressbar" aria-valuenow="{{parents.fpicFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( parents.fpicFile.progress + '%' ) }">{{parents.fpicFile.progress}}%</div>
+					     		</div> 
+							</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="parents.fLastName"/>
+					<div class="clearfix">
+						<div class="form-group">
+							<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Mother: </h3>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="parents.mFirstName"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtLastName" placeholder="Last Name" required ng-model="parents.mLastName"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete required ng-model="parents.mPOB"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="parents.mEmail"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="parents.mDOB"/>
+						</div>
+						<div class="form-group pull-left">
+						<div class="checkbox">
+							<label>
+								  <input type="checkbox" ng-model="parents.mvStatus" ng-init="parents.mvStatus=1" ng-true-value="0" ng-false-value="1" > Deceased
+							</label>
+						</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="parents.fPOB"/>
+					<div class="profPicUpload">
+						<h5>Upload Profile Picture</h5>
+						<div class="row">
+							<div class="col-md-2">
+								<img ng-src="{{mimgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+							</div>
+							<div class="col-md-10">
+								<div class="input-group">
+			                		<span class="input-group-btn">
+			                    		<span class="btn btn-primary btn-file">
+			                        		Browse&hellip;<input type="file" ng-file-select ng-model="parents.mpicFile" name="file" accept="image/*" ng-file-change="generateThumb(parents.mpicFile[0],'mother')">
+			                    		</span>
+			                		</span>
+			                		<input type="text" class="form-control" ng-model="mlblpicFile" readonly>
+			            		</div>
+			                	<div class="progress" ng-show="parents.mpicFile.progress >= 0" style="margin-top: 10px;" >
+					            	<div class="progress-bar" role="progressbar" aria-valuenow="{{parents.mpicFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( parents.mpicFile.progress + '%' ) }">{{parents.mpicFile.progress}}%</div>
+					     		</div> 
+							</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="parents.fEmail"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="parents.fDOB"/>
-					</div>
-					<div class="checkbox">
-						<label>
-						  <input type="checkbox" ng-model="parents.fvStatus" ng-init="parents.fvStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
-						</label>
-					</div>
-					<div class="form-group">
-						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Mother: </h3>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="parents.mFirstName"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name" required ng-model="parents.mLastName"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete required ng-model="parents.mPOB"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="parents.mEmail"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="parents.mDOB"/>
-					</div>
-					<div class="checkbox">
-					<label>
-						  <input type="checkbox" ng-model="parents.mvStatus" ng-init="parents.mvStatus=1" ng-true-value="0" ng-false-value="1" > Deceased
-					</label>
-					</div>
-					<button class="btn btn-primary pull-right"  name="inlineRadioOptions" type="submit">Add Parent</button>
+					<button class="btn btn-primary pull-right" name="inlineRadioOptions" type="submit">Add Parent</button>
 				</form>
 			</div>
-			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 2">
-				<form name="frmAddSibling" class="center-block" ng-submit="addSibling(sibling)" style="width:75%;">
-					<div class="form-group">
-						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Sibling: </h3>
+			<div class="col-md-8" style="border-top: 1px solid #dddddd;" ng-show="tab == 2">
+				<form name="frmAddSibling" class="center-block" ng-submit="addSibling(sibling)">
+					<div class="clearfix">
+						<div class="form-group">
+							<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Sibling: </h3>
+						</div>
+						<div class="form-group">
+							<label class="radio-inline">
+							  <input type="radio" name="inlineRadioOptions" ng-model="sibling.type" value="Brother"> Brother
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="inlineRadioOptions" ng-model="sibling.type" value="Sister"> Sister
+							</label>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="sibling.fName" autofocus/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="sibling.lName"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="sibling.POB"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="sibling.email"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="sibling.DOB"/>
+						</div>
+						<div class="form-group pull-left">
+							<div class="checkbox">
+								<label>
+									  <input type="checkbox" ng-model="sibling.vStatus" ng-init="sibling.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
+								</label>
+							</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<label class="radio-inline">
-						  <input type="radio" name="inlineRadioOptions" ng-model="sibling.type" value="Brother"> Brother
-						</label>
-						<label class="radio-inline">
-						  <input type="radio" name="inlineRadioOptions" ng-model="sibling.type" value="Sister"> Sister
-						</label>
+					<div class="profPicUpload">
+						<h5>Upload Profile Picture</h5>
+						<div class="row">
+							<div class="col-md-2">
+								<img ng-src="{{imgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+							</div>
+							<div class="col-md-10">
+								<div class="input-group">
+			                		<span class="input-group-btn">
+			                    		<span class="btn btn-primary btn-file">
+			                        		Browse&hellip;<input type="file" ng-file-select ng-model="sibling.picFile" name="file" accept="image/*" ng-file-change="generateThumb(sibling.picFile[0])">
+			                    		</span>
+			                		</span>
+			                		<input type="text" class="form-control" ng-model="lblpicFile" readonly>
+			            		</div>
+			                	<div class="progress" ng-show="sibling.picFile.progress >= 0" style="margin-top: 10px;" >
+					            	<div class="progress-bar" role="progressbar" aria-valuenow="{{sibling.picFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( sibling.picFile.progress + '%' ) }">{{sibling.picFile.progress}}%</div>
+					     		</div> 
+							</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="sibling.fName" autofocus/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="sibling.lName"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="sibling.POB"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="sibling.email"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="sibling.DOB"/>
-					</div>
-					<div class="checkbox">
-					<label>
-						  <input type="checkbox" ng-model="sibling.vStatus" ng-init="sibling.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
-					</label>
-					</div>
-
 					<button class="btn btn-primary pull-right" type="submit">Add Sibling</button> 
 				</form>
 			</div>
-			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 3">
-				<form name="frmAddSpouse" class="center-block" ng-submit="addSpouse(spouse)" style="width:75%;">
-					<div class="form-group">
-						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Spouse: </h3>
+			<div class="col-md-8" style="border-top: 1px solid #dddddd;" ng-show="tab == 3" ng-if="!relation.spouseID">
+				<form name="frmAddSpouse" class="center-block" ng-submit="addSpouse(spouse)">
+					<div class="clearfix">
+						<div class="form-group">
+							<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Spouse: </h3>
+						</div>
+						<div class="form-group">
+							<label class="radio-inline">
+							  <input type="radio" name="inlineRadioOptions" ng-model="spouse.gender" value="M"> Huaband
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="inlineRadioOptions" ng-model="spouse.gender" value="F"> Wife
+							</label>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="spouse.fName" autofocus/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtLastName" placeholder="Last Name" required ng-model="spouse.lName"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="spouse.POB"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="spouse.email"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="spouse.DOB"/>
+						</div>
+						<div class="form-group pull-left">
+							<div class="checkbox">
+								<label>
+									  <input type="checkbox" ng-model="spouse.vStatus" ng-init="spouse.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
+								</label>
+							</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="spouse.fName" autofocus/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name" required ng-model="spouse.lName"/>
-					</div>
-					<div class="form-group">
-						<label class="radio-inline">
-						  <input type="radio" name="inlineRadioOptions" ng-model="spouse.gender" value="M"> Male
-						</label>
-						<label class="radio-inline">
-						  <input type="radio" name="inlineRadioOptions" ng-model="spouse.gender" value="F"> Female
-						</label>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="spouse.POB"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="spouse.email"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="spouse.DOB"/>
-					</div>
-					<div class="checkbox">
-					<label>
-						  <input type="checkbox" ng-model="spouse.vStatus" ng-init="spouse.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
-					</label>
+					<div class="profPicUpload">
+						<h5>Upload Profile Picture</h5>
+						<div class="row">
+							<div class="col-md-2">
+								<img ng-src="{{imgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+							</div>
+							<div class="col-md-10">
+								<div class="input-group">
+			                		<span class="input-group-btn">
+			                    		<span class="btn btn-primary btn-file">
+			                        		Browse&hellip;<input type="file" ng-file-select ng-model="spouse.picFile" name="file" accept="image/*" ng-file-change="generateThumb(spouse.picFile[0])">
+			                    		</span>
+			                		</span>
+			                		<input type="text" class="form-control" ng-model="lblpicFile" readonly>
+			            		</div>
+			                	<div class="progress" ng-show="spouse.picFile.progress >= 0" style="margin-top: 10px;" >
+					            	<div class="progress-bar" role="progressbar" aria-valuenow="{{spouse.picFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( spouse.picFile.progress + '%' ) }">{{sibling.picFile.progress}}%</div>
+					     		</div> 
+							</div>
+						</div>
 					</div>
 					<button class="btn btn-primary pull-right" type="submit">Add Spouse</button> 
 				</form>
 			</div>
-			<div class="col-md-7" style="border-top: 1px solid #dddddd;" ng-show="tab == 4">
-				<form name="frmAddChildren" class="center-block" ng-submit="addChildren(children)" style="width:75%;">
-					<div class="form-group">
-						<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Children: </h3>
+			<div class="col-md-8" style="border-top: 1px solid #dddddd;" ng-show="tab == 4">
+				<form name="frmAddChildren" class="center-block" ng-submit="addChildren(children)">
+					<div class="clearfix">
+						<div class="form-group">
+							<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Children: </h3>
+						</div>
+						<div class="form-group">
+							<label class="radio-inline">
+							  <input type="radio" name="inlineRadioOptions" ng-model="children.type" id="inlineRadio1" value="Son"> Son
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="inlineRadioOptions" ng-model="children.type" id="inlineRadio2" value="Daughter"> Daughter
+							</label>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="children.fName" autofocus/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="children.lName"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="children.POB"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="children.email"/>
+						</div>
+						<div class="form-group pull-left">
+							<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="children.DOB"/>
+						</div>
+						<div class="form-group pull-left">
+							<div class="checkbox">
+								<label>
+									  <input type="checkbox" ng-model="children.vStatus" ng-init="children.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
+								</label>
+							</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<label class="radio-inline">
-						  <input type="radio" name="inlineRadioOptions" ng-model="children.type" id="inlineRadio1" value="Son"> Son
-						</label>
-						<label class="radio-inline">
-						  <input type="radio" name="inlineRadioOptions" ng-model="children.type" id="inlineRadio2" value="Daughter"> Daughter
-						</label>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="children.fName" autofocus/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="children.lName"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="children.POB"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="children.email"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="children.DOB"/>
-					</div>
-					<div class="checkbox">
-					<label>
-						  <input type="checkbox" ng-model="children.vStatus" ng-init="children.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
-					</label>
+					<div class="profPicUpload">
+						<h5>Upload Profile Picture</h5>
+						<div class="row">
+							<div class="col-md-2">
+								<img ng-src="{{imgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+							</div>
+							<div class="col-md-10">
+								<div class="input-group">
+			                		<span class="input-group-btn">
+			                    		<span class="btn btn-primary btn-file">
+			                        		Browse&hellip;<input type="file" ng-file-select ng-model="children.picFile" name="file" accept="image/*" ng-file-change="generateThumb(children.picFile[0])">
+			                    		</span>
+			                		</span>
+			                		<input type="text" class="form-control" ng-model="lblpicFile" readonly>
+			            		</div>
+			                	<div class="progress" ng-show="children.picFile.progress >= 0" style="margin-top: 10px;" >
+					            	<div class="progress-bar" role="progressbar" aria-valuenow="{{children.picFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( children.picFile.progress + '%' ) }">{{children.picFile.progress}}%</div>
+					     		</div> 
+							</div>
+						</div>
 					</div>
 					<button class="btn btn-primary pull-right" type="submit">Add Offspring</button> 
 				</form>
 			</div>
-			<div class="col-md-2">
-			</div>
+			<div class="col-md-1">
 		</div>
 		<div class="spacer"></div>
 	</div>

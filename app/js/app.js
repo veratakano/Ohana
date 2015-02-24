@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('ohanaApp', ['ngRoute','ngDialog','ngFileUpload','ngAutocomplete','mgcrea.ngStrap']);
+var app = angular.module('ohanaApp', ['ngRoute' ,'ngDialog','ngFileUpload','ngAutocomplete','mgcrea.ngStrap']);
 
 app.config(['$routeProvider', 'ngDialogProvider', 
   function ($routeProvider, ngDialogProvider) {
@@ -34,7 +34,7 @@ app.config(['$routeProvider', 'ngDialogProvider',
              templateUrl: 'partials/profile.html',
              controller: 'profileCtrl',
              resolve : {
-                memberDetails : function(memberService,$route,$location) {
+                memberDetails : function(memberService,$route) {
                     return memberService.memberGet($route.current.params.profID).then(function(data) {
                             return data;
                     });
@@ -44,7 +44,14 @@ app.config(['$routeProvider', 'ngDialogProvider',
         when('/create_member/:memID', {
              title: 'Create Member',
              templateUrl: 'partials/create_member.html',
-             controller: 'insertionCtrl'
+             controller: 'insertionCtrl',
+             resolve : {
+                memberRelation : function(memberService,$route) {
+                    return memberService.getMemberRelation($route.current.params.memID).then(function(data) {
+                            return data;
+                    });
+                }
+             }
         }).
         when('/invite', {
              title: 'Invite Member',

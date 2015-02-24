@@ -76,6 +76,21 @@
     text-shadow: none;
 }
 
+.create-member .form-group{
+	margin: 10px 8px;
+}
+
+.create-member .form-group .checkbox{
+	margin-left: 10px;
+}
+
+.create-member .form-group > input {
+   	box-sizing: border-box;
+    height: 100%;
+    padding: 12px 14px 13px 13px !important;
+    width: 358px;
+}
+
 
 @media (max-width: 767px) {
 	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
