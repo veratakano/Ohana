@@ -597,7 +597,8 @@ BEGIN
     
 	IF (record_count > 0) THEN
 		SET SQL_SAFE_UPDATES=0;
-		UPDATE Member SET firstName = '', lastName = '', dateOfBirth = NULL, placeOfBirth = NULL, vitalStatus = 1;
+		UPDATE Member SET firstName = '', lastName = '', dateOfBirth = NULL, placeOfBirth = NULL, vitalStatus = 1, email=NULL
+        WHERE memberID = member_id;
         
     ELSE
     
@@ -610,23 +611,41 @@ BEGIN
             SET spouse_x = (SELECT x FROM coordinates WHERE memberId = spouse_id);
             SET tree_id = (SELECT treeID FROM coordinates WHERE memberID = member_id);
             
-            SET SQL_SAFE_UPDATES=0;
-            DELETE FROM coordinates WHERE memberID in (member_id, spouse_id);
-			DELETE FROM relation WHERE memberID in (member_id, spouse_id);
-			DELETE FROM member WHERE memberID in (member_id, spouse_id);
-            
-            IF spouse_id IS NOT NULL THEN
-				IF (coor_x > spouse_x) THEN
-					SET SQL_SAFE_UPDATES=0;
-					UPDATE coordinates set x = (x - 30) WHERE x > spouse_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
-                ELSE
+            IF (exists(SELECT * FROM Relation WHERE memberID = member_ID)) THEN
+				SET SQL_SAFE_UPDATES=0;
+				DELETE FROM coordinates WHERE memberID in (member_id, spouse_id);
+				DELETE FROM relation WHERE memberID in (member_id, spouse_id);
+				DELETE FROM member WHERE memberID in (member_id, spouse_id);
+				
+				IF spouse_id IS NOT NULL THEN
+					IF (coor_x > spouse_x) THEN
+						SET SQL_SAFE_UPDATES=0;
+						UPDATE coordinates set x = (x - 30) WHERE x > spouse_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
+					ELSE
+						SET SQL_SAFE_UPDATES=0;
+						UPDATE coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
+					END IF;
+				ELSE
 					SET SQL_SAFE_UPDATES=0;
 					UPDATE coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
-                END IF;
-			ELSE
+				END IF;
+            
+            ELSE
 				SET SQL_SAFE_UPDATES=0;
-				UPDATE coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
+				DELETE FROM coordinates WHERE memberID = member_id;
+				DELETE FROM member WHERE memberID = member_id;
+                UPDATE Relation SET spouseID = NULL WHERE memberID = spouse_id;
+                UPDATE coordinates SET spouseID = NULL WHERE memberID = spouse_id;
+                
+                IF (coor_x > spouse_x) THEN
+						SET SQL_SAFE_UPDATES=0;
+						UPDATE coordinates set x = (x - 30) WHERE x > spouse_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
+					ELSE
+						SET SQL_SAFE_UPDATES=0;
+						UPDATE coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
+					END IF;
             END IF;
+            
             
         END;
     END IF;
