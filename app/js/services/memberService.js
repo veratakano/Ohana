@@ -136,6 +136,19 @@ app.factory('memberService', ['$http','$rootScope',
 
 				return promise;		   
 		},
+		deleteProfile: function(member){
+			alert(member.memberID);
+			var promise = $http.post(
+	      		$rootScope.apiVersion + 'deleteFamily.php', 
+	      		{
+	      			member:member
+	      		}
+	    		).then(function(output){
+	    			return output.data;
+				});
+
+				return promise;		   
+		},
 	}
 
 }]);

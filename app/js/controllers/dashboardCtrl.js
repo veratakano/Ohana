@@ -75,6 +75,12 @@ app.controller('memberActions', ['$scope','$rootScope','$location','memberServic
     $location.path('/profile/' + $scope.member.memberID);
     ngDialog.close();
   }
+  
+  $scope.deleteProfile = function() {
+	  alert($scope.member.memberID);
+	  memberService.deleteProfile($scope.member);
+		
+  }
 
   $scope.sendInvite = function(){
     $scope.loading = true;
