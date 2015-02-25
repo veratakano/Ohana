@@ -57,11 +57,11 @@ $mail->setFrom('no.reply.ohana@gmail.com', 'Ohana');
 $mail->addAddress($rEmail, $rFullName);
 
 //Set the subject line
-$mail->Subject = 'PHPMailer GMail SMTP test';
+$mail->Subject = 'Invitation to join Ohana!';
 
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
-$url = "http://$_SERVER[HTTP_HOST]/~oushiwei/ohana/app/#/invite?mid=" . $rID . "&tid=" . $rTreeID;
+$url = "http://$_SERVER[HTTP_HOST]/app/#/invite?mid=" . $rID . "&tid=" . $rTreeID;
 
 $message = file_get_contents('../mail_templates/contents.html');
 $message = str_replace('%memberfullname%', $rFullName, $message);

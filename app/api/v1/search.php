@@ -1,11 +1,48 @@
-<?php
+ <?php
+
+
 	require_once 'dbHandler.php';
 
     //get posted json object
     $post = file_get_contents('php://input');
     $r = json_decode($post);
-	
-    var_dump($r); 
+    $response = array();
+
+    $keyword = $r->keyword;
+    $keyword = "*" . $keyword . "*";
+
+    if(!empty($r->gender)){
+ 		$gender = $r->gender;
+ 		$gender = "'$gender'";
+    }else{
+         $gender = "NULL";
+    }
+
+    if(!empty($r->vs)){
+ 		$vs = $r->vs;
+ 		$vs = "'$vs'";
+    }else{
+         $vs = "NULL";
+    }
+
+
+    if(!empty($keyword)){
+
+        $db = new DbHandler();
+
+        $result = $db->getResultSet("CALL SP_Search_Profile('$keyword',$gender,$vs)");
+        $response = $result;
+
+        echo json_encode($response);
+
+    }
+
+
+	/*require_once 'dbHandler.php';
+
+    //get posted json object
+    $post = file_get_contents('php://input');
+    $r = json_decode($post);
 	
     searchProfile($r);
     
@@ -13,11 +50,6 @@
     function searchProfile($r){
 
         $db = new DbHandler();
-
-		$servername = "localhost";
-		$username = "root";
-		$password = "password";
-		$dbname = "Ohana";
 
 		// Create connection
 		$conn = new mysqli($servername, $username, $password, $dbname);
@@ -45,6 +77,6 @@
 			}
 		}
 
-    };
+    };*/
 
 ?>

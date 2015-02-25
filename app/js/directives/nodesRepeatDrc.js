@@ -174,4 +174,28 @@ app.directive('showErrors', function ($timeout, showErrorsConfig) {
         });
      }
    };
-})
+});
+
+
+app.directive('inputRestrictor', function () {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, element, attr, ctrl) {
+            alert('');  
+            var pattern = /[^a-zA-Z]*/g;
+            function fromUser(text) {
+                if (!text)
+                    return text;
+
+                var transformedInput = text.replace(pattern, '');
+                if (transformedInput !== text) {
+                    ctrl.$setViewValue(transformedInput);
+                    ctrl.$render();
+                }
+                return transformedInput;
+            }
+            ctrl.$parsers.push(fromUser);
+        }
+    };
+});

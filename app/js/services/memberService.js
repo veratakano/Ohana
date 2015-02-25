@@ -1,7 +1,7 @@
 'use strict';
 
-app.factory('memberService', ['$http','$rootScope', 
-	function($http,$rootScope){
+app.factory('memberService', ['$http','$q','$rootScope', 
+	function($http,$q,$rootScope){
 	return{
 		memberGet:function(memberID){
 			var promise = $http.post(
@@ -45,6 +45,19 @@ app.factory('memberService', ['$http','$rootScope',
 
 				return promise;		   
 		},
+		getMemberFamily:function(memberID, treeID){
+			var promise = $http.post(
+	      		$rootScope.apiVersion + 'getFamilyMember.php', 
+	      		{
+	      			member:memberID,
+	      			tree:treeID
+	      		}
+	    		).then(function(output){
+	    			return output.data;
+				});
+
+				return promise;		
+		},
 		memberIsUser: function(memberID){
 			var promise = $http.post(
 	      		$rootScope.apiVersion + 'getMemberUser.php', 
@@ -70,7 +83,10 @@ app.factory('memberService', ['$http','$rootScope',
 	      		}
 	    		).then(function(output){
 	    			return output.data;
-				});
+				}, function(response) {
+	                // something went wrong
+	                return $q.reject(response.data);
+	            });
 
 				return promise;		   
 		},

@@ -11,5 +11,12 @@ app.controller('navController', ['$scope','$location','loginService','sessionSer
     $scope.viewProfile=function(){
         $location.path('/profile/' + sessionService.get('uid'));
     }
+
+    $scope.search = function(searchStr){
+        //$scope.searchStr = '';
+        if(!!searchStr){
+    	   $location.path('/search_profile/' + searchStr );
+        }
+    }
     
 }]);

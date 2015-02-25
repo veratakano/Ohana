@@ -18,6 +18,12 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" ng-if="auth">
+          <form class="navbar-form navbar-left" role="search" ng-if="auth">
+            <div class="form-group">
+              <input type="text" class="form-control" ng-model="searchStr" placeholder="Search Profile">
+            </div>
+            <button class="btn btn-default" ng-click="search(searchStr)">Submit</button>
+          </form>
           <li class="dropdown" ng-if="auth">
             <a class="dropdown-toggle" aria-expanded="false" role="button" data-toggle="dropdown">
               <i class="fa fa-user"></i>&nbsp;&nbsp;My Account

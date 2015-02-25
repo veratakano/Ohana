@@ -187,12 +187,12 @@
 						</div>
 					</div>
 					<div class="row actions">
-						<div class="col-md-9">
+						<div class="col-md-8">
             		      <div class="alert alert-success well-sm" role="alert" ng-if="psuccess" ng-bind="psuccess"></div>
         		          <div class="alert alert-danger well-sm" role="alert" ng-if="perror" ng-bind="perror"></div>
 		                </div>
-		                <div class="col-md-3">
-							<button class="btn btn-primary" ng-click="addParent()"><span ng-if="ploading">&nbsp;&nbsp;</span><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i>Add Parent</button>
+		                <div class="col-md-4">
+							<button class="btn btn-primary" ng-click="addParent()"><i ng-if="ploading" class="fa fa-circle-o-notch fa-spin"></i><span ng-if="ploading">&nbsp;&nbsp;</span>Add Parent</button>
 							<button class="btn btn-primary" ng-click="clear()">Clear</button>
 						</div>
 					</div>
@@ -299,7 +299,7 @@
         		          <div class="alert alert-danger well-sm" role="alert" ng-if="sberror" ng-bind="sberror"></div>
 		                </div>
 		                <div class="col-md-3">
-							<button class="btn btn-primary" ng-click="addSibling()"><span ng-if="sbloading">&nbsp;&nbsp;</span><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i>Add Sibling</button>
+							<button class="btn btn-primary" ng-click="addSibling()"><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i><span ng-if="sbloading">&nbsp;&nbsp;</span>Add Sibling</button>
 							<button class="btn btn-primary" ng-click="clear()">Clear</button>
 						</div>
 					</div>
@@ -405,7 +405,7 @@
         		          <div class="alert alert-danger well-sm" role="alert" ng-if="sperror" ng-bind="sperror"></div>
 		                </div>
 		                <div class="col-md-4 text-right">
-							<button class="btn btn-primary" ng-click="addSpouse()"><span ng-if="sploading">&nbsp;&nbsp;</span><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i>Add Spouse</button>
+							<button class="btn btn-primary" ng-click="addSpouse()"><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i><span ng-if="sploading">&nbsp;&nbsp;</span>Add Spouse</button>
 							<button class="btn btn-primary" ng-click="clear()">Clear</button>
 						</div>
 					</div>
@@ -511,7 +511,7 @@
         		         	<div class="alert alert-danger well-sm" role="alert" ng-if="cerror" ng-bind="cerror"></div>
         		         </div>
         		         <div class="col-md-4 text-right">
-							<button class="btn btn-primary" ng-click="addChildren()"><span ng-if="cloading">&nbsp;&nbsp;</span><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i>Add Offspring</button>
+							<button class="btn btn-primary" ng-click="addChildren()"><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i><span ng-if="cloading">&nbsp;&nbsp;</span>Add Offspring</button>
 							<button class="btn btn-primary" ng-click="clear()">Clear</button>
 						</div>
 					</div>

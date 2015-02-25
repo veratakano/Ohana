@@ -1,14 +1,26 @@
 'use strict';
 
-app.controller('searchCtrl',['$location', '$scope', '$rootScope', 'searchService', 
-	function ($location, $scope, $rootScope, searchService) {
-	// alert("here");
+app.controller('searchCtrl',['$location','$routeParams','$scope','$rootScope','searchService', 
+	function ($location,$routeParams,$scope,$rootScope, searchService) {
+	
+    $scope.params = $routeParams;
+    if(!!$scope.params.ss){
+        $scope.keybords = $scope.params.ss
+        searchService.searchProfile($scope.params.ss).then(function(data) {
+            $scope.result = data;
+        });
+    }
 
-	$scope.currentForm = 'form.parent';
+	$scope.search = function (){
+        if($scope.keybords != ""){
+            searchService.searchProfile($scope.keybords).then(function(data) {
+        	   $scope.result = data;
+            });
+        }
+    };
 
-	$scope.searchProfile=function(credentials){
-	     alert(credentials.firstName);
-	   searchService.searchProfileByName(credentials);
-  };
+    $scope.viewProf = function(memb){
+        $location.path('/profile/'+memb.memberID);
+    }
   
 }]);

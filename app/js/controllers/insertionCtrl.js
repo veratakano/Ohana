@@ -52,13 +52,16 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
    			memberService.addParent($scope.parents).then(function(data) {
 				uploadPic($scope.parents.fpicFile, data.ids.father_id, $scope.relation.treeID);
 				uploadPic($scope.parents.mpicFile, data.ids.mother_id, $scope.relation.treeID);
-				if(data.status = "successful"){
+				if(data.status == "success"){
 					$scope.psuccess = data.message;
 				} else {
 					$scope.perror = data.message;
 				}
 				$scope.ploading = false;
-			});
+			}, function(error) {
+	               $scope.perror = "Error, please contact the administrator.";
+	               $scope.ploading = false;
+	         });
    		}
 
 	};
@@ -69,7 +72,7 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
    			$scope.sbloading = true;
 	   		memberService.addSibing($scope.sibling).then(function(data) {
 	   			uploadPic($scope.sibling.picFile, data.ids.sibling_id, $scope.relation.treeID);
-	   			if(data.status = "successful"){
+	   			if(data.status == "successful"){
 	   				$scope.sbsuccess = data.message;
 				} else {
 					$scope.sberror = data.message;
@@ -86,7 +89,7 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
 			$scope.cloading = true;
 			memberService.addChildren($scope.children).then(function(data) {
 	   			uploadPic($scope.children.picFile, data.ids.offspring_id, $scope.relation.treeID);
-	   			if(data.status = "successful"){
+	   			if(data.status == "successful"){
 	   				$scope.csuccess = data.message;
 				} else {
 					$scope.cerror = data.message;
@@ -103,7 +106,7 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
 			$scope.sploading = true;
 	   		memberService.addSpouse($scope.spouse).then(function(data) {
 	   			uploadPic($scope.spouse.picFile, data.ids.spouse_id, $scope.relation.treeID);
-	   			if(data.status = "successful"){
+	   			if(data.status == "successful"){
 	   				$scope.spsuccess = data.message;
 				} else {
 					$scope.sperror = data.message;

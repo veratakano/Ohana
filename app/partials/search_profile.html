@@ -1,14 +1,36 @@
 	<!-- Search to view profiles -->
 	
-	<div class="container-fluid userForm">
-		<form name="frmSearchProfile" class="center-block" ng-submit="searchProfile(credentials)">     
-			<input type="txtFirstName" class="form-control" id="keyword1" name="firstName" placeholder="First Name" required ng-model="credentials.firstName" autofocus />
-			<input type="txtLastName" class="form-control" id="keyword1" name="lastName" placeholder="Last Name" required ng-model="credentials.lastName" autofocus />
-			<button id="submit" class="btn btn-lg btn-primary btn-block" type="Search">Login</button> 
-		</form>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<form class="form-search">
+					<input type="text" ng-model="keybords" ng-keyup="search()" class="input-medium form-control search-query" placeholder="search like Singapore, Tan etc"/>
+        		</form>
+        		<br /><br />
+        		<div class="row">
+				  <div class="col-md-3" ng-repeat="res in result" ng-show="result != ''">
+				    <div class="thumbnail">
+				      <img ng-src="api/v1/getProfImg.php?id={{res.memberID}}">
+				      <div class="caption">
+				        <h3>{{res.firstName}} {{res.lastName}}</h3>
+				        <p>{{res.placeOfBirth}}</p>
+				        <p><a class="btn btn-primary" ng-click="viewProf(res)"><i class="fa fa-user"></i>&nbsp;&nbsp;View Profile</a></p>
+				      </div>
+				    </div>
+				  </div>
+				  <div ng-show="result == ''">
+				  	<div class="jumbotron text-center" style="background-color: transparent;">
+					    <h1 style="color:#3c9bf2"><span class="fa-stack fa-lg"><i class="fa fa-search fa-stack-1x"></i><i class="fa fa-ban fa-stack-2x"></i></span></h1>
+					    <br />
+					    <p>Results not found	</p>
+					 </div>
+				  </div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
 	</div>
-	
+
 
 	
-		<div ng-include="'partials/search.php'"> 
-		

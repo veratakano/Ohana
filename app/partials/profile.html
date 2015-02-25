@@ -56,6 +56,23 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading clearfix">Family Members&nbsp;&nbsp;<i class="fa fa-sitemap"></i>
+            </div>
+            <div class="panel-body">
+              <div class="row text-center familyMembers">
+                <div class="col-sm-2" ng-repeat="(key,val) in family">
+                    <a ng-href="#/profile/{{key}}">
+                      <img class="img-circle" style="width:100px; height:100px;" ng-src="api/v1/getProfImg.php?id={{key}}"/>
+                    </a>
+                  <div class="text-muted text">{{val}}</div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div
+      <div class="row">
         <div class="col-sm-3">
           <!--left col
           <ul class="list-group">

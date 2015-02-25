@@ -249,5 +249,14 @@
   margin: 4px 0;
 }
 
+.familyMembers .text {
+  margin: 5px 0 13px 0;
+}
 
+/* Search Result */
+.form-search input {
+    box-sizing: border-box;
+    height: 100%;
+    padding: 12px 14px 13px 13px !important;
+}
 

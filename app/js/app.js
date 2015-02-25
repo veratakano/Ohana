@@ -58,7 +58,7 @@ app.config(['$routeProvider', 'ngDialogProvider',
              templateUrl: 'partials/invite.html',
              controller: 'inviteCtrl'
         }).
-		when('/search_profile', {
+		when('/search_profile/:ss', {
              title: 'Search Profile',
              templateUrl: 'partials/search_profile.html',
              controller: 'searchCtrl'
@@ -67,10 +67,6 @@ app.config(['$routeProvider', 'ngDialogProvider',
              title: 'Profile Not Found',
              templateUrl: 'partials/profile_not_found.html'
         }).
-		when('/display', {
-             title: 'Display',
-             templateUrl: 'partials/displayFamilyMember.php',
-         }).
         when('/', {
              title: 'Login',
              templateUrl: 'partials/login.html',
@@ -90,12 +86,13 @@ app.config(['$routeProvider', 'ngDialogProvider',
  }]);
 
 
-app.config(function($datepickerProvider) {
+app.config(function($datepickerProvider,ngDialogProvider) {
   angular.extend($datepickerProvider.defaults, {
     dateFormat: 'dd/MM/yyyy',
     startView: 2,
     autoclose: true
   });
+  ngDialogProvider.setForceBodyReload(true);
 })
 
 
@@ -140,7 +137,7 @@ app.run(function($rootScope, $location, $window, fbService, sessionService){
         // // });
 
           $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
-          if(!($location.path()=='/signup' || $location.path()=='/invite' || $location.path()=='/profile_not_found')){ 
+          if(!($location.path()=='/signup' || $location.path()=='/invite' || $location.path()=='/profile_not_found' || $location.path()=='/display')){ 
               if(!sessionService.get('unqid')){
                  $location.path('/login');
               }

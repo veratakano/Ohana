@@ -43,7 +43,7 @@
 		}
 
 		if($result['status'] == 0){
-			$response['status'] = "Success";
+			$response['status'] = "success";
 			$response['ids'] = $result; 
 			$response['message'] = "Member has been created!";
 		} else {

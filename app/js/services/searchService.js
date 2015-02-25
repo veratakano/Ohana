@@ -3,14 +3,13 @@
 app.factory('searchService', ['$http','$rootScope', 
 	function($http,$rootScope){
 	return{
-		
-		searchProfileByName:function(credentials){
-
+		searchProfile:function(keyword,gender,vs){
 			var promise = $http.post(
 	      		$rootScope.apiVersion + 'search.php', 
 	      		{
-	      			value:credentials,
-					type:1
+	      			keyword:keyword,
+					gender:gender,
+					vs:vs
 	      		}
 	    		).then(function(output){
 	    			return output.data;
@@ -18,7 +17,6 @@ app.factory('searchService', ['$http','$rootScope',
 
 				return promise;		   
 		}
-		
 	}
 
 }]);

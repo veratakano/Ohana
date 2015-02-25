@@ -1,8 +1,8 @@
 
 'use strict';
 
-app.controller('profileCtrl', ['memberDetails','$location','$rootScope','$scope','ngDialog','memberService',
-	function(memberDetails,$location,$rootScope,$scope,ngDialog,memberService) {
+app.controller('profileCtrl', ['memberDetails','$route','$location','$rootScope','$scope','ngDialog','memberService',
+	function(memberDetails,$route,$location,$rootScope,$scope,ngDialog,memberService) {
 
 	if(memberDetails == 'null'){
 		$location.path('/profile_not_found')
@@ -14,8 +14,14 @@ app.controller('profileCtrl', ['memberDetails','$location','$rootScope','$scope'
 	$scope.fullName = $scope.member.firstName + " " + $scope.member.lastName;
 	$scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.member.memberID;
 
+	// Get Gallery
 	memberService.memberGetGal($scope.member.memberID).then(function(data) {
 		$scope.thumbnails = data;
+	});
+
+	// Get Family Memebers
+	memberService.getMemberFamily($scope.member.memberID,$scope.member.treeID).then(function(data) {
+		$scope.family = data;
 	});
 
 	// Open Popup for editing of profile
@@ -44,7 +50,10 @@ app.controller('profileCtrl', ['memberDetails','$location','$rootScope','$scope'
         	template: 'uploadGal',
 			className: 'ngdialog-theme-default ngdialog-theme-custom-profile',
 			data: {id: $scope.member.memberID, tree: $scope.member.treeID},
-			controller: 'uploadGalCtrl'
+			controller: 'uploadGalCtrl',
+			preCloseCallback: function() {
+				$route.reload();
+			}
 		});
   	};
   
