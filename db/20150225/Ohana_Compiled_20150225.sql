@@ -58,6 +58,7 @@ CREATE TABLE `Member` (
   PRIMARY KEY (`memberID`,`treeID`),
   KEY `idx_tree_member_id` (`treeID`,`memberID`),
   KEY `fk_treeID_idx` (`treeID`),
+  FULLTEXT KEY `member_info` (`firstName`,`lastName`,`placeOfBirth`),
   CONSTRAINT `treeID` FOREIGN KEY (`treeID`) REFERENCES `Tree` (`treeID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -167,9 +168,9 @@ DROP TABLE IF EXISTS `Users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Users` (
   `uID` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(100) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
-  `firstName` varchar(50) DEFAULT NULL,
+  `firstName` varchar(35) DEFAULT NULL,
   `lastName` varchar(50) DEFAULT NULL,
   `fbID` bigint(20) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -216,7 +217,7 @@ BEGIN
     
     SET spouse_id = (SELECT spouseID FROM Relation WHERE memberID = member_id);
     
-    SET member_gender = (select gender from member where memberID = member_id);
+    SET member_gender = (select gender from Member where memberID = member_id);
     
     IF (spouse_id is null) THEN
 		IF member_gender = 'M' THEN
@@ -228,9 +229,9 @@ BEGIN
 		SET spouse_id = (SELECT spouseID FROM Relation WHERE memberID = member_id);
 	END IF;
     
-    SET coor_y = (select y from coordinates where memberID = member_id);
-    SET coor_x = (select x from coordinates where memberID = member_id);
-    SET coor_x_sp = (select x from coordinates where memberID = spouse_id);
+    SET coor_y = (select y from Coordinates where memberID = member_id);
+    SET coor_x = (select x from Coordinates where memberID = member_id);
+    SET coor_x_sp = (select x from Coordinates where memberID = spouse_id);
     
     SET offspring_id = (SELECT (memberID + 1) FROM Member ORDER BY memberID DESC LIMIT 1);
     
@@ -242,39 +243,39 @@ BEGIN
         
         INSERT INTO Relation values (offspring_treeID, offspring_id, member_id, spouse_id, NULL, NULL, NULL);
         
-        IF (exists (select * from coordinates where fatherID = member_id)) THEN
+        IF (exists (select * from Coordinates where fatherID = member_id)) THEN
 			BEGIN
-				SET record_count = (SELECT count(*) from coordinates where fatherID = member_id);
+				SET record_count = (SELECT count(*) from Coordinates where fatherID = member_id);
 				
 				IF (record_count = 1) THEN
 					SET SQL_SAFE_UPDATES=0;
-					UPDATE coordinates set x = (x + 30) WHERE x = coor_x and y = (coor_y + 30) and treeID = offspring_treeID;
+					UPDATE Coordinates set x = (x + 30) WHERE x = coor_x and y = (coor_y + 30) and treeID = offspring_treeID;
                 ELSE
 					SET SQL_SAFE_UPDATES=0;
-					UPDATE coordinates set x = (x + 30) WHERE x >= coor_x and y > coor_y and treeID = offspring_treeID or x > (coor_x + 30) and treeID = offspring_treeID;
+					UPDATE Coordinates set x = (x + 30) WHERE x >= coor_x and y > coor_y and treeID = offspring_treeID or x > (coor_x + 30) and treeID = offspring_treeID;
                 END IF;
 			END;		
 		END IF;
-		INSERT INTO coordinates values (offspring_ID, member_id, spouse_ID, NULL, coor_x, coor_y + 30, offspring_treeID, NULL);	
+		INSERT INTO Coordinates values (offspring_ID, member_id, spouse_ID, NULL, coor_x, coor_y + 30, offspring_treeID, NULL);	
 	END;
     
 	ELSE
 		BEGIN 						
 						
 			INSERT INTO Relation values (offspring_treeID, offspring_id, spouse_id, member_id, NULL, NULL, NULL);
-            SET record_count = (SELECT count(*) from coordinates where fatherID = spouse_id);
+            SET record_count = (SELECT count(*) from Coordinates where fatherID = spouse_id);
             
-			IF (exists (select * from coordinates where fatherID = spouse_ID)) THEN
+			IF (exists (select * from Coordinates where fatherID = spouse_ID)) THEN
 				
 				IF record_count = 1 THEN
 					SET SQL_SAFE_UPDATES=0;
-					UPDATE coordinates set x = (x + 30) WHERE x = coor_x_sp and y = (coor_y + 30) and treeID = offspring_treeID;
+					UPDATE Coordinates set x = (x + 30) WHERE x = coor_x_sp and y = (coor_y + 30) and treeID = offspring_treeID;
                 ELSE
 					SET SQL_SAFE_UPDATES=0;
-					UPDATE coordinates set x = (x + 30) WHERE x >= coor_x_sp and y > coor_y and treeID = offspring_treeID or x > coor_x_sp + 30 and treeID = offspring_treeID;
+					UPDATE Coordinates set x = (x + 30) WHERE x >= coor_x_sp and y > coor_y and treeID = offspring_treeID or x > coor_x_sp + 30 and treeID = offspring_treeID;
                 END IF;
 			END IF;
-			INSERT INTO coordinates values (offspring_ID, spouse_ID, member_ID, NULL, coor_x_sp, coor_y + 30, offspring_treeID, NULL);	
+			INSERT INTO Coordinates values (offspring_ID, spouse_ID, member_ID, NULL, coor_x_sp, coor_y + 30, offspring_treeID, NULL);	
 		END;
     END IF;
 
@@ -349,19 +350,19 @@ BEGIN
 		INSERT INTO Relation values (tree_id, father_id, 0, 0, mother_id, NULL, NULL);
 		INSERT INTO Relation values (tree_id, mother_id, 0, 0, father_id, NULL, NULL);
 		
-		SET member_x = (select x from coordinates where memberID = member_ID);
-		SET member_y = (select y from coordinates where memberID = member_ID);
+		SET member_x = (select x from Coordinates where memberID = member_ID);
+		SET member_y = (select y from Coordinates where memberID = member_ID);
 		
 		SET SQL_SAFE_UPDATES=0;
-		update coordinates set y = (y + 30) where y >= member_y and treeID = tree_id;
+		update Coordinates set y = (y + 30) where y >= member_y and treeID = tree_id;
 		
-		SET mem_sp_id = (SELECT spouseID FROM coordinates WHERE memberID = member_ID);
+		SET mem_sp_id = (SELECT spouseID FROM Coordinates WHERE memberID = member_ID);
 		
 		IF (mem_sp_id is not null) THEN
 			BEGIN
 			
-				SET member_sp_x = (select x from coordinates where memberID = mem_sp_id);
-				SET member_sp_y = (select y from coordinates where memberID = mem_sp_id);
+				SET member_sp_x = (select x from Coordinates where memberID = mem_sp_id);
+				SET member_sp_y = (select y from Coordinates where memberID = mem_sp_id);
 
 				IF (member_x < member_sp_x) THEN
 					INSERT INTO Coordinates VALUES (father_id, 0, 0, mother_id, member_x, member_y, tree_id, null);
@@ -380,14 +381,14 @@ BEGIN
 		END IF;
 		
 		SET SQL_SAFE_UPDATES=0;
-		UPDATE coordinates SET fatherID = father_id, motherID = mother_id WHERE memberID = member_ID;
-		UPDATE coordinates SET fatherID = father_id, motherID = mother_id WHERE memberID = mem_sp_id;
+		UPDATE Coordinates SET fatherID = father_id, motherID = mother_id WHERE memberID = member_ID;
+		UPDATE Coordinates SET fatherID = father_id, motherID = mother_id WHERE memberID = mem_sp_id;
 		
 		SET SQL_SAFE_UPDATES=0;
 		DELETE FROM Relation WHERE memberID = mem_sp_id;
 		
         -- successful compilation
-		SELECT 0 AS status;
+		SELECT 0 AS status, father_id AS father_id, mother_id AS mother_id;
     
     ELSE
 		-- parent already exists
@@ -452,28 +453,28 @@ BEGIN
     
 	INSERT INTO Relation values (sib_treeID, sib_id, father_id, mother_id, NULL, NULL, NULL);
     
-    SET father_x = (select x from coordinates where memberID = father_ID);
-    SET father_y = (select y from coordinates where memberID = father_ID);
+    SET father_x = (select x from Coordinates where memberID = father_ID);
+    SET father_y = (select y from Coordinates where memberID = father_ID);
     
     
-    IF (exists (select * from coordinates where fatherID = father_ID)) THEN
+    IF (exists (select * from Coordinates where fatherID = father_ID)) THEN
 		BEGIN
-            IF (exists (select * from coordinates where x = father_x and y = father_y + 30)) THEN
-				SET record_count = (select count(*) from coordinates where fatherID = father_id and motherID = mother_id);
+            IF (exists (select * from Coordinates where x = father_x and y = father_y + 30)) THEN
+				SET record_count = (select count(*) from Coordinates where fatherID = father_id and motherID = mother_id);
 				
                 IF record_count = 1 THEN
 					SET SQL_SAFE_UPDATES=0;
-					UPDATE coordinates set x = (x + 30) WHERE x = father_x and y = (father_y + 30) and treeID = sib_treeID;
+					UPDATE Coordinates set x = (x + 30) WHERE x = father_x and y = (father_y + 30) and treeID = sib_treeID;
                 ELSE
 					SET SQL_SAFE_UPDATES=0;
-					UPDATE coordinates set x = (x + 30) WHERE x >= father_x and y > father_y and treeID = sib_treeID or x > father_x + 30 and treeID = sib_treeID;
+					UPDATE Coordinates set x = (x + 30) WHERE x >= father_x and y > father_y and treeID = sib_treeID or x > father_x + 30 and treeID = sib_treeID;
                 END IF;
 				
             
             END IF;
 		END;		
     END IF;
-    INSERT INTO coordinates values (sib_id, father_ID, mother_ID, NULL, father_x, father_y + 30, sib_treeID, NULL);	
+    INSERT INTO Coordinates values (sib_id, father_ID, mother_ID, NULL, father_x, father_y + 30, sib_treeID, NULL);	
 
 	SELECT sib_id As sibling_id;
 END ;;
@@ -513,13 +514,13 @@ BEGIN
     DECLARE spouse_id INT unsigned DEFAULT 1;
 	DECLARE max_x INT unsigned DEFAULT 1;
     
-    SET member_x = (select x from coordinates where memberID = member_id);
-    SET member_y = (select y from coordinates where memberID = member_id);
+    SET member_x = (select x from Coordinates where memberID = member_id);
+    SET member_y = (select y from Coordinates where memberID = member_id);
     
-    SET father_id = (select fatherID from relation where memberID = member_id);
-    SET father_x = (select x from coordinates where memberID = father_id);
+    SET father_id = (select fatherID from Relation where memberID = member_id);
+    SET father_x = (select x from Coordinates where memberID = father_id);
    
-    SET mother_id = (select motherID from relation where memberID = member_id);
+    SET mother_id = (select motherID from Relation where memberID = member_id);
     
     SET spouse_id = (SELECT (memberID + 1) FROM Member ORDER BY memberID DESC LIMIT 1);
     
@@ -530,7 +531,7 @@ BEGIN
     UPDATE Relation SET spouseID = spouse_id WHERE memberID = member_id;
     
     
-    SET max_x = (SELECT max(x) FROM coordinates where fatherID = father_id);
+    SET max_x = (SELECT max(x) FROM Coordinates where fatherID = father_id);
     
     IF (max_x >= (father_x + 30)) THEN
 		BEGIN
@@ -545,8 +546,8 @@ BEGIN
         END;
 	END IF;
     
-    SET member_x = (select x from coordinates where memberID = member_id);
-    SET member_y = (select y from coordinates where memberID = member_id);
+    SET member_x = (select x from Coordinates where memberID = member_id);
+    SET member_y = (select y from Coordinates where memberID = member_id);
     
     IF (spouse_gender = 'F') THEN
 		INSERT INTO Coordinates VALUES (spouse_id, father_id, mother_id, member_id, (member_x + 30), member_y, member_treeID, NULL);
@@ -603,14 +604,15 @@ BEGIN
     ELSE
     
 		BEGIN
-			SET coor_x = (SELECT x FROM coordinates WHERE memberId = member_id);
-            SET coor_y = (SELECT y FROM coordinates WHERE memberID = member_id);
-            SET father_id = (SELECT fatherID FROM coordinates WHERE memberID = member_id);
-            SET father_x = (SELECT x FROM coordinates WHERE memberId = father_id);
-            SET spouse_id = (SELECT spouseID FROM coordinates WHERE memberID = member_id);
-            SET spouse_x = (SELECT x FROM coordinates WHERE memberId = spouse_id);
-            SET tree_id = (SELECT treeID FROM coordinates WHERE memberID = member_id);
+			SET coor_x = (SELECT x FROM Coordinates WHERE memberId = member_id);
+            SET coor_y = (SELECT y FROM Coordinates WHERE memberID = member_id);
+            SET father_id = (SELECT fatherID FROM Coordinates WHERE memberID = member_id);
+            SET father_x = (SELECT x FROM Coordinates WHERE memberId = father_id);
+            SET spouse_id = (SELECT spouseID FROM Coordinates WHERE memberID = member_id);
+            SET spouse_x = (SELECT x FROM Coordinates WHERE memberId = spouse_id);
+            SET tree_id = (SELECT treeID FROM Coordinates WHERE memberID = member_id);
             
+<<<<<<< Updated upstream
             IF (exists(SELECT * FROM Relation WHERE memberID = member_ID)) THEN
 				SET SQL_SAFE_UPDATES=0;
 				DELETE FROM coordinates WHERE memberID in (member_id, spouse_id);
@@ -644,6 +646,24 @@ BEGIN
 						SET SQL_SAFE_UPDATES=0;
 						UPDATE coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
 					END IF;
+=======
+            SET SQL_SAFE_UPDATES=0;
+            DELETE FROM Coordinates WHERE memberID in (member_id, spouse_id);
+			DELETE FROM Relation WHERE memberID in (member_id, spouse_id);
+			DELETE FROM Member WHERE memberID in (member_id, spouse_id);
+            
+            IF spouse_id IS NOT NULL THEN
+				IF (coor_x > spouse_x) THEN
+					SET SQL_SAFE_UPDATES=0;
+					UPDATE Coordinates set x = (x - 30) WHERE x > spouse_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
+                ELSE
+					SET SQL_SAFE_UPDATES=0;
+					UPDATE Coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
+                END IF;
+			ELSE
+				SET SQL_SAFE_UPDATES=0;
+				UPDATE Coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
+>>>>>>> Stashed changes
             END IF;
             
             
@@ -712,7 +732,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DoRegistration`(
-	IN fname VARCHAR(50), 
+	IN fname VARCHAR(35), 
 	lname VARCHAR(50), 
 	getmail VARCHAR(50),
 	gender VARCHAR(1),
@@ -846,6 +866,45 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DoUploadPGalleryPic`(
+  IN getMemberID INT(11), 
+  IN getTreeID INT(11), 
+  IN getName VARCHAR(100),
+  IN getDest VARCHAR(50),
+  IN getTnDest VARCHAR(50)
+)
+BEGIN
+
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+    BEGIN
+    -- ERROR
+    SELECT 1 AS status;
+    ROLLBACK;
+  END;
+
+  START TRANSACTION;
+    INSERT INTO Rememberance (rName, rDate, file_dir, file_tn_dir, memberID, treeID)
+    VALUES (getName, NOW(), getDest, getTnDest, getMemberID, getTreeID);
+  COMMIT;
+
+  SELECT 0 AS status;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_DoUploadProfilePic` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_DoUploadProfilePic`(
 	IN getMemberID 
 	INT(11), 
@@ -904,6 +963,10 @@ BEGIN
 		ON Users.uid = Tree.userID
 		WHERE Users.email = getEmail AND Users.fbID = fb_id;
 	END IF;
+
+  UPDATE Users
+  SET lastlogin = NOW()
+  WHERE email=getEmail;
 
 END ;;
 DELIMITER ;
@@ -1018,6 +1081,64 @@ BEGIN
 	FROM Tree t INNER JOIN Users u
 	ON t.userID = u.uID
 	WHERE t.treeID = getTreeID;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_Search_Profile` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_Search_Profile`(
+	IN getkeyword VARCHAR(100),
+	IN getgender VARCHAR(1),
+	IN getvs TINYINT(1)
+)
+BEGIN
+
+	IF getgender IS NULL AND getvs IS NULL THEN
+
+		SELECT Member.* FROM Member JOIN Tree
+		ON Member.treeID = Tree.treeID
+		WHERE MATCH(firstName,lastName,placeOfBirth) AGAINST (getkeyword IN BOOLEAN MODE)
+		AND Tree.privacy = 1;
+
+	ELSEIF getgender IS NULL THEN
+	
+		SELECT Member.* FROM Member JOIN Tree
+		ON Member.treeID = Tree.treeID
+		WHERE MATCH(firstName,lastName,placeOfBirth) AGAINST (getkeyword IN BOOLEAN MODE)
+		AND Tree.privacy = 1
+		AND Member.vitalStatus = getvs;
+
+	ELSEIF getvs IS NULL THEN
+
+		SELECT Member.* FROM Member JOIN Tree
+		ON Member.treeID = Tree.treeID
+		WHERE MATCH(firstName,lastName,placeOfBirth) AGAINST (getkeyword IN BOOLEAN MODE)
+		AND Tree.privacy = 1
+		AND Member.gender = getgender;
+
+	ELSE
+
+		SELECT Member.* FROM Member JOIN Tree
+		ON Member.treeID = Tree.treeID
+		WHERE MATCH(firstName,lastName,placeOfBirth) AGAINST (getkeyword IN BOOLEAN MODE)
+		AND Tree.privacy = 1
+		AND Member.vitalStatus = getvs
+		AND Member.gender = getgender;
+
+	END IF;
+
 
 END ;;
 DELIMITER ;
@@ -1156,4 +1277,4 @@ END;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-25  1:46:45
+-- Dump completed on 2015-02-26  0:21:03
