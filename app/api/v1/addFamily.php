@@ -39,7 +39,7 @@
 		}
 		// add spouse
 		elseif ($type == "4"){
-			$result = doAddOffspring($r,$tree_id,$member_ID);
+			$result = doAddSpouse($r,$tree_id,$member_ID);
 		}
 
 		if($result['status'] == 0){
