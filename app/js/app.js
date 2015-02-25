@@ -67,6 +67,10 @@ app.config(['$routeProvider', 'ngDialogProvider',
              title: 'Profile Not Found',
              templateUrl: 'partials/profile_not_found.html'
         }).
+		when('/display', {
+             title: 'Display',
+             templateUrl: 'partials/displayFamilyMember.php',
+         }).
         when('/', {
              title: 'Login',
              templateUrl: 'partials/login.html',
