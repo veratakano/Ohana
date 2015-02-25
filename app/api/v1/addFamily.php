@@ -23,22 +23,39 @@
 	$member_ID = substr($link, $char_found_at+1) ;
 
     $type = $r->type;
+
+    try {
 		
-	if ($type == "1") {
-		$response = doAddParents($r,$tree_id,$member_ID);
-	}
-	// add siblings
-	elseif ($type == "2") {
-		$response = doAddSibling($r,$tree_id,$member_ID);
-	}		
-	// add offspring
-	elseif ($type == "3") {
-		$response = doAddOffspring($r,$tree_id,$member_ID);
-	}
-	// add spouse
-	elseif ($type == "4"){
-		$response = doAddOffspring($r,$tree_id,$member_ID);
-	}
+		if ($type == "1") {
+			$result = doAddParents($r,$tree_id,$member_ID);
+		}
+		// add siblings
+		elseif ($type == "2") {
+			$result = doAddSibling($r,$tree_id,$member_ID);
+		}		
+		// add offspring
+		elseif ($type == "3") {
+			$result = doAddOffspring($r,$tree_id,$member_ID);
+		}
+		// add spouse
+		elseif ($type == "4"){
+			$result = doAddOffspring($r,$tree_id,$member_ID);
+		}
+
+		if($result['status'] == 0){
+			$response['status'] = "Success";
+			$response['ids'] = $result; 
+			$response['message'] = "Member has been created!";
+		} else {
+			throw new RuntimeException("Error creating member"); 
+		}
+
+	 } catch (RuntimeException $e) {
+        $response['status'] = "error";
+        $response['message'] = $e->getMessage();
+    }
+
+    echo json_encode($response);
 
     function doAddParents($r,$tree_id,$member_ID){
     		$db = new DbHandler();
@@ -47,22 +64,26 @@
 			$father_lname = $r->user->fLastName;
 			$date = str_replace('/', '-', $r->user->fDOB);
         	$father_dob = date('Y-m-d', strtotime($date));
+        	$father_dob = !empty($father_dob) ? "'$father_dob'" : "NULL";
 			$father_email = $r->user->fEmail;
 			$father_email = !empty($father_email) ? "'$father_email'" : "NULL";
 			$father_pob = $r->user->fPOB;
+			$father_pob = !empty($father_pob) ? "'$father_pob'" : "NULL";
 			$father_vs = $r->user->fvStatus;
 			
 			$mother_fname = $r->user->mFirstName;
 			$mother_lname = $r->user->mLastName;
 			$date = str_replace('/', '-', $r->user->mDOB);
         	$mother_dob = date('Y-m-d', strtotime($date));
+        	$mother_dob = !empty($mother_dob) ? "'$mother_dob'" : "NULL";
 			$mother_email = $r->user->mEmail;
 			$mother_email = !empty($mother_email) ? "'$mother_email'" : "NULL";
 			$mother_pob = $r->user->mPOB;
+			$mother_pob = !empty($mother_pob) ? "'$mother_pob'" : "NULL";
 			$mother_vs = $r->user->mvStatus;
 			//echo "CALL `SP_Add_Parent` ($member_ID, '$father_fname', '$father_lname', '$father_dob', $father_email, '$father_pob', $father_vs, '$mother_fname', '$mother_lname', '$mother_dob', $mother_email, '$mother_pob', $mother_vs,$tree_id)";
 
-			$result = $db->getResult("CALL `SP_Add_Parent` ($member_ID, '$father_fname', '$father_lname', '$father_dob', $father_email, '$father_pob', $father_vs, '$mother_fname', '$mother_lname', '$mother_dob', $mother_email, '$mother_pob', $mother_vs, $tree_id)");
+			$result = $db->getResult("CALL `SP_Add_Parent` ($member_ID, '$father_fname', '$father_lname', $father_dob, $father_email, $father_pob, $father_vs, '$mother_fname', '$mother_lname', $mother_dob, $mother_email, $mother_pob, $mother_vs, $tree_id)");
 			return $result; 
     }
 
@@ -125,8 +146,6 @@
 			$result = $db->getResult("CALL `SP_Add_Spouse` ($member_ID, '$spouse_fname', '$spouse_lname', '$spouse_dob', $spouse_email, '$spouse_pob','$spouse_gender', $spouse_vs, $tree_id)");
 			return $result;
     }
-
-    echo json_encode($response);
 
 
 ?>

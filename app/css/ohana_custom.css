@@ -3,6 +3,15 @@
   margin-top: 100px;
 }
 
+.form-group .help-block {
+  display: none;
+  font-size: 11px;
+}
+ 
+.form-group.has-error .help-block {
+  display: block;
+}
+
 /* Registeration and Login Form */
 
 .userForm .form {
@@ -33,7 +42,6 @@
 }
 
 .userForm .form input[type="password"] {
-  margin-bottom: 20px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
@@ -113,6 +121,9 @@
   opacity: 0;
 }
 
+.create-member .actions{
+  margin-top: 15px;
+}
 
 /* Invite */
 .invite .jumbotron{

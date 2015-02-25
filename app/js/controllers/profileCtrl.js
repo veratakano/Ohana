@@ -56,18 +56,18 @@ app.controller('editCtrl', ['$scope','$filter','memberService', function($scope,
 	$scope.member.dateOfBirth = $filter('date')($scope.member.dateOfBirth, "dd/MM/yyyy");
 
 	$scope.updateMember = function(member){
-		console.log(member);
-		$scope.loading = true;
-		memberService.updateMember(member).then(function(data) {
-			//$scope.thumbnails = data;
-
-			if(data.status = "successful"){
-				$scope.success = data.message;
-			} else {
-				$scope.error = data.message;
-			}
-			$scope.loading = false;
-		});
+		$scope.$broadcast('show-errors-check-validity');
+		if ($scope.frmEditMember.$valid) {
+			$scope.loading = true;
+			memberService.updateMember($scope.member).then(function(data) {
+				if(data.status = "successful"){
+					$scope.success = data.message;
+				} else {
+					$scope.error = data.message;
+				}
+				$scope.loading = false;
+			});
+		}
 	}
  
 }]);

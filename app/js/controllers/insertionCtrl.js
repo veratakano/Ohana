@@ -45,33 +45,72 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
 		}
 	}
 
-   $scope.addParent=function(credentials){
-   		memberService.addParent(credentials).then(function(data) {
-			memberService.getMemberRelation(memberRelation.memberID).then(function(data) {
-					uploadPic(credentials.fpicFile, data.fatherID, data.treeID);
-					uploadPic(credentials.mpicFile, data.motherID, data.treeID);
+   $scope.addParent=function(){
+   		$scope.$broadcast('show-errors-check-validity');
+   		if ($scope.frmAddParent.$valid) {
+   			$scope.ploading = true;
+   			memberService.addParent($scope.parents).then(function(data) {
+				uploadPic($scope.parents.fpicFile, data.ids.father_id, $scope.relation.treeID);
+				uploadPic($scope.parents.mpicFile, data.ids.mother_id, $scope.relation.treeID);
+				if(data.status = "successful"){
+					$scope.psuccess = data.message;
+				} else {
+					$scope.perror = data.message;
+				}
+				$scope.ploading = false;
 			});
-		});
+   		}
+
 	};
   
-   $scope.addSibling=function(credentials){
-	   memberService.addSibing(credentials).then(function(data) {
-	   		uploadPic(credentials.picFile, data.sibling_id, $scope.relation.treeID);
-	   });
+   $scope.addSibling=function(){
+   		$scope.$broadcast('show-errors-check-validity');
+   		if ($scope.frmAddSibling.$valid) {
+   			$scope.sbloading = true;
+	   		memberService.addSibing($scope.sibling).then(function(data) {
+	   			uploadPic($scope.sibling.picFile, data.ids.sibling_id, $scope.relation.treeID);
+	   			if(data.status = "successful"){
+	   				$scope.sbsuccess = data.message;
+				} else {
+					$scope.sberror = data.message;
+				}
+				$scope.sbloading = false;
+	   		});
+	   	}
 	};
   
   
-	$scope.addChildren=function(credentials){
-		memberService.addChildren(credentials).then(function(data) {
-	   		uploadPic(credentials.picFile, data.offspring_id, $scope.relation.treeID);
-	   });
+	$scope.addChildren=function(){
+		$scope.$broadcast('show-errors-check-validity');
+		if ($scope.frmAddChildren.$valid) {
+			$scope.cloading = true;
+			memberService.addChildren($scope.children).then(function(data) {
+	   			uploadPic($scope.children.picFile, data.ids.offspring_id, $scope.relation.treeID);
+	   			if(data.status = "successful"){
+	   				$scope.csuccess = data.message;
+				} else {
+					$scope.cerror = data.message;
+				}
+				$scope.cloading = false;
+	   		});
+	   	}
 	};
 
 
-	$scope.addSpouse=function(credentials){
-	   memberService.addSpouse(credentials).then(function(data) {
-	   		uploadPic(credentials.picFile, data.spouse_id, $scope.relation.treeID);
-	   });
+	$scope.addSpouse=function(){
+		$scope.$broadcast('show-errors-check-validity');
+		if ($scope.frmAddSpouse.$valid) {
+			$scope.sploading = true;
+	   		memberService.addSpouse($scope.spouse).then(function(data) {
+	   			uploadPic($scope.spouse.picFile, data.ids.spouse_id, $scope.relation.treeID);
+	   			if(data.status = "successful"){
+	   				$scope.spsuccess = data.message;
+				} else {
+					$scope.sperror = data.message;
+				}
+				$scope.sploading = false;
+	   		});
+	   	}
 	};
 
 	var uploadPic = function(file, memberID, treeID) {
@@ -109,7 +148,5 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
 			$scope.errorMsg = "Please select an image.";
 		}
 	}
-
-
 
 }]);

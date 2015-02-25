@@ -138,7 +138,7 @@ CREATE TABLE `Tree` (
   PRIMARY KEY (`treeID`),
   KEY `userID_idx` (`userID`),
   CONSTRAINT `userID` FOREIGN KEY (`userID`) REFERENCES `Users` (`uID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,7 +177,7 @@ CREATE TABLE `Users` (
   PRIMARY KEY (`uID`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `fbID_UNIQUE` (`fbID`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

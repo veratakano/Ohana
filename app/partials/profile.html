@@ -134,35 +134,44 @@
             <div class="col-md-12">
               <h4>Basic Info</h4>
               <hr />
-              <form name="frmAddSpouse" class="center-block form-horizontal"  ng-submit="updateMember(member)" style="width:95%;">
-                <div class="form-group">
+              <form name="frmEditMember" class="center-block form-horizontal" novalidate style="width:95%;">
+                <div class="form-group" show-errors="{showSuccess: true}">
                   <label class="control-label col-sm-3" for="txtFirstName">First Name:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" name="txtFirstName" placeholder="Enter First Name" required ng-model="member.firstName" autofocus/>
+                    <input type="text" class="form-control" name="edFirstName" placeholder="Enter First Name" ng-model="member.firstName" ng-maxlength="35" required />
+                    <p class="help-block" ng-if="frmEditMember.edFirstName.$error.required">First name is required</p>
+                    <p class="help-block" ng-if="frmEditMember.edFirstName.$error.maxlength">Your input is too long</p>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" show-errors="{showSuccess: true}">
                   <label class="control-label col-sm-3" for="txtLastName">Last Name:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" name="txtLastName" placeholder="Enter Last Name" required ng-model="member.lastName"/>
+                    <input type="text" class="form-control" name="edLastName" placeholder="Enter Last Name" required ng-model="member.lastName" ng-maxlength="50" required />
+                    <p class="help-block" ng-if="frmEditMember.edLastName.$error.required">Last name is required</p>
+                    <p class="help-block" ng-if="frmEditMember.edLastName.$error.maxlength">Your input is too long</p>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" show-errors="{showSuccess: true}">
                   <label class="control-label col-sm-3" for="txtFirstName">Date of Birth:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Select Date of Birth" bs-datepicker date-type="string" required ng-model="member.dateOfBirth"/>
+                    <input type="text" class="form-control" name="edcalDOB" placeholder="Select Date of Birth" bs-datepicker date-type="string" ng-model="member.dateOfBirth"/>
+                    <p class="help-block" ng-if="frmEditMember.edcalDOB.$error.date">Please enter a valid date e.g. "23/03/1952"</p>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" show-errors="{showSuccess: true}">
                   <label class="control-label col-sm-3" for="txtFirstName">Place of Birth:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Enter Place of Birth" ng-autocomplete  required ng-model="member.placeOfBirth"/>
+                    <input type="text" class="form-control" name="edPlaceOfBirth" placeholder="Enter Place of Birth" ng-autocomplete ng-model="member.placeOfBirth" ng-maxlength="100" />
+                    <p class="help-block" ng-if="frmEditMember.edPlaceOfBirth.$error.maxlength">Your input is too long</p>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" show-errors="{showSuccess: true}">
                   <label class="control-label col-sm-3" for="txtFirstName">Email Address:</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" name="txtEmail" placeholder="Enter Email Address" ng-model="member.email"/>
+                    <input type="email" class="form-control" name="edEmail" placeholder="Enter Email Address" ng-maxlength="50" ng-model="member.email"/>
+                    <p class="help-block" ng-if="frmEditMember.edEmail.$error.required">Please enter a valid email</p>
+                    <p class="help-block" ng-if="frmEditMember.edEmail.$error.email">Please enter a valid email</p>
+                    <p class="help-block" ng-if="frmEditMember.edEmail.$error.maxlength">Your input is too long</p>
                   </div>
                 </div>
                 <label class="col-sm-3"></label>
@@ -179,7 +188,7 @@
                   <div class="alert alert-danger well-sm" role="alert" ng-if="error" ng-bind="error"></div>
                 </div>
                 <div class="col-sm-2">
-                  <button class="btn btn-outline-inverse pull-right" type="submit">Update<span ng-show="loading">&nbsp;&nbsp;</span><i class="fa fa-circle-o-notch fa-spin" ng-show="loading"></i></button> 
+                  <button class="btn btn-outline-inverse pull-right" ng-click="updateMember()">Update<span ng-show="loading">&nbsp;&nbsp;</span><i class="fa fa-circle-o-notch fa-spin" ng-show="loading"></i></button> 
                 </div>
               </form>
             </div>

@@ -1,3 +1,4 @@
+
 	<!-- Create Member -->
 	<div class="container create-member" ng-init="tab=selTab()">
 		<h2>Create Memeber</h2>
@@ -23,288 +24,497 @@
 					  </a>
 					</div>
 			</div>
-			<div class="col-md-8" style="border-top: 1px solid #dddddd;" ng-show="tab == 1" ng-if="relation.fatherID == 0">
-				<form name="frmAddParent" class="center-block" ng-submit="addParent(parents)">
-					<div class="clearfix">
-						<div class="form-group">
-							<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Father: </h3>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="parents.fFirstName" autofocus/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="parents.fLastName"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="parents.fPOB"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="parents.fEmail"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="parents.fDOB"/>
-						</div>
-						<div class="form-group pull-left">
-							<div class="checkbox pull-left">
-								<label>
-								  <input type="checkbox" ng-model="parents.fvStatus" ng-init="parents.fvStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
-								</label>
+			<div class="col-md-8" style="border-top: 1px solid #dddddd;" ng-show="tab == 1" ng-show="relation.fatherID == 0">
+				<form name="frmAddParent" class="center-block" novalidate >
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Father: </h3>
 							</div>
 						</div>
 					</div>
-					<div class="profPicUpload">
-						<h5>Upload Profile Picture</h5>
-						<div class="row">
-							<div class="col-md-2">
-								<img ng-src="{{fimgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="fFirstName" placeholder="First Name" ng-model="parents.fFirstName" ng-maxlength="35" required/>
+								<p class="help-block" ng-if="frmAddParent.fFirstName.$error.required">First name is required</p>
+								<p class="help-block" ng-if="frmAddParent.fFirstName.$error.maxlength">Your input is too long</p>
 							</div>
-							<div class="col-md-10">
-								<div class="input-group">
-			                		<span class="input-group-btn">
-			                    		<span class="btn btn-primary btn-file">
-			                        		Browse&hellip;<input type="file" ng-file-select ng-model="parents.fpicFile" name="file" accept="image/*" ng-file-change="generateThumb(parents.fpicFile[0],'father')">
-			                    		</span>
-			                		</span>
-			                		<input type="text" class="form-control" ng-model="flblpicFile" readonly>
-			            		</div>
-			                	<div class="progress" ng-show="parents.fpicFile.progress >= 0" style="margin-top: 10px;" >
-					            	<div class="progress-bar" role="progressbar" aria-valuenow="{{parents.fpicFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( parents.fpicFile.progress + '%' ) }">{{parents.fpicFile.progress}}%</div>
-					     		</div> 
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="fLastName" placeholder="Last Name" ng-model="parents.fLastName" ng-maxlength="50" required/>
+								<p class="help-block" ng-if="frmAddParent.fLastName.$error.required">Last name is required</p>
+								<p class="help-block" ng-if="frmAddParent.fLastName.$error.maxlength">Your input is too long</p>
 							</div>
 						</div>
 					</div>
-					<div class="clearfix">
-						<div class="form-group">
-							<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Mother: </h3>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="parents.mFirstName"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtLastName" placeholder="Last Name" required ng-model="parents.mLastName"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete required ng-model="parents.mPOB"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="parents.mEmail"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="parents.mDOB"/>
-						</div>
-						<div class="form-group pull-left">
-						<div class="checkbox">
-							<label>
-								  <input type="checkbox" ng-model="parents.mvStatus" ng-init="parents.mvStatus=1" ng-true-value="0" ng-false-value="1" > Deceased
-							</label>
-						</div>
-						</div>
-					</div>
-					<div class="profPicUpload">
-						<h5>Upload Profile Picture</h5>
-						<div class="row">
-							<div class="col-md-2">
-								<img ng-src="{{mimgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="fPlaceOfBirth" placeholder="Place of Birth" ng-model="parents.fPOB" ng-maxlength="100" ng-autocomplete />
+								<p class="help-block" ng-if="frmAddParent.fPlaceOfBirth.$error.maxlength">Your input is too long</p>
 							</div>
-							<div class="col-md-10">
-								<div class="input-group">
-			                		<span class="input-group-btn">
-			                    		<span class="btn btn-primary btn-file">
-			                        		Browse&hellip;<input type="file" ng-file-select ng-model="parents.mpicFile" name="file" accept="image/*" ng-file-change="generateThumb(parents.mpicFile[0],'mother')">
-			                    		</span>
-			                		</span>
-			                		<input type="text" class="form-control" ng-model="mlblpicFile" readonly>
-			            		</div>
-			                	<div class="progress" ng-show="parents.mpicFile.progress >= 0" style="margin-top: 10px;" >
-					            	<div class="progress-bar" role="progressbar" aria-valuenow="{{parents.mpicFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( parents.mpicFile.progress + '%' ) }">{{parents.mpicFile.progress}}%</div>
-					     		</div> 
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="email" class="form-control" name="fEmail" placeholder="Email Address" ng-model="parents.fEmail" ng-maxlength="50" />
+								<p class="help-block" ng-if="frmAddParent.fEmail.$error.email">Please enter a valid email</p>
+								<p class="help-block" ng-if="frmAddParent.fEmail.$error.maxlength">Your input is too long</p>
 							</div>
 						</div>
 					</div>
-					<button class="btn btn-primary pull-right" name="inlineRadioOptions" type="submit">Add Parent</button>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="fcalDOB" placeholder="Date of Birth" bs-datepicker ng-model="parents.fDOB"/>
+								<p class="help-block" ng-if="frmAddParent.fcalDOB.$error.date">Please enter a valid date e.g. "23/03/1952"</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="checkbox">
+									<label>
+									  <input type="checkbox" ng-model="parents.fvStatus" ng-init="parents.fvStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="profPicUpload">
+								<h5>Upload Profile Picture</h5>
+								<div class="row">
+									<div class="col-md-2">
+										<img ng-src="{{fimgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+									</div>
+									<div class="col-md-10">
+										<div class="input-group">
+					                		<span class="input-group-btn">
+					                    		<span class="btn btn-primary btn-file">
+					                        		Browse&hellip;<input type="file" ng-file-select ng-model="parents.fpicFile" name="file" accept="image/*" ng-file-change="generateThumb(parents.fpicFile[0],'father')">
+					                    		</span>
+					                		</span>
+					                		<input type="text" class="form-control" ng-model="flblpicFile" readonly>
+					            		</div>
+					                	<div class="progress" ng-show="parents.fpicFile.progress >= 0" style="margin-top: 10px;" >
+							            	<div class="progress-bar" role="progressbar" aria-valuenow="{{parents.fpicFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( parents.fpicFile.progress + '%' ) }">{{parents.fpicFile.progress}}%</div>
+							     		</div> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Mother: </h3>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="mFirstName" placeholder="First Name" ng-model="parents.mFirstName" ng-maxlength="35" required />
+								<p class="help-block" ng-if="frmAddParent.mFirstName.$error.required">First name is required</p>
+								<p class="help-block" ng-if="frmAddParent.mFirstName.$error.maxlength">Your input is too long</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="mLastName" placeholder="Last Name" ng-model="parents.mLastName" ng-maxlength="50" required />
+								<p class="help-block" ng-if="frmAddParent.mLastName.$error.required">Last name is required</p>
+								<p class="help-block" ng-if="frmAddParent.mLastName.$error.maxlength">Your input is too long</p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="mPlaceOfBirth" placeholder="Place of Birth"  ng-model="parents.mPOB" ng-maxlength="100" ng-autocomplete />
+								<p class="help-block" ng-if="frmAddParent.mPlaceOfBirth.$error.maxlength">Your input is too long</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="email" class="form-control" name="mEmail" placeholder="Email Address" ng-model="parents.mEmail" ng-maxlength="50" />
+								<p class="help-block" ng-if="frmAddParent.mEmail.$error.email">Please enter a valid email</p>
+								<p class="help-block" ng-if="frmAddParent.mEmail.$error.maxlength">Your input is too long</p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="mcalDOB" placeholder="Date of Birth" bs-datepicker ng-model="parents.mDOB"/>
+								<p class="help-block" ng-if="frmAddParent.mcalDOB.$error.date">Please enter a valid date e.g. "23/03/1952"</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="checkbox">
+									<label>
+										  <input type="checkbox" ng-model="parents.mvStatus" ng-init="parents.mvStatus=1" ng-true-value="0" ng-false-value="1" > Deceased
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="profPicUpload">
+								<h5>Upload Profile Picture</h5>
+								<div class="row">
+									<div class="col-md-2">
+										<img ng-src="{{mimgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+									</div>
+									<div class="col-md-10">
+										<div class="input-group">
+					                		<span class="input-group-btn">
+					                    		<span class="btn btn-primary btn-file">
+					                        		Browse&hellip;<input type="file" ng-file-select ng-model="parents.mpicFile" name="file" accept="image/*" ng-file-change="generateThumb(parents.mpicFile[0],'mother')">
+					                    		</span>
+					                		</span>
+					                		<input type="text" class="form-control" ng-model="mlblpicFile" readonly>
+					            		</div>
+					                	<div class="progress" ng-show="parents.mpicFile.progress >= 0" style="margin-top: 10px;" >
+							            	<div class="progress-bar" role="progressbar" aria-valuenow="{{parents.mpicFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( parents.mpicFile.progress + '%' ) }">{{parents.mpicFile.progress}}%</div>
+							     		</div> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row actions">
+						<div class="col-md-9">
+            		      <div class="alert alert-success well-sm" role="alert" ng-if="psuccess" ng-bind="psuccess"></div>
+        		          <div class="alert alert-danger well-sm" role="alert" ng-if="perror" ng-bind="perror"></div>
+		                </div>
+		                <div class="col-md-3">
+							<button class="btn btn-primary" ng-click="addParent()"><span ng-if="ploading">&nbsp;&nbsp;</span><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i>Add Parent</button>
+							<button class="btn btn-primary" ng-click="clear()">Clear</button>
+						</div>
+					</div>
 				</form>
 			</div>
 			<div class="col-md-8" style="border-top: 1px solid #dddddd;" ng-show="tab == 2">
-				<form name="frmAddSibling" class="center-block" ng-submit="addSibling(sibling)">
-					<div class="clearfix">
-						<div class="form-group">
-							<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Sibling: </h3>
+				<form name="frmAddSibling" class="center-block" novalidate>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Sibling: </h3>
+							</div>
 						</div>
-						<div class="form-group">
-							<label class="radio-inline">
-							  <input type="radio" name="inlineRadioOptions" ng-model="sibling.type" value="Brother"> Brother
-							</label>
-							<label class="radio-inline">
-							  <input type="radio" name="inlineRadioOptions" ng-model="sibling.type" value="Sister"> Sister
-							</label>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="sibling.fName" autofocus/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="sibling.lName"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="sibling.POB"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="sibling.email"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="sibling.DOB"/>
-						</div>
-						<div class="form-group pull-left">
-							<div class="checkbox">
-								<label>
-									  <input type="checkbox" ng-model="sibling.vStatus" ng-init="sibling.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<label class="radio-inline">
+								  <input type="radio" name="siblibgOption" ng-model="sibling.type" value="Brother"> Brother
 								</label>
+								<label class="radio-inline">
+								  <input type="radio" name="siblibgOption" ng-model="sibling.type" value="Sister"> Sister
+								</label>
+								<p class="help-block" ng-if="frmAddSibling.siblibgOption.$error.required">Please select a Sibling</p>
 							</div>
 						</div>
 					</div>
-					<div class="profPicUpload">
-						<h5>Upload Profile Picture</h5>
-						<div class="row">
-							<div class="col-md-2">
-								<img ng-src="{{imgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="sbFirstName" placeholder="First Name" ng-model="sibling.fName" ng-maxlength="35" required />
+								<p class="help-block" ng-if="frmAddSibling.sbFirstName.$error.required">First name is required</p>
+								<p class="help-block" ng-if="frmAddSibling.sbFirstName.$error.maxlength">Your input is too long</p>
 							</div>
-							<div class="col-md-10">
-								<div class="input-group">
-			                		<span class="input-group-btn">
-			                    		<span class="btn btn-primary btn-file">
-			                        		Browse&hellip;<input type="file" ng-file-select ng-model="sibling.picFile" name="file" accept="image/*" ng-file-change="generateThumb(sibling.picFile[0])">
-			                    		</span>
-			                		</span>
-			                		<input type="text" class="form-control" ng-model="lblpicFile" readonly>
-			            		</div>
-			                	<div class="progress" ng-show="sibling.picFile.progress >= 0" style="margin-top: 10px;" >
-					            	<div class="progress-bar" role="progressbar" aria-valuenow="{{sibling.picFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( sibling.picFile.progress + '%' ) }">{{sibling.picFile.progress}}%</div>
-					     		</div> 
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="sbLastName" placeholder="Last Name" ng-model="sibling.lName" ng-maxlength="50" required />
+								<p class="help-block" ng-if="frmAddSibling.sbLastName.$error.required">Last name is required</p>
+								<p class="help-block" ng-if="frmAddSibling.sbLastName.$error.maxlength">Your input is too long</p>
 							</div>
 						</div>
 					</div>
-					<button class="btn btn-primary pull-right" type="submit">Add Sibling</button> 
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="sbPlaceOfBirth" placeholder="Place of Birth" ng-model="sibling.POB" ng-maxlength="100" ng-autocomplete />
+								<p class="help-block" ng-if="frmAddSibling.sbPlaceOfBirth.$error.maxlength">Your input is too long</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="email" class="form-control" name="sbEmail" placeholder="Email Address" ng-model="sibling.email" ng-maxlength="50" />
+								<p class="help-block" ng-if="frmAddSibling.sbEmail.$error.email">Please enter a valid email</p>
+								<p class="help-block" ng-if="frmAddSibling.sbEmail.$error.maxlength">Your input is too long</p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="sbDOB" placeholder="Date of Birth" bs-datepicker ng-model="sibling.DOB"/>
+								<p class="help-block" ng-if="frmAddSibling.sbDOB.$error.date">Please enter a valid date e.g. "23/03/1952"</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="checkbox">
+									<label>
+									  <input type="checkbox" ng-model="sibling.vStatus" ng-init="sibling.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="profPicUpload">
+								<h5>Upload Profile Picture</h5>
+								<div class="row">
+									<div class="col-md-2">
+										<img ng-src="{{imgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+									</div>
+									<div class="col-md-10">
+										<div class="input-group">
+					                		<span class="input-group-btn">
+					                    		<span class="btn btn-primary btn-file">
+					                        		Browse&hellip;<input type="file" ng-file-select ng-model="sibling.picFile" name="file" accept="image/*" ng-file-change="generateThumb(sibling.picFile[0])">
+					                    		</span>
+					                		</span>
+					                		<input type="text" class="form-control" ng-model="lblpicFile" readonly>
+					            		</div>
+					                	<div class="progress" ng-show="sibling.picFile.progress >= 0" style="margin-top: 10px;" >
+							            	<div class="progress-bar" role="progressbar" aria-valuenow="{{sibling.picFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( sibling.picFile.progress + '%' ) }">{{sibling.picFile.progress}}%</div>
+							     		</div> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row actions">
+						<div class="col-md-9">
+            		      <div class="alert alert-success well-sm" role="alert" ng-if="sbsuccess" ng-bind="sbsuccess"></div>
+        		          <div class="alert alert-danger well-sm" role="alert" ng-if="sberror" ng-bind="sberror"></div>
+		                </div>
+		                <div class="col-md-3">
+							<button class="btn btn-primary" ng-click="addSibling()"><span ng-if="sbloading">&nbsp;&nbsp;</span><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i>Add Sibling</button>
+							<button class="btn btn-primary" ng-click="clear()">Clear</button>
+						</div>
+					</div>
 				</form>
 			</div>
-			<div class="col-md-8" style="border-top: 1px solid #dddddd;" ng-show="tab == 3" ng-if="!relation.spouseID">
-				<form name="frmAddSpouse" class="center-block" ng-submit="addSpouse(spouse)">
-					<div class="clearfix">
-						<div class="form-group">
-							<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Spouse: </h3>
+			<div class="col-md-8" style="border-top: 1px solid #dddddd;" ng-show="tab == 3" ng-show="!relation.spouseID">
+				<form name="frmAddSpouse" class="center-block" novalidate >
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Spouse: </h3>
+							</div>
 						</div>
-						<div class="form-group">
-							<label class="radio-inline">
-							  <input type="radio" name="inlineRadioOptions" ng-model="spouse.gender" value="M"> Huaband
-							</label>
-							<label class="radio-inline">
-							  <input type="radio" name="inlineRadioOptions" ng-model="spouse.gender" value="F"> Wife
-							</label>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="spouse.fName" autofocus/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtLastName" placeholder="Last Name" required ng-model="spouse.lName"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="spouse.POB"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="spouse.email"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="spouse.DOB"/>
-						</div>
-						<div class="form-group pull-left">
-							<div class="checkbox">
-								<label>
-									  <input type="checkbox" ng-model="spouse.vStatus" ng-init="spouse.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<label class="radio-inline">
+								  <input type="radio" name="spouseOption" ng-model="spouse.gender" value="M"> Huaband
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" name="spouseOption" ng-model="spouse.gender" value="F"> Wife
 								</label>
 							</div>
 						</div>
 					</div>
-					<div class="profPicUpload">
-						<h5>Upload Profile Picture</h5>
-						<div class="row">
-							<div class="col-md-2">
-								<img ng-src="{{imgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="spFirstName" placeholder="First Name" ng-model="spouse.fName" ng-maxlength="35" required />
+								<p class="help-block" ng-if="frmAddSpouse.spFirstName.$error.required">First name is required</p>
+								<p class="help-block" ng-if="frmAddSpouse.spFirstName.$error.maxlength">Your input is too long</p>
 							</div>
-							<div class="col-md-10">
-								<div class="input-group">
-			                		<span class="input-group-btn">
-			                    		<span class="btn btn-primary btn-file">
-			                        		Browse&hellip;<input type="file" ng-file-select ng-model="spouse.picFile" name="file" accept="image/*" ng-file-change="generateThumb(spouse.picFile[0])">
-			                    		</span>
-			                		</span>
-			                		<input type="text" class="form-control" ng-model="lblpicFile" readonly>
-			            		</div>
-			                	<div class="progress" ng-show="spouse.picFile.progress >= 0" style="margin-top: 10px;" >
-					            	<div class="progress-bar" role="progressbar" aria-valuenow="{{spouse.picFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( spouse.picFile.progress + '%' ) }">{{sibling.picFile.progress}}%</div>
-					     		</div> 
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="spLastName" placeholder="Last Name" ng-model="spouse.lName" ng-maxlength="50" required/>
+								<p class="help-block" ng-if="frmAddSpouse.spLastName.$error.required">Last name is required</p>
+								<p class="help-block" ng-if="frmAddSpouse.spLastName.$error.maxlength">Your input is too long</p>
 							</div>
 						</div>
 					</div>
-					<button class="btn btn-primary pull-right" type="submit">Add Spouse</button> 
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="spPlaceOfBirth" placeholder="Place of Birth" ng-model="spouse.POB" ng-maxlength="100" ng-autocomplete />
+								<p class="help-block" ng-if="frmAddSpouse.spPlaceOfBirth.$error.maxlength">Your input is too long</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="email" class="form-control" name="spEmail" placeholder="Email Address" ng-model="spouse.email" ng-maxlength="50" />
+								<p class="help-block" ng-if="frmAddSpouse.spEmail.$error.email">Please enter a valid email</p>
+								<p class="help-block" ng-if="frmAddSpouse.spEmail.$error.maxlength">Your input is too long</p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="spcalDOB" placeholder="Date of Birth" bs-datepicker ng-model="spouse.DOB"/>
+								<p class="help-block" ng-if="frmAddSpouse.spcalDOB.$error.date">Please enter a valid date e.g. "23/03/1952"</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="checkbox">
+									<label>
+								  		<input type="checkbox" ng-model="spouse.vStatus" ng-init="spouse.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="profPicUpload">
+								<h5>Upload Profile Picture</h5>
+								<div class="row">
+									<div class="col-md-2">
+										<img ng-src="{{imgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+									</div>
+									<div class="col-md-10">
+										<div class="input-group">
+					                		<span class="input-group-btn">
+					                    		<span class="btn btn-primary btn-file">
+					                        		Browse&hellip;<input type="file" ng-file-select ng-model="spouse.picFile" name="file" accept="image/*" ng-file-change="generateThumb(spouse.picFile[0])">
+					                    		</span>
+					                		</span>
+					                		<input type="text" class="form-control" ng-model="lblpicFile" readonly>
+					            		</div>
+					                	<div class="progress" ng-show="spouse.picFile.progress >= 0" style="margin-top: 10px;" >
+							            	<div class="progress-bar" role="progressbar" aria-valuenow="{{spouse.picFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( spouse.picFile.progress + '%' ) }">{{sibling.picFile.progress}}%</div>
+							     		</div> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row actions">
+						<div class="col-md-8">
+            		      <div class="alert alert-success well-sm" role="alert" ng-if="spsuccess" ng-bind="spsuccess"></div>
+        		          <div class="alert alert-danger well-sm" role="alert" ng-if="sperror" ng-bind="sperror"></div>
+		                </div>
+		                <div class="col-md-4 text-right">
+							<button class="btn btn-primary" ng-click="addSpouse()"><span ng-if="sploading">&nbsp;&nbsp;</span><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i>Add Spouse</button>
+							<button class="btn btn-primary" ng-click="clear()">Clear</button>
+						</div>
+					</div>
 				</form>
 			</div>
 			<div class="col-md-8" style="border-top: 1px solid #dddddd;" ng-show="tab == 4">
-				<form name="frmAddChildren" class="center-block" ng-submit="addChildren(children)">
-					<div class="clearfix">
-						<div class="form-group">
-							<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Children: </h3>
+				<form name="frmAddChildren" class="center-block" novalidate >
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<h3><i class="fa fa-info"></i>&nbsp;&nbsp;Details of Children: </h3>
+							</div>
 						</div>
-						<div class="form-group">
-							<label class="radio-inline">
-							  <input type="radio" name="inlineRadioOptions" ng-model="children.type" id="inlineRadio1" value="Son"> Son
-							</label>
-							<label class="radio-inline">
-							  <input type="radio" name="inlineRadioOptions" ng-model="children.type" id="inlineRadio2" value="Daughter"> Daughter
-							</label>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtFirstName" placeholder="First Name" required ng-model="children.fName" autofocus/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtLastName" placeholder="Last Name"  required ng-model="children.lName"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtPlaceOfBirth" placeholder="Place of Birth" ng-autocomplete  required ng-model="children.POB"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="txtEmail" placeholder="Email Address" ng-model="children.email"/>
-						</div>
-						<div class="form-group pull-left">
-							<input type="text" class="form-control" name="calDOB" placeholder="Date of Birth" bs-datepicker required ng-model="children.DOB"/>
-						</div>
-						<div class="form-group pull-left">
-							<div class="checkbox">
-								<label>
-									  <input type="checkbox" ng-model="children.vStatus" ng-init="children.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="radio-inline">
+								  <input type="radio" name="inlineRadioOptions" ng-model="children.type" id="inlineRadio1" value="Son"> Son
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" name="inlineRadioOptions" ng-model="children.type" id="inlineRadio2" value="Daughter"> Daughter
 								</label>
 							</div>
 						</div>
 					</div>
-					<div class="profPicUpload">
-						<h5>Upload Profile Picture</h5>
-						<div class="row">
-							<div class="col-md-2">
-								<img ng-src="{{imgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="cFirstName" placeholder="First Name" ng-model="children.fName" ng-maxlength="35" required />
+								<p class="help-block" ng-if="frmAddChildren.cFirstName.$error.required">First name is required</p>
+								<p class="help-block" ng-if="frmAddChildren.cFirstName.$error.maxlength">Your input is too long</p>
 							</div>
-							<div class="col-md-10">
-								<div class="input-group">
-			                		<span class="input-group-btn">
-			                    		<span class="btn btn-primary btn-file">
-			                        		Browse&hellip;<input type="file" ng-file-select ng-model="children.picFile" name="file" accept="image/*" ng-file-change="generateThumb(children.picFile[0])">
-			                    		</span>
-			                		</span>
-			                		<input type="text" class="form-control" ng-model="lblpicFile" readonly>
-			            		</div>
-			                	<div class="progress" ng-show="children.picFile.progress >= 0" style="margin-top: 10px;" >
-					            	<div class="progress-bar" role="progressbar" aria-valuenow="{{children.picFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( children.picFile.progress + '%' ) }">{{children.picFile.progress}}%</div>
-					     		</div> 
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="cLastName" placeholder="Last Name" ng-model="children.lName" ng-maxlength="50" required />
+								<p class="help-block" ng-if="frmAddChildren.cLastName.$error.required">Last name is required</p>
+								<p class="help-block" ng-if="frmAddChildren.cLastName.$error.maxlength">Your input is too long</p>
 							</div>
 						</div>
 					</div>
-					<button class="btn btn-primary pull-right" type="submit">Add Offspring</button> 
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="cPlaceOfBirth" placeholder="Place of Birth" ng-maxlength="100" ng-autocomplete ng-model="children.POB"/>
+								<p class="help-block" ng-if="frmAddChildren.cPlaceOfBirth.$error.maxlength">Your input is too long</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" show-errors='{showSuccess: true}'>
+								<input type="email" class="form-control" name="cEmail" placeholder="Email Address" ng-model="children.email"/>
+								<p class="help-block" ng-if="frmAddChildren.cEmail.$error.email">Please enter a valid email</p>
+								<p class="help-block" ng-if="frmAddChildren.cEmail.$error.maxlength">Your input is too long</p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group pull-left" show-errors='{showSuccess: true}'>
+								<input type="text" class="form-control" name="ccalDOB" placeholder="Date of Birth" bs-datepicker ng-model="children.DOB"/>
+								<p class="help-block" ng-if="frmAddChildren.ccalDOB.$error.date">Please enter a valid date e.g. "23/03/1952"</p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<div class="checkbox">
+									<label>
+									  <input type="checkbox" ng-model="children.vStatus" ng-init="children.vStatus=1" ng-true-value="0" ng-false-value="1"> Deceased
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="profPicUpload">
+								<h5>Upload Profile Picture</h5>
+								<div class="row">
+									<div class="col-md-2">
+										<img ng-src="{{imgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
+									</div>
+									<div class="col-md-10">
+										<div class="input-group">
+					                		<span class="input-group-btn">
+					                    		<span class="btn btn-primary btn-file">
+					                        		Browse&hellip;<input type="file" ng-file-select ng-model="children.picFile" name="file" accept="image/*" ng-file-change="generateThumb(children.picFile[0])">
+					                    		</span>
+					                		</span>
+					                		<input type="text" class="form-control" ng-model="lblpicFile" readonly>
+					            		</div>
+					                	<div class="progress" ng-show="children.picFile.progress >= 0" style="margin-top: 10px;" >
+							            	<div class="progress-bar" role="progressbar" aria-valuenow="{{children.picFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( children.picFile.progress + '%' ) }">{{children.picFile.progress}}%</div>
+							     		</div> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row actions">
+						<div class="col-md-8">
+							<div class="alert alert-success well-sm" role="alert" ng-if="csuccess" ng-bind="csuccess"></div>
+        		         	<div class="alert alert-danger well-sm" role="alert" ng-if="cerror" ng-bind="cerror"></div>
+        		         </div>
+        		         <div class="col-md-4 text-right">
+							<button class="btn btn-primary" ng-click="addChildren()"><span ng-if="cloading">&nbsp;&nbsp;</span><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i>Add Offspring</button>
+							<button class="btn btn-primary" ng-click="clear()">Clear</button>
+						</div>
+					</div>
 				</form>
 			</div>
 			<div class="col-md-1">

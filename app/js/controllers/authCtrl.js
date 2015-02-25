@@ -6,40 +6,54 @@ app.controller('authCtrl',['$location','$scope','$rootScope','$routeParams','log
 
     $scope.params = $routeParams;
 
-    $scope.login=function(credentials){
+    $scope.login=function(){
 
-      loginService.login(credentials).then(function(data) {
-        var obj = angular.fromJson(data);
-        if(obj.status == "success"){
-          sessionService.set('unqid',obj.unqid);
-          sessionService.set('uid',obj.uid);
-          sessionService.set('email',obj.email);
-          sessionService.set('treeownid',obj.treeid);
-          sessionService.set('treeid',obj.treeid);
-          $location.path('dashboard');
-        }        
-        else  {
-          $scope.message = obj.message;
-        }
-      });
-    };
+      $scope.$broadcast('show-errors-check-validity');
 
-    $scope.signup=function(credentials){
-      //call Signup service
-       loginService.signup(credentials,$scope.params).then(function(data) {
+      if ($scope.loginForm.$valid) {
+        $scope.loading = true;
+
+        loginService.login($scope.credentials).then(function(data) {
           var obj = angular.fromJson(data);
           if(obj.status == "success"){
-              sessionService.set('unqid',obj.unqid);
-              sessionService.set('uid',obj.uID);
-              sessionService.set('email',obj.email);
-              sessionService.set('treeownid',obj.treeid);
-              sessionService.set('treeid',obj.treeid);
-              $location.path('dashboard');
+            sessionService.set('unqid',obj.unqid);
+            sessionService.set('uid',obj.uid);
+            sessionService.set('email',obj.email);
+            sessionService.set('treeownid',obj.treeid);
+            sessionService.set('treeid',obj.treeid);
+            $location.path('dashboard');
           }        
           else  {
             $scope.message = obj.message;
           }
-      });
+          $scope.loading = false;
+        });
+      }
+    };
+
+    $scope.signup=function(){
+
+      $scope.$broadcast('show-errors-check-validity');
+
+      if ($scope.signupForm.$valid) {
+        $scope.loading = true;
+        //call Signup service
+         loginService.signup($scope.credentials,$scope.params).then(function(data) {
+            var obj = angular.fromJson(data);
+            if(obj.status == "success"){
+                sessionService.set('unqid',obj.unqid);
+                sessionService.set('uid',obj.uID);
+                sessionService.set('email',obj.email);
+                sessionService.set('treeownid',obj.treeid);
+                sessionService.set('treeid',obj.treeid);
+                $location.path('dashboard');
+            }        
+            else  {
+              $scope.message = obj.message;
+            }
+            $scope.loading = false;
+        });
+      }
     }
 
     $scope.fbLogin = function(){

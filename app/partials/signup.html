@@ -1,18 +1,41 @@
 
 <div class="container-fluid userForm">
-		<form name="signupForm" class="form" ng-submit="signupForm.$valid && signup(credentials)" novalidate>       
+		<form name="signupForm" class="form" novalidate>       
 			<h2 class="form-heading text-center">Register for free</h2>
-			<input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" required ng-model="credentials.fname" autofocus />
-			<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" required ng-model="credentials.lname" />
-			<input type="email" class="form-control" id="email" name="username" placeholder="Email Address" required ng-model="credentials.email" />
-			<input type="password" class="form-control" id="password" name="password" placeholder="Password" required ng-model="credentials.password"/> 
-			<div class="form-group">
+			<div class="form-group" show-errors='{showSuccess: true}'>
+				<input type="text" class="form-control" name="firstname" placeholder="First Name" ng-model="credentials.fname" ng-maxlength="35" required />
+				<p class="help-block" ng-if="signupForm.firstname.$error.required">First name is required</p>
+				<p class="help-block" ng-if="signupForm.firstname.$error.maxlength">Your input is too long</p>
+        </small>
+        </small>
+			</div>
+			<div class="form-group" show-errors='{showSuccess: true}'>
+				<input type="text" class="form-control" name="lastname" placeholder="Last Name" ng-model="credentials.lname" ng-maxlength="50" required />
+				<p class="help-block" ng-if="signupForm.lastname.$error.required">Last name is required</p>
+				<p class="help-block" ng-if="signupForm.lastname.$error.maxlength">Your input is too long</p>
+			</div>
+			<div class="form-group" show-errors='{showSuccess: true}'>
+				<input type="email" class="form-control" name="email" placeholder="Email Address" ng-model="credentials.email" ng-maxlength="50" required />
+				<p class="help-block" ng-if="signupForm.email.$error.required">Please enter a valid email</p>
+				<p class="help-block" ng-if="signupForm.email.$error.email">Please enter a valid email</p>
+				<p class="help-block" ng-if="signupForm.email.$error.maxlength">Your input is too long</p>
+			</div>
+			<div class="form-group" show-errors='{showSuccess: true}'>
+				<input type="password" class="form-control" name="password" placeholder="Password" required ng-model="credentials.password"/>
+				<p class="help-block" ng-if="signupForm.password.$error.required">Please enter a password</p>
+			</div>
+			<div class="form-group" show-errors='{showSuccess: true}'>
+				<input type="password" class="form-control" name='confirm_password' placeholder='Re-enter Password' required ng-model='credentials.password_verify' data-password-verify="credentials.password" />
+				<p class="help-block" ng-if="signupForm.confirm_password.$error.passwordVerify">Password are not equal</p>
+			</div>
+			<div class="form-group" show-errors='{showSuccess: true}'>
 				<label class="radio-inline">
-					<input type="radio" name="genderOption" ng-model="credentials.gender" value="M"> Male
+					<input type="radio" name="genderOption" ng-model="credentials.gender" value="M" ng-required="!credentials.gender"> Male
 				</label>
 				<label class="radio-inline">
-					<input type="radio" name="genderOption" ng-model="credentials.gender" value="F"> Female
+					<input type="radio" name="genderOption" ng-model="credentials.gender" value="F" ng-required="!credentials.gender"> Female
 				</label>
+				<p class="help-block" ng-if="signupForm.gender.$error.required">Please select a gender</p>
 			</div>
 			<div class="form-group">
 				<div class="checkbox">
@@ -21,7 +44,7 @@
 			    	</label>
 				</div>
 			</div>
-			<button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Signup</button> 
+			<button id="submit" class="btn btn-lg btn-primary btn-block" ng-click="signup()"><span ng-if="loading">&nbsp;&nbsp;</span><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i>Signup</button> 
 			<div>Registered?<br />
 			<a href="#/login">Sign in now</a></div>
 			<div ng-show="message" class="alert alert-danger">{{message}}</div> 
