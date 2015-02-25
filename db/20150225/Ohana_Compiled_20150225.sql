@@ -620,10 +620,10 @@ BEGIN
 				IF spouse_id IS NOT NULL THEN
 					IF (coor_x > spouse_x) THEN
 						SET SQL_SAFE_UPDATES=0;
-						UPDATE coordinates set x = (x - 30) WHERE x > spouse_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
+						UPDATE coordinates set x = (x - 60) WHERE x > spouse_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
 					ELSE
 						SET SQL_SAFE_UPDATES=0;
-						UPDATE coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
+						UPDATE coordinates set x = (x - 60) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
 					END IF;
 				ELSE
 					SET SQL_SAFE_UPDATES=0;
@@ -1098,6 +1098,50 @@ BEGIN
 
 END ;;
 DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `SP_UpdateInviteStatus` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `SP_Show_Family`$$
+CREATE PROCEDURE `SP_Show_Family`
+( 
+	member_ID int(11),
+	tree_ID int(11)
+)
+BEGIN
+
+	DECLARE father_ID, mother_ID, spouse_ID INT unsigned DEFAULT 1;
+    DECLARE status INT unsigned DEFAULT 1;
+    
+    SET father_ID = (SELECT fatherID FROM Relation WHERE memberID = member_ID);
+    SET mother_ID = (SELECT motherID FROM Relation WHERE memberID = member_ID);
+    SET spouse_ID = (SELECT spouseID FROM Relation WHERE memberID = member_ID);
+    
+    IF (EXISTS (SELECT * FROM Relation WHERE MemberID = member_ID and TreeID = tree_ID)) THEN
+		SET status = 0;
+		SELECT * FROM Relation 
+		WHERE fatherID = father_ID and motherID = mother_ID and treeID = tree_ID
+		or fatherID = member_ID and treeID = tree_ID
+		or motherID = member_ID and treeID = tree_ID
+		order by fatherID;
+	ELSE
+		SELECT * FROM Relation 
+		WHERE spouseID = member_id and treeID = tree_ID
+		or fatherID = member_ID and treeID = tree_ID
+		or motherID = member_ID and treeID = tree_ID
+		order by fatherID;
+	END IF;
+END;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
