@@ -38,6 +38,18 @@ app.factory('treeService', ['$http', '$rootScope',
 				});
 
 			return promise;	
+		},
+		getTreeFirstMember: function(treeID){
+			var promise = $http.post(
+	      		$rootScope.apiVersion + 'getTreeFirstMember.php', 
+	      		{
+	      			treeID:treeID
+	      		}
+	    		).then(function(output){
+	    			return output.data;
+				});
+
+			return promise;	
 		}
 	};
 }])

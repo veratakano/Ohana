@@ -62,9 +62,13 @@
 
     		$father_fname = $r->user->fFirstName;
 			$father_lname = $r->user->fLastName;
-			$date = str_replace('/', '-', $r->user->fDOB);
-        	$father_dob = date('Y-m-d', strtotime($date));
-        	$father_dob = !empty($father_dob) ? "'$father_dob'" : "NULL";
+			if(!empty($r->user->fDOB)){
+            	$date = str_replace('/', '-', $r->user->fDOB);
+        		$father_dob = date('Y-m-d', strtotime($date));
+        		$father_dob = "'$father_dob'";
+        	}else{
+             	$father_dob = "NULL";
+       		}
 			$father_email = $r->user->fEmail;
 			$father_email = !empty($father_email) ? "'$father_email'" : "NULL";
 			$father_pob = $r->user->fPOB;
@@ -73,9 +77,13 @@
 			
 			$mother_fname = $r->user->mFirstName;
 			$mother_lname = $r->user->mLastName;
-			$date = str_replace('/', '-', $r->user->mDOB);
-        	$mother_dob = date('Y-m-d', strtotime($date));
-        	$mother_dob = !empty($mother_dob) ? "'$mother_dob'" : "NULL";
+			if(!empty($r->user->mDOB)){
+            	$date = str_replace('/', '-', $r->user->mDOB);
+        		$mother_dob = date('Y-m-d', strtotime($date));
+        		$mother_dob = "'$mother_dob'";
+        	}else{
+             	$mother_dob = "NULL";
+       		}
 			$mother_email = $r->user->mEmail;
 			$mother_email = !empty($mother_email) ? "'$mother_email'" : "NULL";
 			$mother_pob = $r->user->mPOB;
@@ -83,7 +91,8 @@
 			$mother_vs = $r->user->mvStatus;
 			//echo "CALL `SP_Add_Parent` ($member_ID, '$father_fname', '$father_lname', '$father_dob', $father_email, '$father_pob', $father_vs, '$mother_fname', '$mother_lname', '$mother_dob', $mother_email, '$mother_pob', $mother_vs,$tree_id)";
 
-			$result = $db->getResult("CALL `SP_Add_Parent` ($member_ID, '$father_fname', '$father_lname', $father_dob, $father_email, $father_pob, $father_vs, '$mother_fname', '$mother_lname', $mother_dob, $mother_email, $mother_pob, $mother_vs, $tree_id)");
+			$result = $db->getResultMultiQuery("CALL `SP_Add_Parent` ($member_ID, '$father_fname', '$father_lname', $father_dob, $father_email, $father_pob, $father_vs, '$mother_fname', '$mother_lname', $mother_dob, $mother_email, $mother_pob, $mother_vs, $tree_id,@father_id_new,@mother_id_new);SELECT @father_id_new AS father_id,  @mother_id_new AS mother_id");
+
 			return $result; 
     }
 
@@ -92,8 +101,13 @@
 
     		$member_fname = $r->user->fName;
 			$member_lname = $r->user->lName;
-			$date = str_replace('/', '-', $r->user->DOB);
-        	$member_dob = date('Y-m-d', strtotime($date));
+			if(!empty($r->user->DOB)){
+            	$date = str_replace('/', '-', $r->user->DOB);
+        		$member_dob = date('Y-m-d', strtotime($date));
+        		$member_dob = "'$member_dob'";
+        	}else{
+             	$member_dob = "NULL";
+       		}
 			$member_email = $r->user->email;
 			$member_email = !empty($member_email) ? "'$member_email'" : "NULL";
 			$member_pob = $r->user->POB;
@@ -104,7 +118,7 @@
 			else
 				$member_gender = 'M'; 
 		
-			$result = $db->getResult("CALL `SP_Add_Sibling` ($member_ID, '$member_fname', '$member_lname', '$member_dob', $member_email, '$member_pob', '$member_gender', $member_vs, $tree_id)");
+			$result = $db->getResult("CALL `SP_Add_Sibling` ($member_ID, '$member_fname', '$member_lname', $member_dob, $member_email, '$member_pob', '$member_gender', $member_vs, $tree_id)");
     		return $result;
     }
 
@@ -113,8 +127,13 @@
 
     		$offspring_fname = $r->user->fName;
 			$offspring_lname = $r->user->lName;
-			$date = str_replace('/', '-', $r->user->DOB);
-        	$offspring_dob = date('Y-m-d', strtotime($date));
+			if(!empty($r->user->DOB)){
+            	$date = str_replace('/', '-', $r->user->DOB);
+        		$offspring_dob = date('Y-m-d', strtotime($date));
+        		$offspring_dob = "'$offspring_dob'";
+        	}else{
+             	$offspring_dob = "NULL";
+       		}
 			$offspring_email = $r->user->email;
 			$offspring_email = !empty($offspring_email) ? "'$offspring_email'" : "NULL";
 			$offspring_pob = $r->user->POB;
@@ -126,7 +145,7 @@
 			else
 				$offspring_gender = 'M'; 
 			
-			$result = $db->getResult("CALL `SP_Add_Offspring` ($member_ID, '$offspring_fname', '$offspring_lname', '$offspring_dob', $offspring_email, '$offspring_pob', '$offspring_gender', $offspring_vs, $tree_id)");
+			$result = $db->getResult("CALL `SP_Add_Offspring` ($member_ID, '$offspring_fname', '$offspring_lname', $offspring_dob, $offspring_email, '$offspring_pob', '$offspring_gender', $offspring_vs, $tree_id)");
     		return $result;
     }
 
@@ -135,15 +154,20 @@
 
     		$spouse_fname = $r->user->fName;
 			$spouse_lname = $r->user->lName;
-			$date = str_replace('/', '-', $r->user->DOB);
-        	$spouse_dob = date('Y-m-d', strtotime($date));
+			if(!empty($r->user->DOB)){
+            	$date = str_replace('/', '-', $r->user->DOB);
+        		$spouse_dob = date('Y-m-d', strtotime($date));
+        		$spouse_dob = "'$spouse_dob'";
+        	}else{
+             	$spouse_dob = "NULL";
+       		}
 			$spouse_email = $r->user->email;
 			$spouse_email = !empty($spouse_email) ? "'$spouse_email'" : "NULL";
 			$spouse_pob = $r->user->POB;
 			$spouse_vs = $r->user->vStatus;
 			$spouse_gender = $r->user->gender;
 			
-			$result = $db->getResult("CALL `SP_Add_Spouse` ($member_ID, '$spouse_fname', '$spouse_lname', '$spouse_dob', $spouse_email, '$spouse_pob','$spouse_gender', $spouse_vs, $tree_id)");
+			$result = $db->getResultMultiQuery("CALL `SP_Add_Spouse` ($member_ID, '$spouse_fname', '$spouse_lname', $spouse_dob, $spouse_email, '$spouse_pob','$spouse_gender', $spouse_vs, $tree_id, @spouse_id_new);SELECT @spouse_id_new AS spouse_id");
 			return $result;
     }
 

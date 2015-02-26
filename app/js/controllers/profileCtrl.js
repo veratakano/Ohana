@@ -1,13 +1,18 @@
 
 'use strict';
 
-app.controller('profileCtrl', ['memberDetails','$route','$location','$rootScope','$scope','ngDialog','memberService',
-	function(memberDetails,$route,$location,$rootScope,$scope,ngDialog,memberService) {
+app.controller('profileCtrl', ['memberDetails','$route','$location','$rootScope','$scope','ngDialog','memberService','sessionService',
+	function(memberDetails,$route,$location,$rootScope,$scope,ngDialog,memberService,sessionService) {
 
 	if(memberDetails == 'null'){
 		$location.path('/profile_not_found')
 	} else{
 		$scope.profileExist = true;
+	}
+
+	var oid = sessionService.get('treeownid');
+	if(oid == memberDetails.treeID){
+		$scope.allowAccess = true;
 	}
 
 	$scope.member = memberDetails;
@@ -86,7 +91,7 @@ app.controller('uploadProfCtrl', ['$scope','$rootScope','$timeout','$upload', fu
 
 	 $scope.generateThumb = function(file) {
 		if (file != null) {
-			$scope.errorMsg = null;
+			file.errorMsg = null;
 			if (file.type.indexOf('image') > -1) {
 				$timeout(function() {
 					var fileReader = new FileReader();
@@ -98,42 +103,48 @@ app.controller('uploadProfCtrl', ['$scope','$rootScope','$timeout','$upload', fu
 					}
 				});
 			}
+		} else {
+			file.errorMsg = "JPG and JPEG only.";
 		}
 	}
 
 	$scope.uploadPic = function(file) {
-		$scope.formUpload = true;
-		if (file != null) {
-			file.upload = $upload.upload({
-				url: $rootScope.apiVersion + 'upload_image.php',
-				method: 'POST',
-				headers: {
-					'my-header' : 'my-header-value'
-				},
-				fields: {memberID: $scope.ngDialogData.id, treeID: $scope.ngDialogData.tree},
-				file: file,
-				fileFormDataName: 'image',
-			});
-
-			file.upload.then(function(response) {
-				$timeout(function() {
-					file.result = response.data.status;
+		if(file != ''){
+			$scope.formUpload = true;
+			if (file != null) {
+				file.upload = $upload.upload({
+					url: $rootScope.apiVersion + 'upload_image.php',
+					method: 'POST',
+					headers: {
+						'my-header' : 'my-header-value'
+					},
+					fields: {memberID: $scope.ngDialogData.id, treeID: $scope.ngDialogData.tree},
+					file: file,
+					fileFormDataName: 'image',
 				});
-			}, function(response) {
-				if (response.data.status == 'error')
-					$scope.errorMsg = response.data.status + ': ' + response.data.message;
-			});
 
-			file.upload.progress(function(evt) {
-				// Math.min is to fix IE which reports 200% sometimes
-				file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-			});
+				file.upload.then(function(response) {
+						if (response.data.status == 'error'){
+							file.errorMsg = response.data.message;
+						}else{
+							file.result = true;
+						};
+				}, function(response) {
+					if (response.data.status == 'error')
+						$scope.errorMsg = response.data.status + ': ' + response.data.message;
+				});
 
-			file.upload.xhr(function(xhr) {
-				// xhr.upload.addEventListener('abort', function(){console.log('abort complete')}, false);
-			});
-		}else {
-			$scope.errorMsg = "Please select an image.";
+				file.upload.progress(function(evt) {
+					// Math.min is to fix IE which reports 200% sometimes
+					file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+				});
+
+				file.upload.xhr(function(xhr) {
+					// xhr.upload.addEventListener('abort', function(){console.log('abort complete')}, false);
+				});
+			}else {
+				$scope.errorMsg = "Please select an image.";
+			}
 		}
 	}
  

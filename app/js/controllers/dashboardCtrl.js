@@ -5,7 +5,7 @@ app.controller('dashboardCtrl', ['$window','$rootScope','$scope','$route','ngDia
   function($window,$rootScope,$scope,$route,ngDialog,sessionService,treeService){
 
   $scope.ownTree = sessionService.get('treeownid');
-	
+
   treeService.getTreeShared(sessionService.get('uid')).then(function(data) {
     if(data != ''){
       $scope.sharetrees = data;
@@ -31,39 +31,52 @@ app.controller('dashboardCtrl', ['$window','$rootScope','$scope','$route','ngDia
 
    //Open Popup for members
    $scope.openDialog = function (id) {
-         ngDialog.open({
-           template: 'memberAction',
-           className: 'ngdialog-theme-default ngdialog-theme-custom-profile-tree',
-           data: {id: id},
-           controller: 'memberActions'
-         });
+      ngDialog.open({
+        template: 'memberAction',
+        className: 'ngdialog-theme-default ngdialog-theme-custom-profile-tree',
+        data: {id: id},
+        controller: 'memberActions'
+      });
    };
-
 
 }])
 
 // Open Popup Controller
-app.controller('memberActions', ['$scope','$rootScope','$location','memberService','inviteService','ngDialog','sessionService',
-  function($scope,$rootScope,$location,memberService,inviteService,ngDialog,sessionService){
+app.controller('memberActions', ['$scope','$rootScope','$location','memberService','inviteService','ngDialog','sessionService','treeService',
+  function($scope,$rootScope,$location,memberService,inviteService,ngDialog,sessionService,treeService){
 
-  memberService.memberGet($scope.ngDialogData.id).then(function(data) {
-    $scope.member = data;
-    $scope.fullName = $scope.member.firstName + " " + $scope.member.lastName;
-    $scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.member.memberID;
+  var ownT = sessionService.get('treeownid');
+  var currT = sessionService.get('treeid');
 
-    $scope.iStatus = $scope.member.inviteStatus;
+  if(ownT == currT){
+    $scope.allowAccess = true;
+  }
 
-    $scope.showEmail = function() {
-      if (!$scope.member.email){
-        return false;
-      }else{
-        if ($scope.member.email == sessionService.get('email')) {
+  treeService.getTreeFirstMember(ownT).then(function(data) {
+    $scope.fm = data;
+    memberService.memberGet($scope.ngDialogData.id).then(function(data) {
+      $scope.member = data;
+      $scope.fullName = $scope.member.firstName + " " + $scope.member.lastName;
+      $scope.profilePic = $rootScope.apiVersion + 'getProfImg.php?id=' + $scope.member.memberID;
+
+      $scope.iStatus = $scope.member.inviteStatus;
+
+      if($scope.ngDialogData.id == $scope.fm.memberID){
+        $scope.tOwner = true;
+      }
+
+      $scope.showEmail = function() {
+        if (!$scope.member.email){
           return false;
         }else{
-          return true;
+          if ($scope.member.email == sessionService.get('email')) {
+            return false;
+          }else{
+            return true;
+          }
         }
-      }
-    };
+      };
+    });
   });
 
   $scope.addMemeber = function(){

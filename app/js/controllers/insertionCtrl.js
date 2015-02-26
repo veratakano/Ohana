@@ -14,14 +14,112 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
 	  
 	};
 
+	$scope.originalSibling = angular.copy($scope.sibling);
+
 	$scope.imgFile = "api/v1/getProfImg.php?id=0";
 	$scope.fimgFile = $scope.imgFile;
 	$scope.mimgFile = $scope.imgFile;
 
+	$scope.clear = function(type){
+		switch(type){
+			case 'parents':
+				clearParForm()
+				break;
+			case 'sibling':
+				clearSibForm()
+				break;
+			case 'spouse':
+				clearSpoForm()
+				break;
+			case 'offspring':
+				clearOFForm()
+				break;
+			default:
+				break;
+		}
+		
+	}
+
+	var clearParForm = function(){
+		$scope.$broadcast('show-errors-reset');
+		$scope.parents = {
+	    	fFirstName: '',
+	    	fLastName: '',
+	    	fPOB: '',
+	    	fEmail: '',
+	    	fDOB: '',
+	    	mpicFile: '',
+	    	mFirstName: '',
+	    	mLastName: '',
+	    	mPOB: '',
+	    	mEmail: '',
+	    	mDOB: '',
+	    	mpicFile: ''
+		};
+		$scope.psuccess = '';
+		$scope.pberror = '';
+		$scope.flblpicFile = '';
+		$scope.mlblpicFile = '';
+		$scope.fimgFile = "api/v1/getProfImg.php?id=0";
+		$scope.mimgFile = "api/v1/getProfImg.php?id=0";
+    	$scope.frmAddParent.$setPristine();
+	}
+
+	var clearSibForm = function(){
+		$scope.$broadcast('show-errors-reset');
+		$scope.sibling = {
+	    	fName: '',
+	    	lName: '',
+	    	POB: '',
+	    	email: '',
+	    	DOB: '',
+	    	picFile: ''
+		};
+		$scope.sbsuccess = '';
+		$scope.sberror = '';
+		$scope.lblpicFile = '';
+		$scope.imgFile = "api/v1/getProfImg.php?id=0";
+    	$scope.frmAddSibling.$setPristine();
+	}
+
+	var clearSpoForm = function(){
+		$scope.$broadcast('show-errors-reset');
+		$scope.spouse = {
+	    	fName: '',
+	    	lName: '',
+	    	POB: '',
+	    	email: '',
+	    	DOB: '',
+	    	picFile: '',
+		};
+		$scope.spsuccess = '';
+		$scope.sperror = '';
+		$scope.lblpicFile = '';
+		$scope.imgFile = "api/v1/getProfImg.php?id=0";
+    	$scope.frmAddSpouse.$setPristine();
+	}
+
+	var clearOFForm = function(){
+		$scope.$broadcast('show-errors-reset');
+		$scope.children = {
+	    	fName: '',
+	    	lName: '',
+	    	POB: '',
+	    	email: '',
+	    	DOB: '',
+	    	picFile: '',
+		};
+		$scope.csuccess = '';
+		$scope.cerror = '';
+		$scope.lblpicFile = '';
+		$scope.imgFile = "api/v1/getProfImg.php?id=0";
+    	$scope.frmAddChildren.$setPristine();
+	}
+
 
 	$scope.generateThumb = function(file,role) {
-		if (file != null) {
-			$scope.errorMsg = null;
+		if (!!file) {
+			$scope.result = null;
 			if (file.type.indexOf('image') > -1) {
 				$timeout(function() {
 					var fileReader = new FileReader();
@@ -42,6 +140,8 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
 					}
 				});
 			}
+		} else {
+			file.result = "JPG and JPEG only.";
 		}
 	}
 
@@ -67,12 +167,13 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
 	};
   
    $scope.addSibling=function(){
+   	console.log($scope.sibling);
    		$scope.$broadcast('show-errors-check-validity');
    		if ($scope.frmAddSibling.$valid) {
    			$scope.sbloading = true;
 	   		memberService.addSibing($scope.sibling).then(function(data) {
 	   			uploadPic($scope.sibling.picFile, data.ids.sibling_id, $scope.relation.treeID);
-	   			if(data.status == "successful"){
+	   			if(data.status == "success"){
 	   				$scope.sbsuccess = data.message;
 				} else {
 					$scope.sberror = data.message;
@@ -89,7 +190,7 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
 			$scope.cloading = true;
 			memberService.addChildren($scope.children).then(function(data) {
 	   			uploadPic($scope.children.picFile, data.ids.offspring_id, $scope.relation.treeID);
-	   			if(data.status == "successful"){
+	   			if(data.status == "success"){
 	   				$scope.csuccess = data.message;
 				} else {
 					$scope.cerror = data.message;
@@ -106,7 +207,7 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
 			$scope.sploading = true;
 	   		memberService.addSpouse($scope.spouse).then(function(data) {
 	   			uploadPic($scope.spouse.picFile, data.ids.spouse_id, $scope.relation.treeID);
-	   			if(data.status == "successful"){
+	   			if(data.status == "success"){
 	   				$scope.spsuccess = data.message;
 				} else {
 					$scope.sperror = data.message;
@@ -118,38 +219,40 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
 
 	var uploadPic = function(file, memberID, treeID) {
 		$scope.formUpload = true;
-		if (file != null) {
-			file.upload = $upload.upload({
-				url: $rootScope.apiVersion + 'upload_image.php',
-				method: 'POST',
-				headers: {
-					'my-header' : 'my-header-value'
-				},
-				fields: {memberID: memberID, treeID: treeID},
-				file: file,
-				fileFormDataName: 'image',
-			});
-
-			file.upload.then(function(response) {
-				$timeout(function() {
-					file.result = response.data.status;
+			if (file != null) {
+				file.upload = $upload.upload({
+					url: $rootScope.apiVersion + 'upload_image.php',
+					method: 'POST',
+					headers: {
+						'my-header' : 'my-header-value'
+					},
+					fields: {memberID: memberID, treeID: treeID},
+					file: file,
+					fileFormDataName: 'image',
 				});
-			}, function(response) {
-				if (response.data.status == 'error')
-					$scope.errorMsg = response.data.status + ': ' + response.data.message;
-			});
 
-			file.upload.progress(function(evt) {
-				// Math.min is to fix IE which reports 200% sometimes
-				file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-			});
+				file.upload.then(function(response) {
+					if (response.data.status == 'error'){
+						file.errorMsg = response.data.message;
+					}else{
+						file.result = true;
+					};
+				}, function(response) {
+					if (response.data.status == 'error')
+						$scope.errorMsg = response.data.status + ': ' + response.data.message;
+				});
 
-			file.upload.xhr(function(xhr) {
-				// xhr.upload.addEventListener('abort', function(){console.log('abort complete')}, false);
-			});
-		}else {
-			$scope.errorMsg = "Please select an image.";
+				file.upload.progress(function(evt) {
+					// Math.min is to fix IE which reports 200% sometimes
+					file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+				});
+
+				file.upload.xhr(function(xhr) {
+					// xhr.upload.addEventListener('abort', function(){console.log('abort complete')}, false);
+				});
+			}else {
+				$scope.errorMsg = "Please select an image.";
+			}
 		}
-	}
 
 }]);

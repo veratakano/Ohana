@@ -28,6 +28,15 @@ class DbHandler {
         };
         return $result_array;
     }
+    /**
+     * Fetching mutilple query
+     */
+    public function getResultMultiQuery($query) {
+        $this->conn->multi_query($query) or die($this->conn->error.__LINE__);
+        $this->conn->next_result();  
+        $rs=$this->conn->store_result();
+        return $result = $rs->fetch_assoc();
+    }
 }
 
 ?>

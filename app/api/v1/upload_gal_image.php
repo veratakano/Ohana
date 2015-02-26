@@ -6,14 +6,6 @@
 	$mID = $_POST["memberID"];
 	$tID = $_POST["treeID"];
 
-	$imageFileType = pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
-	// Obtain safe unique name from img's binary data.
-	$filename = sprintf('%s.%s',sha1_file($_FILES['image']['tmp_name']), $imageFileType);
-  	$destination = 'assets/img/users/' . $mID . '/';
-  	$fileDest = $destination . $filename;
-  	$destinationTn = 'assets/img/users/' . $mID . '/tn/';
-  	$fileDestTn = $destinationTn . $filename;
-
 	$response = array();
 
 	try {
@@ -32,11 +24,24 @@
 	            throw new RuntimeException('Unknown errors.');
 	    }
 
-		// Allow certain file formats
+
+	    $imageFileType = pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+		// Obtain safe unique name from img's binary data.
+		$filename = sprintf('%s.%s',sha1_file($_FILES['image']['tmp_name']), $imageFileType);
+	  	$destination = 'assets/img/users/' . $mID . '/';
+	  	$fileDest = $destination . $filename;
+	  	$destinationTn = 'assets/img/users/' . $mID . '/tn/';
+	  	$fileDestTn = $destinationTn . $filename;
+
+		/* Allow certain file formats
 		if($imageFileType != "jpg" && $imageFileType != "JPG"  && $imageFileType != "png" && $imageFileType != "PNG" && $imageFileType != "jpeg"
 			&& $imageFileType != "JPEG" && $imageFileType != "gif" && $imageFileType != "GIF" ) {
 	    	throw new RuntimeException('Sorry, only JPG, JPEG, PNG & GIF files are allowed.');
-		} 
+		} */
+
+		if($imageFileType != "jpg" && $imageFileType != "JPG" && $imageFileType != "jpeg" && $imageFileType != "JPEG" ) {
+	    	throw new RuntimeException('Sorry, only JPG & JPEG files are allowed.');
+	   	}
 
 		// Check if make folder exist
 		if (!file_exists('../../'.$destination)) {

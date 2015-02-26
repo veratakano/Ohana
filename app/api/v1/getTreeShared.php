@@ -11,7 +11,7 @@
         $userID = $r->userID;
 
         $db = new DbHandler();
-        $result = $db->getResultSet("SELECT t.treeID, u.firstName, u.lastName FROM Tree_Share t INNER JOIN Users u ON t.uID = u.uID WHERE t.uID = '$userID'");
+        $result = $db->getResultSet("CALL SP_GetShareTree('$userID')");
         $response = $result;
     } catch (Exception $e) {
         $response['status'] = "error";

@@ -1,7 +1,7 @@
 
 	<!-- Create Member -->
 	<div class="container create-member" ng-init="tab=selTab()">
-		<h2>Create Memeber</h2>
+		<h2>Create Member</h2>
 		<br>
 		<div class="row">
 			<div class="col-md-3" style="padding-right:0;">
@@ -84,7 +84,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="profPicUpload">
-								<h5>Upload Profile Picture</h5>
+								<h5>Upload Profile Picture<br /><small>(Only JPG or JPEG file with file size limit at 2 MB).</small></h5>
 								<div class="row">
 									<div class="col-md-2">
 										<img ng-src="{{fimgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
@@ -93,14 +93,15 @@
 										<div class="input-group">
 					                		<span class="input-group-btn">
 					                    		<span class="btn btn-primary btn-file">
-					                        		Browse&hellip;<input type="file" ng-file-select ng-model="parents.fpicFile" name="file" accept="image/*" ng-file-change="generateThumb(parents.fpicFile[0],'father')">
+					                        		Browse&hellip;<input type="file" ng-file-select ng-model="parents.fpicFile" name="file" ng-accept="'.jpg,.jpeg'" ng-file-change="generateThumb(parents.fpicFile[0],'father')">
 					                    		</span>
 					                		</span>
 					                		<input type="text" class="form-control" ng-model="flblpicFile" readonly>
 					            		</div>
 					                	<div class="progress" ng-show="parents.fpicFile.progress >= 0" style="margin-top: 10px;" >
 							            	<div class="progress-bar" role="progressbar" aria-valuenow="{{parents.fpicFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( parents.fpicFile.progress + '%' ) }">{{parents.fpicFile.progress}}%</div>
-							     		</div> 
+							     		</div>
+							     		<span ng-show="fpicFile.result" ng-bind="fpicFile.result"></span>
 									</div>
 								</div>
 							</div>
@@ -164,7 +165,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="profPicUpload">
-								<h5>Upload Profile Picture</h5>
+								<h5>Upload Profile Picture<br /><small>(Only JPG or JPEG file with file size limit at 2 MB).</small></h5>
 								<div class="row">
 									<div class="col-md-2">
 										<img ng-src="{{mimgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
@@ -191,9 +192,9 @@
             		      <div class="alert alert-success well-sm" role="alert" ng-if="psuccess" ng-bind="psuccess"></div>
         		          <div class="alert alert-danger well-sm" role="alert" ng-if="perror" ng-bind="perror"></div>
 		                </div>
-		                <div class="col-md-4">
+		                <div class="col-md-4 text-right">
 							<button class="btn btn-primary" ng-click="addParent()"><i ng-if="ploading" class="fa fa-circle-o-notch fa-spin"></i><span ng-if="ploading">&nbsp;&nbsp;</span>Add Parent</button>
-							<button class="btn btn-primary" ng-click="clear()">Clear</button>
+							<button class="btn btn-primary" ng-click="clear('parents')">Clear</button>
 						</div>
 					</div>
 				</form>
@@ -271,7 +272,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="profPicUpload">
-								<h5>Upload Profile Picture</h5>
+								<h5>Upload Profile Picture<br /><small>(Only JPG or JPEG file with file size limit at 2 MB).</small></h5>
 								<div class="row">
 									<div class="col-md-2">
 										<img ng-src="{{imgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
@@ -300,7 +301,7 @@
 		                </div>
 		                <div class="col-md-3">
 							<button class="btn btn-primary" ng-click="addSibling()"><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i><span ng-if="sbloading">&nbsp;&nbsp;</span>Add Sibling</button>
-							<button class="btn btn-primary" ng-click="clear()">Clear</button>
+							<button class="btn btn-primary" ng-click="clear('sibling')">Clear</button>
 						</div>
 					</div>
 				</form>
@@ -377,7 +378,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="profPicUpload">
-								<h5>Upload Profile Picture</h5>
+								<h5>Upload Profile Picture<br /><small>(Only JPG or JPEG file with file size limit at 2 MB).</small></h5>
 								<div class="row">
 									<div class="col-md-2">
 										<img ng-src="{{imgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
@@ -392,7 +393,7 @@
 					                		<input type="text" class="form-control" ng-model="lblpicFile" readonly>
 					            		</div>
 					                	<div class="progress" ng-show="spouse.picFile.progress >= 0" style="margin-top: 10px;" >
-							            	<div class="progress-bar" role="progressbar" aria-valuenow="{{spouse.picFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( spouse.picFile.progress + '%' ) }">{{sibling.picFile.progress}}%</div>
+							            	<div class="progress-bar" role="progressbar" aria-valuenow="{{spouse.picFile.progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( spouse.picFile.progress + '%' ) }">{{spouse.picFile.progress}}%</div>
 							     		</div> 
 									</div>
 								</div>
@@ -406,7 +407,7 @@
 		                </div>
 		                <div class="col-md-4 text-right">
 							<button class="btn btn-primary" ng-click="addSpouse()"><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i><span ng-if="sploading">&nbsp;&nbsp;</span>Add Spouse</button>
-							<button class="btn btn-primary" ng-click="clear()">Clear</button>
+							<button class="btn btn-primary" ng-click="clear('spouse')">Clear</button>
 						</div>
 					</div>
 				</form>
@@ -483,7 +484,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="profPicUpload">
-								<h5>Upload Profile Picture</h5>
+								<h5>Upload Profile Picture<br /><small>(Only JPG or JPEG file with file size limit at 2 MB).</small></h5>
 								<div class="row">
 									<div class="col-md-2">
 										<img ng-src="{{imgFile}}" class="img-thumbnail img-responsive pull-left" style="width:100px; height: 100px;">
@@ -512,7 +513,7 @@
         		         </div>
         		         <div class="col-md-4 text-right">
 							<button class="btn btn-primary" ng-click="addChildren()"><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i><span ng-if="cloading">&nbsp;&nbsp;</span>Add Offspring</button>
-							<button class="btn btn-primary" ng-click="clear()">Clear</button>
+							<button class="btn btn-primary" ng-click="clear('offspring')">Clear</button>
 						</div>
 					</div>
 				</form>

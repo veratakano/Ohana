@@ -1,6 +1,7 @@
 'use strict';
 
-app.directive('map', ['$compile','memberService','$filter', function($compile,memberService,$filter) {
+app.directive('map', ['$compile','$location','memberService','$filter', 
+	function($compile,$location,memberService,$filter) {
     return {
         restrict: 'E',
         replace: true,
@@ -51,7 +52,7 @@ app.directive('map', ['$compile','memberService','$filter', function($compile,me
       						});
       						map.setCenter(pos);
       						for (var i = 0; i < node.length; i++){
-			    				if(node[i].placeOfBirth != null){
+			    				if(node[i].placeOfBirth != ''){
 			    					geocodeAddress(node[i]);
 			    				}
 			    			}
@@ -85,7 +86,8 @@ app.directive('map', ['$compile','memberService','$filter', function($compile,me
 				        if (status == google.maps.GeocoderStatus.OK) {
 				        	map.setCenter(results[0].geometry.location);
 					        for (var i = 0; i < node.length; i++){
-			    				if(node[i].placeOfBirth != null){
+					        	alert(node[i].placeOfBirth);
+			    				if(node[i].placeOfBirth != ''){
 			    					geocodeAddress(node[i]);
 			    				}
 			    			}
@@ -138,10 +140,12 @@ app.directive('map', ['$compile','memberService','$filter', function($compile,me
 			            position: finalLatLng
 			        });
 
+			        var host = $location.host();
+			        var protocol = $location.protocol();
 
 			         marker.content = '<div class="infowindow">'+
 									      '<div class="misc pull-left">'+
-									      	'<img class="img-thumbnail" src="http://localhost/~oushiwei/ohana/app/api/v1/getProfImg.php?id=' + node.memberID +'"/>' +
+									      	'<img class="img-thumbnail" src="http://' + host +'/app/api/v1/getProfImg.php?id=' + node.memberID +'"/>' +
 									      	'<div>' +
 									      		'<a class="btn btn-outline-inverse" href="#/profile/' + node.memberID + '" type="button"><i class="fa fa-user"></i>&nbsp;&nbsp;View Profile</a>' +
 									      	'</div>' +
