@@ -3,6 +3,18 @@
 app.factory('loginService', ['$http','$location','$window', '$rootScope', 'sessionService', 
 	function($http, $location, $window, $rootScope, sessionService){
 	return{
+		getUserInfo: function(credential){
+			var promise = $http.post(
+	      		$rootScope.apiVersion + 'getUserInfo.php',
+	      		{
+	      			user:credential
+	      		}
+	    		).then(function(output){
+	    			return output.data;
+				});
+
+				return promise;		 
+		},
 		signup:function(credentials,inviteparams){
 			var promise = $http.post(
 	      		$rootScope.apiVersion + 'registration.php', 

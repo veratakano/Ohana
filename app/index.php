@@ -60,6 +60,7 @@
   <script type="text/javascript" src="js/controllers/insertionCtrl.js"></script>
   <script type="text/javascript" src="js/controllers/inviteCtrl.js"></script>
   <script type="text/javascript" src="js/controllers/searchCtrl.js"></script>
+  <script type="text/javascript" src="js/controllers/settingCtrl.js"></script>
   
   <script type="text/javascript" src="js/directives/nodesRepeatDrc.js"></script>
   <script type="text/javascript" src="js/directives/mapDrc.js"></script>

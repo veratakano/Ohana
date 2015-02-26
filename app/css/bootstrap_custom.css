@@ -76,6 +76,18 @@
     text-shadow: none;
 }
 
+.btn-outline-reverse {
+    background-color: transparent;
+    border-color: #ffffff;
+    color: #ffffff;
+}
+.btn-outline-reverse:active, .btn-outline-reverse:focus, .btn-outline-reverse:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #3c9bf2;
+    text-shadow: none;
+}
+
 .create-member .form-group{
 	margin: 10px 8px;
 }

@@ -48,7 +48,7 @@ app.controller('insertionCtrl',['$location','$scope','$rootScope','$timeout','$u
 	    	fPOB: '',
 	    	fEmail: '',
 	    	fDOB: '',
-	    	mpicFile: '',
+	    	fpicFile: '',
 	    	mFirstName: '',
 	    	mLastName: '',
 	    	mPOB: '',

@@ -67,6 +67,11 @@ app.config(['$routeProvider', 'ngDialogProvider',
              title: 'Profile Not Found',
              templateUrl: 'partials/profile_not_found.html'
         }).
+        when('/setting', {
+             title: 'Settings',
+             templateUrl: 'partials/setting.html',
+             controller: 'settingCtrl'
+        }).
         when('/', {
              title: 'Login',
              templateUrl: 'partials/login.html',
@@ -131,13 +136,8 @@ app.run(function($rootScope, $location, $window, fbService, sessionService){
 
       $rootScope.$on('$routeChangeStart', function(){
 
-        // // jsPlumb.ready(function(){
-            // // //detah all connectors
-            // // jsPlumb.detachEveryConnection();
-        // // });
-
           $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
-          if(!($location.path()=='/signup' || $location.path()=='/invite' || $location.path()=='/profile_not_found' || $location.path()=='/display')){ 
+          if(!($location.path()=='/signup' || $location.path()=='/invite' || $location.path()=='/profile_not_found')){ 
               if(!sessionService.get('unqid')){
                  $location.path('/login');
               }
