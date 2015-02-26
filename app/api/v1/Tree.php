@@ -80,6 +80,7 @@
 				else
 					$name = "$member_values[0] $member_values[1]";
 				
+				// echo '<li><a href="#'. $memberID .'">'. $memberID .'</a></li>';
 				/** colour **/
 				if($member_values[3] != 0) {
 					if($member_values[2] == 'M') 
@@ -87,6 +88,7 @@
 						echo '<div class="node male" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
 							<div class="text-center">
 								<img class="img-thumbnail" src="api/v1/getProfImg.php?id='. $memberID .'" />
+								
 								<div>'. $name . '</div>
 							</div>
 						</div> ';
@@ -95,6 +97,7 @@
 						echo '<div class="node female" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
 							<div class="text-center">
 								<img class="img-thumbnail" src="api/v1/getProfImg.php?id='. $memberID .'" />
+								
 								<div>'. $name . '</div>
 							</div>
 						</div> ';					
@@ -104,6 +107,7 @@
 					echo '<div class="node" style="top: '. ($y*7) .'px; left: '. ($x*7) .'px" id="container0" ng-click="openDialog('. $memberID . ')">  
 						<div class="text-center">
 							<img class="img-thumbnail" src="api/v1/getProfImg.php?id='. $memberID .'" />
+							
 							<div>'. $name . '</div>
 						</div>
 					</div> ';
@@ -126,7 +130,7 @@
 					}					
 					$x1 = $x;
 										
-					$display_array[$count] = array($x0, $x1, $y);
+					$display_array[$count] = array($x0, $x1, $y, $fatherID);
 				}
 				
 				// echo "$count + > $fatherID: (x0,x1) ($x0 , $x1 & $y)<br>";
@@ -193,10 +197,11 @@
 					</div> ';					
 				}
 				else {
-					// vertical connection between kids and parents
-					echo '<div style="top:'. (($display_values[2]-9) *7) .'px; left:'. (($display_values[0]+7) *7) .'px; position: absolute;">  
-						<div style="width: 3px; height: 45px; background-color: grey;"></div>
-					</div> ';	
+					 if ($fatherID != 0)
+						//vertical connection between kids and parents
+						echo '<div style="top:'. (($display_values[2]-9) *7) .'px; left:'. (($display_values[0]+7) *7) .'px; position: absolute;">  
+							<div style="width: 3px; height: 45px; background-color: grey;"></div>
+						</div> ';	
 				}
 			}
 		
