@@ -48,7 +48,8 @@
   <script type="text/javascript" src="scripts/ngAutocomplete.js"></script>
   <script type="text/javascript" src="scripts/angular-strap.min.js"></script>
   <script type="text/javascript" src="scripts/angular-strap.tpl.min.js"></script>
-
+  <script type="text/javascript" src="scripts/bootbox.min.js"></script>
+  
   <script type="text/javascript" src="js/app.js"></script>
 
   <script type="text/javascript" src="js/controllers/navCtrl.js"></script>

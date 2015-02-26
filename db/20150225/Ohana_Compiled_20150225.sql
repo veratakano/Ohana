@@ -587,11 +587,11 @@ BEGIN
     DECLARE usr_ID INT DEFAULT 0;
     DECLARE coor_x INT unsigned DEFAULT 1;
     DECLARE coor_y INT unsigned DEFAULT 1;
-    DECLARE father_id INT unsigned DEFAULT 1;
-    DECLARE father_x INT unsigned DEFAULT 1;
+    DECLARE father_id, mother_id INT unsigned DEFAULT 1;
+    DECLARE father_x, mother_x INT unsigned DEFAULT 1;
     DECLARE spouse_id INT unsigned DEFAULT 1;
     DECLARE spouse_x INT unsigned DEFAULT 1;
-    DECLARE record_count INT unsigned DEFAULT 1;
+    DECLARE record_count, sib_count INT unsigned DEFAULT 1;
     DECLARE tree_id INT unsigned DEFAULT 1;
     
     -- successful
@@ -599,18 +599,11 @@ BEGIN
     
     -- count kids
     SET record_count = (SELECT count(*) FROM Coordinates WHERE fatherID = member_id or motherID = member_id);
-    SET usr_email = (SELECT email FROM Member WHERE memberID = member_id);
-    SET usr_ID = (SELECT UID FROM Users WHERE email = usr_email);
-    
-	IF (EXISTS(SELECT * FROM tree_share WHERE uID = usr_ID and treeID = tree_id)) THEN
-		-- the user you are trying to delete has joined the tree
-		SET status = 0;
-        SELECT status;
-    ELSE
+
 		
         IF (record_count > 0) THEN
 			SET SQL_SAFE_UPDATES=0;
-			UPDATE Member SET firstName = '', lastName = '', dateOfBirth = NULL, placeOfBirth = NULL, vitalStatus = 1, email=NULL
+			UPDATE Member SET firstName = NULL, lastName = NULL, dateOfBirth = NULL, placeOfBirth = NULL, vitalStatus = 1, email=NULL
 			WHERE memberID = member_id;
             
             DELETE FROM Rememberance WHERE MemberID = member_id and TreeID = tree_id;
@@ -623,32 +616,71 @@ BEGIN
 				SET coor_y = (SELECT y FROM Coordinates WHERE memberID = member_id);
 				SET father_id = (SELECT fatherID FROM Coordinates WHERE memberID = member_id);
 				SET father_x = (SELECT x FROM Coordinates WHERE memberId = father_id);
+                SET mother_id = (SELECT motherID FROM Coordinates WHERE memberID = member_id);
+				SET mother_x = (SELECT x FROM Coordinates WHERE memberId = mother_id);
 				SET spouse_id = (SELECT spouseID FROM Coordinates WHERE memberID = member_id);
 				SET spouse_x = (SELECT x FROM Coordinates WHERE memberId = spouse_id);
 				SET tree_id = (SELECT treeID FROM Coordinates WHERE memberID = member_id);
-				
 
-				IF (exists(SELECT * FROM Relation WHERE memberID = member_ID)) THEN
+
+				-- count sibling
+				SET sib_count = (SELECT count(*) FROM Coordinates WHERE fatherID = father_id or motherID = mother_id);
+				
+                
+                IF (exists(SELECT * FROM Relation WHERE memberID = member_ID)) THEN
 					SET SQL_SAFE_UPDATES=0;
 					DELETE FROM coordinates WHERE memberID in (member_id, spouse_id);
 					DELETE FROM relation WHERE memberID in (member_id, spouse_id);
 					DELETE FROM member WHERE memberID in (member_id, spouse_id);
-					
+				
+                    
 					IF spouse_id IS NOT NULL THEN
 						IF (coor_x > spouse_x) THEN
-							SET SQL_SAFE_UPDATES=0;
-							UPDATE coordinates set x = (x - 60) WHERE x > spouse_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
-						ELSE
-							SET SQL_SAFE_UPDATES=0;
-							UPDATE coordinates set x = (x - 60) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
-						END IF;
+							IF (sib_count = 3) THEN
+								IF (spouse_x = father_x) THEN
+									SET SQL_SAFE_UPDATES=0;
+									UPDATE coordinates set x = (x - 60) WHERE fatherID = father_id;
+                                    UPDATE coordinates set x = (x - 30) WHERE x > father_x + 30 and treeID = tree_id;
+								ELSEIF (spouse_x = mother_x) THEN
+									SET SQL_SAFE_UPDATES=0;
+									UPDATE coordinates set x = (x - 30) WHERE x > spouse_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and y < coor_y and treeID = tree_id;
+								END IF;
+                            ELSEIF (sib_count > 3) THEN
+								SET SQL_SAFE_UPDATES=0;
+								UPDATE coordinates set x = (x - 60) WHERE x > spouse_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and y < coor_y and treeID = tree_id;
+							END IF;
+                            
+                        ELSE
+                        
+							IF (sib_count = 3) THEN
+								IF (coor_x = father_x) THEN
+									SET SQL_SAFE_UPDATES=0;
+									UPDATE coordinates set x = (x - 60) WHERE fatherID = father_id;
+									UPDATE coordinates set x = (x - 30) WHERE x > father_x + 30 and treeID = tree_id;
+								
+								ELSEIF (coor_x = mother_x) THEN
+									SET SQL_SAFE_UPDATES=0;
+									UPDATE coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and y < coor_y and treeID = tree_id;
+								END IF;
+                            ELSEIF (sib_count > 3) THEN
+								SET SQL_SAFE_UPDATES=0;
+                                UPDATE coordinates set x = (x - 60) WHERE x > spouse_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and y < coor_y and treeID = tree_id;
+							END IF;
+                        END IF;
                         
                         DELETE FROM Rememberance WHERE MemberID in (member_id, spouse_id) and TreeID = tree_id;
 						DELETE FROM member_image WHERE MemberID in (member_id, spouse_id) and TreeID = tree_id;
 					ELSE
-						SET SQL_SAFE_UPDATES=0;
-						UPDATE coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
-						DELETE FROM Rememberance WHERE MemberID = member_id and TreeID = tree_id;
+                    
+						IF (sib_count > 2) THEN
+							SET SQL_SAFE_UPDATES=0;
+							UPDATE coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30  and y < coor_y and treeID = tree_id;
+						ELSEIF (coor_x = father_x) THEN
+							SET SQL_SAFE_UPDATES=0;
+							UPDATE coordinates set x = (x - 30) WHERE fatherID = father_id;
+                        END IF;
+                        
+                        DELETE FROM Rememberance WHERE MemberID = member_id and TreeID = tree_id;
 						DELETE FROM member_image WHERE MemberID = member_id and TreeID = tree_id;
                         
                     END IF;
@@ -661,20 +693,20 @@ BEGIN
                     DELETE FROM Rememberance WHERE MemberID = spouse_id and TreeID = tree_id;
 					DELETE FROM member_image WHERE MemberID = spouse_id and TreeID = tree_id;
 					
-					IF (coor_x > spouse_x) THEN
+					IF (sib_count > 2) THEN
 						SET SQL_SAFE_UPDATES=0;
-						UPDATE coordinates set x = (x - 30) WHERE x > spouse_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
-					ELSE
+						UPDATE coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and y < coor_y and treeID = tree_id;
+					ELSEIF (coor_x = father_x) THEN
 						SET SQL_SAFE_UPDATES=0;
-						UPDATE coordinates set x = (x - 30) WHERE x > coor_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and treeID = tree_id;
-					END IF;
+						UPDATE coordinates set x = (x - 30) WHERE fatherID = father_id;
+					END IF;    	
 				END IF;
 			END;
             SELECT status;
 		END IF;
-    END IF;
 END ;;
 DELIMITER ; 
+
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;

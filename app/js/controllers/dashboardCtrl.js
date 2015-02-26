@@ -90,7 +90,17 @@ app.controller('memberActions', ['$scope','$rootScope','$location','memberServic
   }
   
   $scope.deleteProfile = function() {
-	  memberService.deleteProfile($scope.member);	
+	  
+	var fName = $scope.member.firstName;
+	var lName = $scope.member.lastName;
+	if (!fName) { fName = "Unknown"; }
+	if (!lName) { lName = ""; }
+	bootbox.confirm("Are you sure you want to delete " + fName + " " + lName + "?", function(result) {
+		if(result == true) {
+			memberService.deleteProfile($scope.member);
+		}
+	}); 
+	  	
   }
 
   $scope.sendInvite = function(){
