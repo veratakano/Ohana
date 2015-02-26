@@ -77,9 +77,7 @@ app.controller('memberActions', ['$scope','$rootScope','$location','memberServic
   }
   
   $scope.deleteProfile = function() {
-	  alert($scope.member.memberID);
-	  memberService.deleteProfile($scope.member);
-		
+	  memberService.deleteProfile($scope.member);	
   }
 
   $scope.sendInvite = function(){
