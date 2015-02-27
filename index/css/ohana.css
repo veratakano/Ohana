@@ -124,6 +124,9 @@ i {
     margin: 10px 0;
 }
 
+.highlight h3{
+    color:#ffffff;
+}
 
 /* HeaderWrap */
 #headerwrap {
@@ -161,6 +164,16 @@ i {
     color:#ffffff;
 }
 
+.navbar-brand > img{
+       -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+    transition: width 2s;
+}
+
+.navbar-brand > img.shrink{
+    width: 80px;
+     
+}
+
 @media(min-width:768px) {
     .navbar-default {
         border: 0;
@@ -172,7 +185,7 @@ i {
     }
 
     .navbar-default .navbar-nav > li > a:hover{
-        color: #3498db;
+        color: #dddddd;
     }
 
     .navbar-default .navbar-brand:hover{

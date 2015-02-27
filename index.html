@@ -29,7 +29,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body id="page-top">
 
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top">
@@ -40,11 +40,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><b>FLATTY</b></a>
+          <a class="navbar-brand page-scroll" href="#headerwrap"><img src="index/img/ohana_logo.png" alt="ohana" /></a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Already a member?</a></li>
+          	<li class="hidden">
+	       		<a class="page-scroll" href="#page-top"></a>
+	        </li>
+	        <li>
+	          	<a class="page-scroll" href="#about">About</a>
+	         </li>
+	         <li>
+	             <a class="page-scroll" href="#highlight">Highlight</a>
+	          </li>
+	          <li>
+	          	<a class="page-scroll" href="#team">Team</a>
+	           </li>
+            <li><a href="app/">Already a member?</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -67,29 +79,29 @@
 	<div id="about" class="container">
 		<div class="row mt centered">
 			<div class="col-lg-6 col-lg-offset-3">
-				<h1>Your Landing Page<br/>Looks Wonderful Now.</h1>
-				<h3>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h3>
+				<h1>Create your online family tree</h1>
+				<h3>Your past begins with your family tree and it's easy to build one on Ohana. Add names, dates, photos and locations and share with your family.</h3>
 			</div>
 		</div><!-- /row -->
 		
 		<div class="row mt centered">
 			<div class="col-lg-4">
-				<img src="assets/img/ser01.png" width="180" alt="">
-				<h4>1 - Browser Compatibility</h4>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+				<img src="index/img/search.png" alt="">
+				<h4>Search for Possible Reletives</h4>
+				<p>Everyone's related. Ohana users will able to create profiles. Viewing these profiles is as simple as doing a search on their name or where they originated from. </p>
 			</div><!--/col-lg-4 -->
 
 			<div class="col-lg-4">
-				<img src="assets/img/ser02.png" width="180" alt="">
-				<h4>2 - Email Campaigns</h4>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+				<img src="index/img/map.png" alt="">
+				<h4>Map View</h4>
+				<p>The map view in Ohana provides an unparalleled view on where your reletive where born from. Viewing of extended reletive map is also possible with just a send of an invite button.</p>
 
 			</div><!--/col-lg-4 -->
 
 			<div class="col-lg-4">
-				<img src="assets/img/ser03.png" width="180" alt="">
-				<h4>3 - Gather Your Notes</h4>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
+				<img src="index/img/folder.png" alt="">
+				<h4>Profile</h4>
+				<p>Customisable profiles provides an excellent way to send infromation to potential reletives!</p>
 
 			</div><!--/col-lg-4 -->
 		</div><!-- /row -->
@@ -99,36 +111,21 @@
 		<div  class="container">
 			<div class="row mt centered">
 				<div class="col-lg-6 col-lg-offset-3">
-					<h1>Flatty is for Everyone.</h1>
-					<h3>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h3>
+					<h1>Ohana is for Everyone.</h1>
+					<h3>Discover and treasure your unique family history.</h3>
+					<br />
+					<a href="app/#/signup" type="button" class="btn btn-primary btn-lg">Register now</a>
 				</div>
 			</div><!-- /row -->
 		
 			<!-- CAROUSEL -->
 			<div class="row mt centered">
-				<div class="col-lg-6 col-lg-offset-3">
-					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-					  <!-- Indicators -->
-					  <ol class="carousel-indicators">
-					    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-					    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-					    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-					  </ol>
-					
-					  <!-- Wrapper for slides -->
-					  <div class="carousel-inner">
-					    <div class="item active">
-					      <img src="assets/img/p01.png" alt="">
-					    </div>
-					    <div class="item">
-					      <img src="assets/img/p02.png" alt="">
-					    </div>
-					    <div class="item">
-					      <img src="assets/img/p03.png" alt="">
-					    </div>
-					  </div>
-					</div>			
-				</div><!-- /col-lg-8 -->
+				<div class="col-lg-6">
+					<img src="index/img/demo-tree.png" alt="">
+				</div>
+				<div class="col-lg-6">
+					<img src="index/img/demo-search.png" alt="">
+				</div>	
 			</div><!-- /row -->
 		</div><!-- /container -->
 	</div>
@@ -136,31 +133,34 @@
 	<div id="team" class="container">
 		<div class="row mt centered">
 			<div class="col-lg-6 col-lg-offset-3">
-				<h1>Our Awesome Team.<br/>Design Lovers.</h1>
-				<h3>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h3>
+				<h1>Our Awesome Team.</h1>
+				<h3>Meet the awesome team behind Ohana!</h3>
 			</div>
 		</div><!-- /row -->
 		
 		<div class="row mt centered">
-			<div class="col-lg-4">
-				<img class="img-circle" src="assets/img/pic1.jpg" width="140" alt="">
-				<h4>Michael Robson</h4>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
-				<p><i class="glyphicon glyphicon-send"></i> <i class="glyphicon glyphicon-phone"></i> <i class="glyphicon glyphicon-globe"></i></p>
+			<div class="col-lg-3">
+				<img class="img-circle" src="index/img/edwin.jpg" width="140" alt="Our Team">
+				<h4>Edwin Kong</h4>
+				<p>Works well as a team player and willing to step up as a leader when the need arises. Has a strong command in coordinating, providing assistance and organise either functional or technical aspects of workloads to meet datelines.</p>
 			</div><!--/col-lg-4 -->
 
-			<div class="col-lg-4">
-				<img class="img-circle" src="assets/img/pic2.jpg" width="140" alt="">
-				<h4>Pete Ford</h4>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
-				<p><i class="glyphicon glyphicon-send"></i> <i class="glyphicon glyphicon-phone"></i> <i class="glyphicon glyphicon-globe"></i></p>
+			<div class="col-lg-3">
+				<img class="img-circle" src="index/img/vera.jpg" width="140" alt="Our Team">
+				<h4>Aye Thandar Aung</h4>
+				<p>Being a good team player with leadership skills, she was appointed as a vice-president and secretary at school co-curriculum activity clubs during her Poly days and was assigned as lead event organizer at her scurrent job.</p>
 			</div><!--/col-lg-4 -->
 
-			<div class="col-lg-4">
-				<img class="img-circle" src="assets/img/pic3.jpg" width="140" alt="">
-				<h4>Angelica Finning</h4>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
-				<p><i class="glyphicon glyphicon-send"></i> <i class="glyphicon glyphicon-phone"></i> <i class="glyphicon glyphicon-globe"></i></p>
+			<div class="col-lg-3">
+				<img class="img-circle" src="index/img/shiwei.jpg" width="140" alt="Our Team">
+				<h4>Ou Shiwei</h4>
+				<p>He is hardworking, creative and am able to communicate well with people and enjoy challenging workand perform well under pressure.</p>
+			</div><!--/col-lg-4 -->
+
+			<div class="col-lg-3">
+				<img class="img-circle" src="index/img/zichun.jpg" width="140" alt="Our Team">
+				<h4>Yuen Zi Chun</h4>
+				<p> He is currently working full time for the Singapore Police Force as a Computer Forensic Examiner. Zi Chun finds passion in IT and forensics. Works well with group mates and collaborators.</p>
 			</div><!--/col-lg-4 -->
 		</div><!-- /row -->
 	</div><!-- /container -->
