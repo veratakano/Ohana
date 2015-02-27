@@ -49,6 +49,7 @@
   <script type="text/javascript" src="scripts/angular-strap.min.js"></script>
   <script type="text/javascript" src="scripts/angular-strap.tpl.min.js"></script>
   <script type="text/javascript" src="scripts/bootbox.min.js"></script>
+  <script type="text/javascript" src="scripts/find5.js"></script>
   
   <script type="text/javascript" src="js/app.js"></script>
 

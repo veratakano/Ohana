@@ -625,7 +625,7 @@ BEGIN
 
 				-- count sibling
 				SET sib_count = (SELECT count(*) FROM Coordinates WHERE fatherID = father_id or motherID = mother_id);
-				
+				select sib_count;
                 
                 IF (exists(SELECT * FROM Relation WHERE memberID = member_ID)) THEN
 					SET SQL_SAFE_UPDATES=0;
@@ -649,7 +649,6 @@ BEGIN
 								SET SQL_SAFE_UPDATES=0;
 								UPDATE coordinates set x = (x - 60) WHERE x > spouse_x and y >= coor_y and treeID = tree_id or x > father_x + 30 and y < coor_y and treeID = tree_id;
 							END IF;
-                            
                         ELSE
                         
 							IF (sib_count = 3) THEN
@@ -706,7 +705,6 @@ BEGIN
 		END IF;
 END ;;
 DELIMITER ; 
-
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
