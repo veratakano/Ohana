@@ -83,7 +83,7 @@
 						
 						$type = "";
 						
-						if ($key != $member_ID) {
+						if ($key != $member_ID and $values[0] != 0) {
 							if ($member_gender[$key] == 'M') {
 								$type = "Brother";
 							} 
@@ -115,8 +115,8 @@
 							$member_status_array = $member_status_array + array($values[0] => "Father in Law", $values[1] => "Mother in Law");
 						}
 						
-						if ($values[2] !== NULL and $key == $member_ID) {
-							$member_status_array = $member_status_array + array($values[2] => "Spouse");
+						if ($values[2] !== NULL) {
+							$member_status_array = $member_status_array + array($key => "Spouse");
 						}
 					}
 				}
