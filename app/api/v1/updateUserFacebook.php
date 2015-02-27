@@ -17,7 +17,9 @@
         if($result['status'] ==  '0') {
             $response['status'] = "success";
             $response['message'] = "User Updated";       
-        }else{
+        }else if($result['status'] ==  '2') {
+            throw new RuntimeException("This Facebbok ID has beeen connected before.");      
+        } else {
             throw new RuntimeException("There's an error updating facebook.");      
         }
     } catch (RuntimeException $e) {

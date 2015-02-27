@@ -36,16 +36,18 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group" show-errors='{showSuccess: true}'>
-								<input type="text" class="form-control" name="fFirstName" placeholder="First Name" ng-model="parents.fFirstName" ng-maxlength="35" required/>
+								<input type="text" ng-pattern="/^[a-z0-9]+$/i" class="form-control" name="fFirstName" placeholder="First Name" ng-model="parents.fFirstName" ng-maxlength="35" required/>
 								<p class="help-block" ng-if="frmAddParent.fFirstName.$error.required">First name is required</p>
 								<p class="help-block" ng-if="frmAddParent.fFirstName.$error.maxlength">Your input is too long</p>
+								<p class="help-block" ng-if="frmAddParent.fFirstName.$error.pattern">Invalid characters</p>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group" show-errors='{showSuccess: true}'>
-								<input type="text" class="form-control" name="fLastName" placeholder="Last Name" ng-model="parents.fLastName" ng-maxlength="50" required/>
+								<input type="text" ng-pattern="/^[a-z0-9]+$/i" class="form-control" name="fLastName" placeholder="Last Name" ng-model="parents.fLastName" ng-maxlength="50" required/>
 								<p class="help-block" ng-if="frmAddParent.fLastName.$error.required">Last name is required</p>
 								<p class="help-block" ng-if="frmAddParent.fLastName.$error.maxlength">Your input is too long</p>
+								<p class="help-block" ng-if="frmAddParent.fLastName.$error.pattern">Invalid characters</p>
 							</div>
 						</div>
 					</div>
@@ -117,16 +119,18 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group" show-errors='{showSuccess: true}'>
-								<input type="text" class="form-control" name="mFirstName" placeholder="First Name" ng-model="parents.mFirstName" ng-maxlength="35" required />
+								<input type="text" ng-pattern="/^[a-z0-9]+$/i" class="form-control" name="mFirstName" placeholder="First Name" ng-model="parents.mFirstName" ng-maxlength="35" required />
 								<p class="help-block" ng-if="frmAddParent.mFirstName.$error.required">First name is required</p>
 								<p class="help-block" ng-if="frmAddParent.mFirstName.$error.maxlength">Your input is too long</p>
+								<p class="help-block" ng-if="frmAddParent.mFirstName.$error.pattern">Invalid characters</p>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group" show-errors='{showSuccess: true}'>
-								<input type="text" class="form-control" name="mLastName" placeholder="Last Name" ng-model="parents.mLastName" ng-maxlength="50" required />
+								<input type="text" ng-pattern="/^[a-z0-9]+$/i" class="form-control" name="mLastName" placeholder="Last Name" ng-model="parents.mLastName" ng-maxlength="50" required />
 								<p class="help-block" ng-if="frmAddParent.mLastName.$error.required">Last name is required</p>
 								<p class="help-block" ng-if="frmAddParent.mLastName.$error.maxlength">Your input is too long</p>
+								<p class="help-block" ng-if="frmAddParent.mLastName.$error.pattern">Invalid characters</p>
 							</div>
 						</div>
 					</div>
@@ -224,16 +228,18 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group" show-errors='{showSuccess: true}'>
-								<input type="text" class="form-control" name="sbFirstName" placeholder="First Name" ng-model="sibling.fName" ng-maxlength="35" required />
+								<input type="text" ng-pattern="/^[a-z0-9]+$/i" class="form-control" name="sbFirstName" placeholder="First Name" ng-model="sibling.fName" ng-maxlength="35" required />
 								<p class="help-block" ng-if="frmAddSibling.sbFirstName.$error.required">First name is required</p>
 								<p class="help-block" ng-if="frmAddSibling.sbFirstName.$error.maxlength">Your input is too long</p>
+								<p class="help-block" ng-if="frmAddSibling.sbFirstName.$error.pattern">Invalid characters</p>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group" show-errors='{showSuccess: true}'>
-								<input type="text" class="form-control" name="sbLastName" placeholder="Last Name" ng-model="sibling.lName" ng-maxlength="50" required />
+								<input type="text" ng-pattern="/^[a-z0-9]+$/i" class="form-control" name="sbLastName" placeholder="Last Name" ng-model="sibling.lName" ng-maxlength="50" required />
 								<p class="help-block" ng-if="frmAddSibling.sbLastName.$error.required">Last name is required</p>
 								<p class="help-block" ng-if="frmAddSibling.sbLastName.$error.maxlength">Your input is too long</p>
+								<p class="help-block" ng-if="frmAddSibling.sbLastName.$error.pattern">Invalid characters</p>
 							</div>
 						</div>
 					</div>
@@ -330,16 +336,18 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group" show-errors='{showSuccess: true}'>
-								<input type="text" class="form-control" name="spFirstName" placeholder="First Name" ng-model="spouse.fName" ng-maxlength="35" required />
+								<input type="text" ng-pattern="/^[a-z0-9]+$/i" class="form-control" name="spFirstName" placeholder="First Name" ng-model="spouse.fName" ng-maxlength="35" required />
 								<p class="help-block" ng-if="frmAddSpouse.spFirstName.$error.required">First name is required</p>
 								<p class="help-block" ng-if="frmAddSpouse.spFirstName.$error.maxlength">Your input is too long</p>
+								<p class="help-block" ng-if="frmAddSpouse.spFirstName.$error.pattern">Invalid characters</p>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group" show-errors='{showSuccess: true}'>
-								<input type="text" class="form-control" name="spLastName" placeholder="Last Name" ng-model="spouse.lName" ng-maxlength="50" required/>
+								<input type="text" ng-pattern="/^[a-z0-9]+$/i" class="form-control" name="spLastName" placeholder="Last Name" ng-model="spouse.lName" ng-maxlength="50" required/>
 								<p class="help-block" ng-if="frmAddSpouse.spLastName.$error.required">Last name is required</p>
 								<p class="help-block" ng-if="frmAddSpouse.spLastName.$error.maxlength">Your input is too long</p>
+								<p class="help-block" ng-if="frmAddSpouse.spLastName.$error.pattern">Invalid characters</p>
 							</div>
 						</div>
 					</div>
@@ -436,16 +444,18 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group" show-errors='{showSuccess: true}'>
-								<input type="text" class="form-control" name="cFirstName" placeholder="First Name" ng-model="children.fName" ng-maxlength="35" required />
+								<input type="text" ng-pattern="/^[a-z0-9]+$/i" class="form-control" name="cFirstName" placeholder="First Name" ng-model="children.fName" ng-maxlength="35" required />
 								<p class="help-block" ng-if="frmAddChildren.cFirstName.$error.required">First name is required</p>
 								<p class="help-block" ng-if="frmAddChildren.cFirstName.$error.maxlength">Your input is too long</p>
+								<p class="help-block" ng-if="frmAddSpouse.spFirstName.$error.pattern">Invalid characters</p>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group" show-errors='{showSuccess: true}'>
-								<input type="text" class="form-control" name="cLastName" placeholder="Last Name" ng-model="children.lName" ng-maxlength="50" required />
+								<input type="text" ng-pattern="/^[a-z0-9]+$/i" class="form-control" name="cLastName" placeholder="Last Name" ng-model="children.lName" ng-maxlength="50" required />
 								<p class="help-block" ng-if="frmAddChildren.cLastName.$error.required">Last name is required</p>
 								<p class="help-block" ng-if="frmAddChildren.cLastName.$error.maxlength">Your input is too long</p>
+								<p class="help-block" ng-if="frmAddSpouse.spFirstName.$error.pattern">Invalid characters</p>
 							</div>
 						</div>
 					</div>

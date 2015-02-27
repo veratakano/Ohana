@@ -1,5 +1,7 @@
 <?php
 
+	include_once '../config.php';
+
 	//get posted json object
     $post = file_get_contents('php://input');
     $r = json_decode($post);
@@ -11,10 +13,10 @@
 
 	
     try{
-		$servername = "localhost";
-		$username = "root";
-		$password = "password";
-		$dbname = "Ohana";
+		$servername = DB_HOST;
+    	$username = DB_USERNAME;
+    	$password = DB_PASSWORD;
+    	$dbname = DB_NAME;
 
 		// Create connection
 		$conn = new mysqli($servername, $username, $password, $dbname);

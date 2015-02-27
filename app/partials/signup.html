@@ -6,14 +6,16 @@
 			<form name="signupForm" class="form text-left" novalidate>       
 				<h2 class="form-heading text-center">Register for free</h2>
 				<div class="form-group" show-errors='{showSuccess: true}'>
-					<input type="text" class="form-control" name="firstname" placeholder="First Name" ng-model="credentials.fname" ng-maxlength="35" required />
+					<input type="text" ng-pattern="/^[a-z0-9]+$/i" class="form-control" name="firstname" placeholder="First Name" ng-model="credentials.fname" ng-maxlength="35" required />
 					<p class="help-block" ng-if="signupForm.firstname.$error.required">First name is required</p>
 					<p class="help-block" ng-if="signupForm.firstname.$error.maxlength">Your input is too long</p>
+					<p class="help-block" ng-if="signupForm.firstname.$error.pattern">Invalid characters</p>
 				</div>
 				<div class="form-group" show-errors='{showSuccess: true}'>
-					<input type="text" class="form-control" name="lastname" placeholder="Last Name" ng-model="credentials.lname" ng-maxlength="50" required />
+					<input type="text" ng-pattern="/^[a-z0-9]+$/i" class="form-control" name="lastname" placeholder="Last Name" ng-model="credentials.lname" ng-maxlength="50" required />
 					<p class="help-block" ng-if="signupForm.lastname.$error.required">Last name is required</p>
 					<p class="help-block" ng-if="signupForm.lastname.$error.maxlength">Your input is too long</p>
+					<p class="help-block" ng-if="signupForm.firstname.$error.pattern">Invalid characters</p>
 				</div>
 				<div class="form-group" show-errors='{showSuccess: true}'>
 					<input type="email" class="form-control" name="email" placeholder="Email Address" ng-model="credentials.email" ng-maxlength="50" required />

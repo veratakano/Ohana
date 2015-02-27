@@ -36,7 +36,8 @@
 										  <a ng-click="signinFB()" class="btn btn-lg btn-block btn-facebook">
 	  										<i class="fa fa-facebook fa-2x pull-left"></i>Login with Facebook
 	  									</a>
-                      <div ng-if="fbError" ng-bind="fbError"></div>
+                      <br />
+                      <div class="alert alert-danger well-sm" role="alert" ng-if="fbError" ng-bind="fbError"></div>
   								</div>
                   <div class="col-md-8" ng-if="fbConnected">
                       <a class="btn btn-lg btn-block btn-facebook">

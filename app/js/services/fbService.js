@@ -1,7 +1,7 @@
 'use strict';
 
-app.factory('fbService', ['$location','$window','$rootScope','sessionService','loginService',
-	function($location, $window, $rootScope,sessionService,loginService){
+app.factory('fbService', ['$location','$filter','$window','$rootScope','sessionService','loginService',
+	function($location,$filter,$window,$rootScope,sessionService,loginService){
 	return{
 		login:function(scope,inviteparams){
 			FB.login(function(response) {
@@ -13,7 +13,8 @@ app.factory('fbService', ['$location','$window','$rootScope','sessionService','l
 						 			"fname": response.first_name,
 						 			"lname": response.last_name,
 						 			"email": response.email,
-						 			"fbID" : response.id
+						 			"fbID" : response.id,
+						 			"gender": $filter('genderRev')(response.gender)
 								};
 								loginService.login(credentials).then(function(data) {
 							      var obj = angular.fromJson(data);

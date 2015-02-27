@@ -40,6 +40,21 @@ app.filter('gender', function() {
 			}
 		}
 	}
+});
+
+app.filter('genderRev', function() {
+	return function(input) {
+		if(!input){
+			return null;
+		}
+		else {
+			if(input == 'male'){
+				return 'M';
+			} else {
+				return 'F';
+			}
+		}
+	}
 }); 
 
 app.filter('vitalStatus', function() {

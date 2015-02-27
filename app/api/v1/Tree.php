@@ -2,11 +2,14 @@
 
 			session_start();
 			$treeID = $_SESSION['treeid'];
-			
-			$servername = "localhost";
-			$username = "root";
-			$password = "password";
-			$dbname = "Ohana";
+
+			include_once '../config.php';
+
+			$servername = DB_HOST;
+    		$username = DB_USERNAME;
+    		$password = DB_PASSWORD;
+    		$dbname = DB_NAME;
+
 
 			// Create connection
 			$conn = new mysqli($servername, $username, $password, $dbname);
