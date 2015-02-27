@@ -88,8 +88,8 @@
 }
 
 .dashboard .controls{
-   text-align: right;
-   padding-right: 10%;
+  left: 72%;
+  position: fixed;
 }
 
 /* Map */
@@ -259,4 +259,10 @@
     height: 100%;
     padding: 12px 14px 13px 13px !important;
 }
+
+/* 404 page not found */
+
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }
 

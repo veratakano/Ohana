@@ -3,6 +3,15 @@
 app.factory('treeService', ['$http', '$rootScope', 
 	function($http, $rootScope){
 	return{
+		getTreeMain:function(userID){
+			var promise = $http.get(
+	      		$rootScope.apiVersion + 'Tree.php'
+	    		).then(function(output){
+	    			return output.data;
+				});
+
+			return promise;	
+		},
 		getTreeData:function(userID){
 			var promise = $http.post(
 	      		$rootScope.apiVersion + 'getTree.php', 

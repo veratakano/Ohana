@@ -1,8 +1,12 @@
 
 'use strict';
 
-app.controller('dashboardCtrl', ['$window','$rootScope','$scope','$route','ngDialog','sessionService','treeService', 
-  function($window,$rootScope,$scope,$route,ngDialog,sessionService,treeService){
+app.controller('dashboardCtrl', ['$anchorScroll','$location','$window','$rootScope','$scope','$route','$sce','ngDialog','sessionService','treeService', 
+  function($anchorScroll,$location,$window,$rootScope,$scope,$route,$sce,ngDialog,sessionService,treeService){
+
+  treeService.getTreeMain(sessionService.get('uid')).then(function(data) {
+    $scope.treeMain = data;
+  });
 
   $scope.ownTree = sessionService.get('treeownid');
 

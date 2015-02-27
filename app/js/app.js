@@ -82,8 +82,12 @@ app.config(['$routeProvider', 'ngDialogProvider',
              templateUrl: 'partials/login.html',
              controller: 'authCtrl'
          }).
+        when('/page_not_found', {
+             title: '404 Page not found',
+             templateUrl: 'partials/page_not_found.html',
+         }).
         otherwise({
-             redirectTo: '/login'
+             redirectTo: '/page_not_found'
          });
     ngDialogProvider.setDefaults({
         className: 'ngdialog-theme-default',
@@ -102,7 +106,6 @@ app.config(function($datepickerProvider,ngDialogProvider) {
     startView: 2,
     autoclose: true
   });
-  ngDialogProvider.setForceBodyReload(true);
 })
 
 
@@ -142,7 +145,7 @@ app.run(function($rootScope, $location, $window, fbService, sessionService){
       $rootScope.$on('$routeChangeStart', function(){
 
           $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
-          if(!($location.path()=='/signup' || $location.path()=='/invite' || $location.path()=='/profile_not_found' || $location.path()=='/forget_password')){ 
+          if(!($location.path()=='/signup' || $location.path()=='/invite' || $location.path()=='/profile_not_found' || $location.path()=='/forget_password' || $location.path()=='/page_not_found')){ 
               if(!sessionService.get('unqid')){
                  $location.path('/login');
               }

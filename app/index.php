@@ -63,8 +63,11 @@
   <script type="text/javascript" src="js/controllers/searchCtrl.js"></script>
   <script type="text/javascript" src="js/controllers/settingCtrl.js"></script>
   
-  <script type="text/javascript" src="js/directives/nodesRepeatDrc.js"></script>
+  <script type="text/javascript" src="js/directives/treeDrc.js"></script>
   <script type="text/javascript" src="js/directives/mapDrc.js"></script>
+  <script type="text/javascript" src="js/directives/validationDrc.js"></script>
+
+  <script type="text/javascript" src="js/filters/filters.js"></script>
 
   <script type="text/javascript" src="js/services/loginService.js"></script> 
   <script type="text/javascript" src="js/services/sessionService.js"></script>
