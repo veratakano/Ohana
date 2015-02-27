@@ -15,12 +15,9 @@
 /* Registeration and Login Form */
 
 .userForm .form {
-  background: #eee !important;	
-  max-width: 380px;
-  padding: 15px 35px 15px;
-  margin: 0 auto;
-  border: 1px solid rgba(0,0,0,0.1);
+  margin-bottom: 30px;
 }
+
 
 .userForm .form .form-heading {
 	margin-bottom: 30px;
@@ -59,7 +56,7 @@
 }
 
 .userForm .or-span {
-    background-color: #eeeeee;
+    background-color: #ffffff;
     color: #ababab;
     display: inline-block;
     padding: 0 10px;

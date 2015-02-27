@@ -1,28 +1,34 @@
 
 <!-- login form -->
 <div class="container-fluid userForm">
-	<form name="loginForm" class="form" novalidate>       
-			<h2 class="form-heading text-center">Welcome Back!</h2>
-			<a ng-click="fbLogin()" class="btn btn-lg btn-block btn-facebook">
-  				<i class="fa fa-facebook fa-2x pull-left"></i>Login with Facebook
-  			</a>
-			<div class="or">
-				<span class="or-span">or</span>
-				<hr>
-			</div>
-			<div class="form-group" show-errors='{showSuccess: true}'>
-				<input type="email" class="form-control" name="username" placeholder="Email Address" required ng-model="credentials.email" ng-maxlength="50" />
-				<p class="help-block" ng-if="loginForm.username.$error.required">Email address is required</p>
-				<p class="help-block" ng-if="loginForm.username.$error.email">Enter a valide email</p>
-				<p class="help-block" ng-if="loginForm.username.$error.maxlength">Your input is too long</p>
-			</div>
-			<div class="form-group" show-errors='{showSuccess: true}'>
-				<input type="password" class="form-control" name="password" placeholder="Password" required ng-model="credentials.password"/>
-				<p class="help-block" ng-if="loginForm.password.$error.required">Password is required</p>
-			</div>
-			<button id="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()"><span ng-if="loading">&nbsp;&nbsp;</span><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i>Login</button> 
-			<div>Not a member yet?<br />
-			<a href="#/signup">Sign up</a></div>
-			<div ng-show="message" class="alert alert-danger">{{message}}</div>
-		</form>
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4 text-center">
+		<img src="images/ohana_logo_blue_300.png" />
+		<form name="loginForm" class="form text-left" novalidate>       
+				<h2 class="form-heading text-center">Welcome Back!</h2>
+				<a ng-click="fbLogin()" class="btn btn-lg btn-block btn-facebook">
+	  				<i class="fa fa-facebook fa-2x pull-left"></i>Login with Facebook
+	  			</a>
+				<div class="or">
+					<span class="or-span">or</span>
+					<hr>
+				</div>
+				<div class="form-group" show-errors='{showSuccess: true}'>
+					<input type="email" class="form-control" name="username" placeholder="Email Address" required ng-model="credentials.email" ng-maxlength="50" />
+					<p class="help-block" ng-if="loginForm.username.$error.required">Email address is required</p>
+					<p class="help-block" ng-if="loginForm.username.$error.email">Enter a valide email</p>
+					<p class="help-block" ng-if="loginForm.username.$error.maxlength">Your input is too long</p>
+				</div>
+				<div class="form-group" show-errors='{showSuccess: true}'>
+					<input type="password" class="form-control" name="password" placeholder="Password" required ng-model="credentials.password"/>
+					<p class="help-block" ng-if="loginForm.password.$error.required">Password is required</p>
+				</div>
+				<button id="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()"><i ng-if="loading" class="fa fa-circle-o-notch fa-spin"></i><span ng-if="loading">&nbsp;&nbsp;</span>Login</button> 
+				<a href="#/forget_password"><u><small>Forget password?</small></u></a><br /></br />
+				<div><small>Not a member yet?</small><br />
+				<a href="#/signup"><u><small>Sign up now</small></u></a></div>
+				<div ng-show="message" class="alert alert-danger">{{message}}</div>
+			</form>
+		</div>
+	</div>
 </div>

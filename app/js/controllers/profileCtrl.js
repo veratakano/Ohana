@@ -10,6 +10,8 @@ app.controller('profileCtrl', ['memberDetails','$route','$location','$rootScope'
 		$scope.profileExist = true;
 	}
 
+	console.log(memberDetails)
+
 	var oid = sessionService.get('treeownid');
 	if(oid == memberDetails.treeID){
 		$scope.allowAccess = true;

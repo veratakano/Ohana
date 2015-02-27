@@ -6,6 +6,7 @@ app.controller('authCtrl',['$location','$scope','$rootScope','$routeParams','log
 
     $scope.params = $routeParams;
 
+
     $scope.login=function(){
 
       $scope.$broadcast('show-errors-check-validity');
@@ -57,7 +58,24 @@ app.controller('authCtrl',['$location','$scope','$rootScope','$routeParams','log
     }
 
     $scope.fbLogin = function(){
-      fbService.login();
+      fbService.login($scope);
+    };
+
+    $scope.reset = function(){
+      $scope.success = '';
+      $scope.error = '';
+      $scope.$broadcast('show-errors-check-validity');
+      if ($scope.resetForm.$valid) {
+        $scope.loading = true;
+        loginService.resetPassword($scope.credentials).then(function(data) {
+          if(data.status == "success"){
+            $scope.success = data.message;
+          } else  {
+            $scope.error = data.message;
+          }
+          $scope.loading = false;
+        });
+      }
     };
 
  

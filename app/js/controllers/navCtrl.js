@@ -1,15 +1,17 @@
 
 'use strict';
 
-app.controller('navController', ['$scope','$location','loginService','sessionService', 
-	function($scope,$location,loginService,sessionService) {
+app.controller('navController', ['$scope','$location','loginService','sessionService','treeService',
+	function($scope,$location,loginService,sessionService,treeService) {
 
     $scope.logout=function(){
         loginService.logout();
     }
 
     $scope.viewProfile=function(){
-        $location.path('/profile/' + sessionService.get('uid'));
+        treeService.getTreeFirstMember(sessionService.get('treeownid')).then(function(data) {
+            $location.path('/profile/' + data.memberID);
+        });
     }
 
     $scope.search = function(searchStr){

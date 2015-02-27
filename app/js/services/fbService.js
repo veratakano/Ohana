@@ -1,7 +1,7 @@
 'use strict';
 
-app.factory('fbService', ['$location','$window', '$rootScope', 'sessionService','loginService', 
-	function($location, $window, $rootScope, sessionService,loginService){
+app.factory('fbService', ['$location','$window','$rootScope','sessionService','loginService',
+	function($location, $window, $rootScope,sessionService,loginService){
 	return{
 		login:function(scope,inviteparams){
 			FB.login(function(response) {
@@ -49,6 +49,29 @@ app.factory('fbService', ['$location','$window', '$rootScope', 'sessionService',
    				
  			}, {scope: 'email,user_relationships'});
 		},
+		loginUpdate: function(uid,scope){
+			FB.login(function(response) {
+   				 if (response.status === 'connected') {
+   				 	$rootScope.$apply(function() {
+   				 		FB.api('/me ', function(response) {
+							if (response && !response.error) {
+						 		var fbID = response.id
+								loginService.updateFB(uid,fbID).then(function(data) {
+									var obj = angular.fromJson(data);
+								    if(obj.status == "success"){
+								    	console.log(obj);
+								    	scope.fbConnected = true
+								    } else  {
+							          	scope.fbError = obj.message;
+								    }
+								});
+							}
+    					});
+ 					});
+   				 }
+   				
+ 			}, {scope: 'email,user_relationships'});
+		},
 		watchAuthenticationStatusChange:function(){
 			var _self = this;
 
@@ -75,41 +98,3 @@ app.factory('fbService', ['$location','$window', '$rootScope', 'sessionService',
 		}
 	}
 }]);
-
-/*
-app.factory('fbService', function($rootScope, $q) {
-
-    return {
-      login: function() {
-
-        var resp = $q.defer();
-
-        FB.login(function(response) {
-          setTimeout(function() {
-            $rootScope.$apply(function() {
-              resp.resolve(response.authResponse);
-            });
-          },1);
-        });
-
-        return resp.promise;
-
-
-      },
-      logout: function() {
-
-        var resp = $q.defer();
-
-        FB.logout(function(response) {
-          setTimeout(function() {
-            $rootScope.$apply(function() {
-              resp.resolve(response.authResponse);
-            });
-          },1);
-        });
-
-        $rootScope.Facebook.token = null;   
-
-      }
-    }
-  })*/

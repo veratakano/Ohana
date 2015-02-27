@@ -54,6 +54,11 @@ app.controller('memberActions', ['$scope','$rootScope','$location','memberServic
 
   treeService.getTreeFirstMember(ownT).then(function(data) {
     $scope.fm = data;
+    memberService.getMemberRelation($scope.ngDialogData.id).then(function(data) {
+        if (data == 'null'){
+          $scope.isSpouse = true;
+        }
+    });
     memberService.memberGet($scope.ngDialogData.id).then(function(data) {
       $scope.member = data;
       $scope.fullName = $scope.member.firstName + " " + $scope.member.lastName;

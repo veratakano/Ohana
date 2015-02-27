@@ -20,6 +20,11 @@ app.config(['$routeProvider', 'ngDialogProvider',
              templateUrl: 'partials/signup.html',
              controller: 'authCtrl'
 		}).
+        when('/forget_password', {
+            title: 'Login',
+            templateUrl: 'partials/forget_password.html',
+            controller: 'authCtrl'
+        }).
 		when('/dashboard', {
              title: 'Dashboard',
              templateUrl: 'partials/dashboard.html',
@@ -137,7 +142,7 @@ app.run(function($rootScope, $location, $window, fbService, sessionService){
       $rootScope.$on('$routeChangeStart', function(){
 
           $rootScope.auth = sessionService.get('unqid'); // check if auth, show hide nav bar
-          if(!($location.path()=='/signup' || $location.path()=='/invite' || $location.path()=='/profile_not_found')){ 
+          if(!($location.path()=='/signup' || $location.path()=='/invite' || $location.path()=='/profile_not_found' || $location.path()=='/forget_password')){ 
               if(!sessionService.get('unqid')){
                  $location.path('/login');
               }

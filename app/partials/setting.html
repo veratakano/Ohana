@@ -1,6 +1,5 @@
 	<div class="container" ng-if="validUser">
 		<div class="row">
-
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<div class="row">
@@ -21,7 +20,7 @@
 						<div class="text-muted" >Last Login on {{user.lastlogin | date:'dd/MM/yyyy'}}</div>
 					</div>
 					<div class="col-md-2">
-						<button class="btn btn-outline-inverse"><i class="fa fa-cog"></i>&nbsp;&nbsp;Edit Profile</button>
+						<button class="btn btn-outline-inverse" ng-click="editUser()"><i class="fa fa-cog"></i>&nbsp;&nbsp;Edit Profile</button>
 					</div>
 				</div>
 				<br /><br />
@@ -29,12 +28,102 @@
 					<div class="col-md-12">
 						<div class="panel panel-default">
 						  <div class="panel-body">
-						    Basic panel example
-						  </div>
+								<h3>Connect Your Facebook?</h3>
+								<p>Connect your Facebook account with Ohana. We only use this information to verify your account. It's easier and quicker, one less password to remember.</p>
+								<div class="row">
+                  <div class="col-md-2"></div>
+									<div class="col-md-8" ng-if="!fbConnected">
+										  <a ng-click="signinFB()" class="btn btn-lg btn-block btn-facebook">
+	  										<i class="fa fa-facebook fa-2x pull-left"></i>Login with Facebook
+	  									</a>
+                      <div ng-if="fbError" ng-bind="fbError"></div>
+  								</div>
+                  <div class="col-md-8" ng-if="fbConnected">
+                      <a class="btn btn-lg btn-block btn-facebook">
+                        <i class="fa fa-facebook fa-2x pull-left"></i>Connected with Facebook
+                      </a>
+                  </div>
+  								<div class="col-md-2"></div>
+  							</div>
+  						</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			</div>
 			<div class="col-md-2"></div>
 		</div>
 	</div>
+
+
+	  <!--Edit Member -->
+  <script type="text/ng-template" id="editUser" ng-if="validUser">
+    <div class="ngdialog-message">
+      <div class="panel panel-default">
+        <div class="panel-heading">Edit User Info</div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <form name="frmEditUser" class="center-block form-horizontal form-setting" novalidate style="width:95%;">
+                <div class="form-group" show-errors="{showSuccess: true}">
+                  <label class="control-label col-sm-3" for="txtFirstName">First Name:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" name="edFirstName" placeholder="Enter First Name" ng-model="user.firstName" ng-maxlength="35" required />
+                    <span class="help-block" ng-if="frmEditUser.edFirstName.$error.required">First name is required</span>
+                    <span class="help-block" ng-if="frmEditUser.edFirstName.$error.maxlength">Your input is too long</span>
+                  </div>
+                </div>
+                <div class="form-group" show-errors="{showSuccess: true}">
+                  <label class="control-label col-sm-3" for="txtLastName">Last Name:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" name="edLastName" placeholder="Enter Last Name" required ng-model="user.lastName" ng-maxlength="50" required />
+                    <p class="help-block" ng-if="frmEditUser.edLastName.$error.required">Last name is required</p>
+                    <p class="help-block" ng-if="frmEditUser.edLastName.$error.maxlength">Your input is too long</p>
+                  </div>
+                </div>
+                <div class="form-group" show-errors="{showSuccess: true}">
+                  <label class="control-label col-sm-3" for="txtFirstName">Email Address:</label>
+                  <div class="col-sm-9">
+                    <input type="email" class="form-control" name="edEmail" placeholder="Enter Email Address" ng-maxlength="50" ng-model="user.email" required />
+                    <p class="help-block" ng-if="frmEditUser.edEmail.$error.required">Please enter a valid email</p>
+                    <p class="help-block" ng-if="frmEditUser.edEmail.$error.email">Please enter a valid email</p>
+                    <p class="help-block" ng-if="frmEditUser.edEmail.$error.maxlength">Your input is too long</p>
+                  </div>
+                </div>
+                <div class="form-group" show-errors='{showSuccess: true}'>
+                	<label class="control-label col-sm-3" for="txtFirstName">New Password:</label>
+                	<div class="col-sm-9">
+						<input type="password" class="form-control" name="password" placeholder="Password" ng-model="user.password"/>
+						<p class="help-block" ng-if="frmEditUser.password.$error.required">Please enter a password</p>
+					</div>
+				</div>
+				<div class="form-group" show-errors='{showSuccess: true}'>
+					<label class="control-label col-sm-3" for="txtFirstName">Re-enter Password:</label>
+					<div class="col-sm-9">
+						<input type="password" class="form-control" name='confirm_password' placeholder='Re-enter Password' ng-model='user.password_verify' data-password-verify="user.password" />
+						<p class="help-block" ng-if="frmEditUser.confirm_password.$error.passwordVerify">Password are not equal</p>
+					</div>
+				</div>
+                <label class="col-sm-3"></label>
+                  <div class="col-sm-9">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="privacy" ng-true-value="0" ng-false-value="1"> Set family tree as private
+                      </label>
+                    </div>
+                  </div>
+                <br /><br />
+                <div class="col-sm-10">
+                  <div class="alert alert-success well-sm" role="alert" ng-if="success" ng-bind="success"></div>
+                  <div class="alert alert-danger well-sm" role="alert" ng-if="error" ng-bind="error"></div>
+                </div>
+                <div class="col-sm-2">
+                  <button class="btn btn-outline-inverse pull-right" ng-click="updateUser()">Update<span ng-show="loading">&nbsp;&nbsp;</span><i class="fa fa-circle-o-notch fa-spin" ng-show="loading"></i></button> 
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>

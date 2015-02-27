@@ -16,7 +16,7 @@
 			} 
 			
 			//retrieve coordinates
-			$sql = "select * from coordinates where TreeID = $treeID;";
+			$sql = "select * from Coordinates where TreeID = $treeID;";
 					
 			$result = $conn->query($sql);
 			
@@ -42,7 +42,7 @@
 				}
 				
 				//retrieve member
-				$sql = "select * from member where TreeID = $treeID;";						
+				$sql = "select * from Member where TreeID = $treeID;";						
 				$result = $conn->query($sql);					
 				$member_array = array();
 				while($row = $result->fetch_assoc()) {
@@ -51,7 +51,7 @@
 				}
 										
 				// display
-				$sql = "select * from coordinates where TreeID = $treeID order by fatherID, y, x";	
+				$sql = "select * from Coordinates where TreeID = $treeID order by fatherID, y, x";	
 				$result = $conn->query($sql);
 				
 				$coor_values = array();

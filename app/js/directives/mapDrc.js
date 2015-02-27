@@ -45,14 +45,20 @@ app.directive('map', ['$compile','$location','memberService','$filter',
   					if(navigator.geolocation) {
     					navigator.geolocation.getCurrentPosition(function(position) {
       						var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+      						var cnt = '<h1 class="text-muted"><small>Hi There!</small></h1>' +
+      								 '<p>Welcome to the map view! It seems like you have shared your location with us!.</p>' + 
+									  '<p>Feel free to pan and zoom around the map to find your reletive!</p>'
+
+
 							var infowindow = new google.maps.InfoWindow({
         						map: map,
         						position: pos,
-        						content: 'Location found using HTML5.'
+        						content: cnt
       						});
       						map.setCenter(pos);
       						for (var i = 0; i < node.length; i++){
-			    				if(node[i].placeOfBirth != ''){
+			    				if(node[i].placeOfBirth != '' && node[i].placeOfBirth != null){
 			    					geocodeAddress(node[i]);
 			    				}
 			    			}
@@ -87,7 +93,7 @@ app.directive('map', ['$compile','$location','memberService','$filter',
 				        	map.setCenter(results[0].geometry.location);
 					        for (var i = 0; i < node.length; i++){
 					        	alert(node[i].placeOfBirth);
-			    				if(node[i].placeOfBirth != ''){
+			    				if(node[i].placeOfBirth != '' && node[i].placeOfBirth != null){
 			    					geocodeAddress(node[i]);
 			    				}
 			    			}

@@ -3,11 +3,11 @@
 app.factory('treeService', ['$http', '$rootScope', 
 	function($http, $rootScope){
 	return{
-		getTreeData:function(){
+		getTreeData:function(userID){
 			var promise = $http.post(
 	      		$rootScope.apiVersion + 'getTree.php', 
 	      		{
-	      			//user:credentials
+	      			user:userID
 	      		}
 	    		).then(function(output){
 	    			return output.data;
